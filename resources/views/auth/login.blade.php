@@ -1,8 +1,8 @@
-@extends('admin-layout')
+@extends('app')
 
 @section('title', '登入')
 
-@section('admin-content')
+@section('content')
     <div class="ui top attached segment">
         <div class="ui top attached label">登入</div>
         <div class="ui large aligned center aligned relaxed stackable grid">

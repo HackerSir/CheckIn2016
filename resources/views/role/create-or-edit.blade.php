@@ -1,11 +1,11 @@
-@extends('admin-layout')
+@extends('app')
 
 @php($isEditMode = isset($role))
 @php($methodText = $isEditMode ? '編輯' : '新增')
 
 @section('title', $methodText . '角色')
 
-@section('admin-content')
+@section('content')
     <h2 class="ui teal header center aligned">
         {{ $methodText }}角色
     </h2>

@@ -1,4 +1,4 @@
 <?php
     return [
-        'name' => '逢特約',
+        'name' => 'CheckIn',
     ];

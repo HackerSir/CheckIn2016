@@ -1,8 +1,8 @@
-@extends('admin-layout')
+@extends('app')
 
 @section('title', '編輯個人資料')
 
-@section('admin-content')
+@section('content')
     <h2 class="ui teal header center aligned">編輯個人資料</h2>
     {!! SemanticForm::open()->patch()->action(route('profile.update'))->addClass('large') !!}
     {!! SemanticForm::bind($user) !!}

@@ -1,5 +1,5 @@
 {{-- 由LaravelMenu或自動生成 --}}
-<div class="ui large center aligned secondary pointing menu transition" style="z-index: 3;" id="navbar">
+<div class="ui large center aligned secondary pointing menu transition fixed" style="z-index: 3; background-color: white" id="navbar">
     <div class="ui container">
         <a class="toc item inverted">
             <i class="sidebar icon"></i>
@@ -15,11 +15,6 @@
     <a class="item" href="{!! route('index') !!}">
         <i class="home icon"></i>
         首頁
-    </a>
-    <a class="item" href="{!! route('map.index') !!}">
-    <a class="item" href="{!! route('map.index') !!}">
-        <i class="book icon"></i>
-        題目
     </a>
     @if(Auth::check())
         @if(!Auth::user()->isConfirmed)

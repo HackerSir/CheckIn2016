@@ -1,8 +1,8 @@
-@extends('admin-layout')
+@extends('app')
 
 @section('title', "{$user->name} - 編輯會員資料")
 
-@section('admin-content')
+@section('content')
     <h2 class="ui teal header center aligned">
         {{ $user->name }} - 編輯會員資料
     </h2>
@@ -52,7 +52,7 @@
 
 @endsection
 
-@section('admin-js')
+@section('js')
     <script>
         $('i.popup').popup({
             variation: 'inverted'

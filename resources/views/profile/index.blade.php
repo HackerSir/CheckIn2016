@@ -1,8 +1,8 @@
-@extends('admin-layout')
+@extends('app')
 
 @section('title', '個人資料')
 
-@section('admin-css')
+@section('css')
     <style>
         #gravatar {
             border: 3px solid white;
@@ -23,7 +23,7 @@
     </style>
 @endsection
 
-@section('admin-content')
+@section('content')
     <h2 class="ui teal header center aligned">個人資料</h2>
     <div class="ui header center aligned">
         {{-- Gravatar大頭貼 --}}

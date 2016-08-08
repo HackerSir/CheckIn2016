@@ -26,7 +26,7 @@
             height: 100%;
             opacity: .4;
             z-index: -1;
-            background: url("{{ asset('img/background/index.jpg') }}") fixed;
+            background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center;
         }
         div#footer {
             margin: 0;

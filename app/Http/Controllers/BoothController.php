@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Booth;
 use Illuminate\Http\Request;
 
-
 class BoothController extends Controller
 {
     /**

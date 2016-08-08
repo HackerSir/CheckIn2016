@@ -14,6 +14,12 @@
 
 //會員（須完成信箱驗證）
 Route::group(['middleware' => ['auth', 'email']], function () {
+    //攤位類型管理
+    //權限：type.manage
+    Route::resource('type', 'TypeController');
+    //攤位管理
+    //權限：booth.manage
+    Route::resource('booth', 'BoothController');
     //會員管理
     //權限：user.manage、user.view
     Route::resource('user', 'UserController', [

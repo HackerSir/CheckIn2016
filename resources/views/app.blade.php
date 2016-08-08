@@ -62,7 +62,7 @@
 @include('navbar.menu')
 
 {{-- Content --}}
-<div class="ui container">
+<div class="ui container" style="">
     @yield('content')
 </div>
 

@@ -21,6 +21,7 @@ class LaravelMenu
         Menu::make('left', function ($menu) {
             /* @var \Lavary\Menu\Builder $menu */
             $menu->add('首頁', ['route' => 'index']);
+            $menu->add('攤位', ['route' => 'booth.index']);
         });
         //右側
         Menu::make('right', function ($menu) {
@@ -41,6 +42,10 @@ class LaravelMenu
                 if (Entrust::can('menu.view') and auth()->user()->isConfirmed) {
                     /** @var \Lavary\Menu\Builder $adminMenu */
                     $adminMenu = $menu->add('管理選單', 'javascript:void(0)');
+
+                    if (Entrust::can(['user.manage', 'type.manage'])) {
+                        $adminMenu->add('攤位類型', ['route' => 'type.index'])->active('type/*')->divide();
+                    }
 
                     if (Entrust::can(['user.manage', 'user.view'])) {
                         $adminMenu->add('會員清單', ['route' => 'user.index'])->active('user/*');

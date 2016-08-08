@@ -1,4 +1,5 @@
 # CheckIn
+[![Style CI](https://styleci.io/repos/65193423/shield)](https://styleci.io/repos/65193423/)
 [![License](https://img.shields.io/github/license/HackerSir/CheckIn.svg)](https://raw.githubusercontent.com/HackerSir/CheckIn/master/LICENSE)
   
 2016 學生社團博覽會 打卡集點抽獎
@@ -20,4 +21,3 @@ For Client:
 
 ## License
 This project is open-sourced software licensed under the [MIT License](http://opensource.org/licenses/MIT).
-

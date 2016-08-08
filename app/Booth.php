@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 攤位
  *
- * @package App
  *
  * @property-read int id
  * @property int type_id 類型
@@ -30,7 +29,7 @@ class Booth extends Model
         'name',
         'description',
         'url',
-        'code'
+        'code',
     ];
 
     /** @var int $perPage 分頁時的每頁數量 */

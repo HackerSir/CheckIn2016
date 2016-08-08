@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 攤位類型
  *
- * @package App
  *
  * @property-read int id
  * @property string name 類型名稱
@@ -24,7 +23,7 @@ class Type extends Model
     /** @var array $fillable 可大量指派的屬性 */
     protected $fillable = [
         'name',
-        'target'
+        'target',
     ];
 
     /** @var int $perPage 分頁時的每頁數量 */

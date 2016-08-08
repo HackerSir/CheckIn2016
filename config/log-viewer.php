@@ -11,7 +11,7 @@ return [
      |  Log files pattern
      | ------------------------------------------------------------------------------------------------
      */
-    'pattern' => [
+    'pattern'      => [
         'prefix'    => \Arcanedev\LogViewer\Contracts\FilesystemInterface::PATTERN_PREFIX,
         'date'      => \Arcanedev\LogViewer\Contracts\FilesystemInterface::PATTERN_DATE,
         'extension' => \Arcanedev\LogViewer\Contracts\FilesystemInterface::PATTERN_EXTENSION,
@@ -23,19 +23,19 @@ return [
      |  Supported locales :
      |    'auto', 'ar', 'de', 'en', 'es', 'fa', 'fr', 'hy', 'it', 'nl', 'pl', 'pt-BR', 'ro', 'ru', 'sv', 'th', 'tr', 'zh-TW', 'zh'
      */
-    'locale' => 'auto',
+    'locale'       => 'auto',
 
     /* ------------------------------------------------------------------------------------------------
      |  Route settings
      | ------------------------------------------------------------------------------------------------
      */
-    'route' => [
+    'route'        => [
         'enabled' => true,
 
         'attributes' => [
             'prefix' => 'log-viewer',
 
-            'middleware' => null,
+            'middleware' => ['web', 'permission:log-viewer.access'],
         ],
     ],
 
@@ -44,19 +44,19 @@ return [
      | ------------------------------------------------------------------------------------------------
      |  This defines how many log entries are displayed per page.
      */
-    'per-page' => 30,
+    'per-page'     => 30,
 
     /* ------------------------------------------------------------------------------------------------
      |  LogViewer's Facade
      | ------------------------------------------------------------------------------------------------
      */
-    'facade' => 'LogViewer',
+    'facade'       => 'LogViewer',
 
     /* ------------------------------------------------------------------------------------------------
      |  Download settings
      | ------------------------------------------------------------------------------------------------
      */
-    'download' => [
+    'download'     => [
         'prefix' => 'laravel-',
 
         'extension' => 'log',
@@ -66,7 +66,7 @@ return [
      |  Menu settings
      | ------------------------------------------------------------------------------------------------
      */
-    'menu' => [
+    'menu'         => [
         'filter-route' => 'log-viewer::logs.filter',
 
         'icons-enabled' => true,
@@ -76,7 +76,7 @@ return [
      |  Icons
      | ------------------------------------------------------------------------------------------------
      */
-    'icons' => [
+    'icons'        => [
         /*
          * Font awesome >= 4.3
          * http://fontawesome.io/icons/
@@ -96,7 +96,7 @@ return [
      |  Colors
      | ------------------------------------------------------------------------------------------------
      */
-    'colors' => [
+    'colors'       => [
         'levels' => [
             'empty'     => '#D1D1D1',
             'all'       => '#8A8A8A',

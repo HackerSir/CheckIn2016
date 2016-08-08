@@ -15,6 +15,18 @@
     <style>
         body {
             margin-top: 50px;
+            height: auto;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: .4;
+            z-index: -1;
+            background: url("{{ asset('img/background/index.jpg') }}") fixed;
         }
         div#footer {
             margin: 0;

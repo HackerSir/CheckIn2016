@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 攤位類型
  *
- *
  * @property-read int id
  * @property string name 類型名稱
  * @property int target 過關需求該類型攤位數量

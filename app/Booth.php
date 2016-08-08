@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 攤位
  *
- *
  * @property-read int id
  * @property int type_id 類型
  * @property string name 攤位名稱

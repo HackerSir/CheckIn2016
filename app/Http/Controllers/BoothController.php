@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Booth;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 
 class BoothController extends Controller
 {
@@ -17,8 +16,8 @@ class BoothController extends Controller
         $this->middleware('permission:type.manage', [
             'except' => [
                 'index',
-                'show'
-            ]
+                'show',
+            ],
         ]);
     }
 

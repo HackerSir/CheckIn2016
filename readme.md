@@ -1,10 +1,7 @@
-# SACard
-[![Build Status](https://travis-ci.org/vongola12324/sacard.svg?branch=master)](https://travis-ci.org/vongola12324/sacard)
-[![Codecov](https://codecov.io/gh/vongola12324/sacard/branch/master/graph/badge.svg)](https://codecov.io/gh/vongola12324/sacard)
-[![Style CI](https://styleci.io/repos/64998498/shield?branch=master)](https://styleci.io/repos/64998498/)
-[![License](https://img.shields.io/github/license/vongola12324/sacard.svg)](https://raw.githubusercontent.com/vongola12324/sacard/master/LICENSE)
+# CheckIn
+[![License](https://img.shields.io/github/license/HackerSir/CheckIn.svg)](https://raw.githubusercontent.com/HackerSir/CheckIn/master/LICENSE)
   
-學生會特約商店資訊站
+2016 學生社團博覽會 打卡集點抽獎
 
 ## Framework
 - Laravel 5.2
@@ -20,10 +17,6 @@ For Server:
 For Client:
 - IE >= 9
 - Chrome / Firefox is fine.
-
-## API Used
-- Google MAP API (include Geocoding and Marker)  
-You need TWO KEYS, one for server(Geocoding), another for browser(Map).  
 
 ## License
 This project is open-sourced software licensed under the [MIT License](http://opensource.org/licenses/MIT).

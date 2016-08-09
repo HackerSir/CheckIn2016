@@ -14,7 +14,8 @@
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css') !!}
     <style>
         body {
-            margin-top: 50px;
+            margin-top: 70px;
+            margin-bottom: 70px;
             height: auto;
         }
 

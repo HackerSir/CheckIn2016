@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     ]);
     //攤位管理
     //權限：booth.manage
+    Route::post('booth/{booth}/updateCode', 'BoothController@updateCode')->name('booth.updateCode');
     Route::resource('booth', 'BoothController');
     //會員管理
     //權限：user.manage、user.view

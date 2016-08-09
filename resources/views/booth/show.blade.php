@@ -56,6 +56,37 @@
         </tr>
     </table>
 
+    @if(Entrust::can('booth.manage'))
+        <table class="ui selectable stackable table">
+            <thead>
+            <tr>
+                <th colspan="2" class="center aligned">管理限定</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="four wide right aligned">CODE：</td>
+                <td>
+                    {{ $booth->code }}
+                    {!! Form::open(['route' => ['booth.updateCode', $booth], 'style' => 'display: inline', 'onSubmit' => "return confirm('這會使原本的QR碼失效，確定更新CODE嗎？');"]) !!}
+                    <button type="submit" class="ui icon red inverted button" title="更新CODE（會使原本的QR碼失效）">
+                        <i class="refresh icon"></i>
+                    </button>
+                    {!! Form::close() !!}
+                </td>
+            </tr>
+            <tr>
+                <td class="four wide right aligned">打卡網址：</td>
+                <td>{{-- TODO: 打卡網址 --}}</td>
+            </tr>
+            <tr>
+                <td class="four wide right aligned">打卡QR碼：</td>
+                <td>{{-- TODO: 打卡QR碼 --}}</td>
+            </tr>
+            </tbody>
+        </table>
+    @endif
+
     <div style="text-align: center">
         <a href="{{ route('booth.index') }}" class="ui blue inverted icon button">
             <i class="arrow left icon"></i> 攤位清單

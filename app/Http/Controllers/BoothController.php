@@ -59,7 +59,7 @@ class BoothController extends Controller
 
         $booth = Booth::create(array_merge($request->all(), [
             'type_id' => $request->get('type_id') ?: null,
-            'code'    => str_random(10),
+            'code'    => str_random(20),
         ]));
 
         return redirect()->route('booth.show', $booth)->with('global', '攤位已新增');
@@ -121,5 +121,14 @@ class BoothController extends Controller
         $booth->delete();
 
         return redirect()->route('booth.index')->with('global', '攤位已刪除');
+    }
+
+    public function updateCode(Booth $booth, Request $request)
+    {
+        $booth->update([
+            'code' => str_random(20),
+        ]);
+
+        return redirect()->route('booth.show', $booth)->with('global', 'CODE已更新，並重新建立QR碼');
     }
 }

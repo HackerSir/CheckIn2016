@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\ColorTagTrait;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int id
  * @property string name 類型名稱
  * @property int target 過關需求該類型攤位數量
+ * @property string color 標籤顏色
  *
  * @property \Illuminate\Database\Eloquent\Collection|Booth[] booths
  *
@@ -19,10 +21,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Type extends Model
 {
+    use ColorTagTrait;
+
     /** @var array $fillable 可大量指派的屬性 */
     protected $fillable = [
         'name',
         'target',
+        'color',
     ];
 
     /** @var int $perPage 分頁時的每頁數量 */

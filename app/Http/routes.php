@@ -16,7 +16,11 @@
 Route::group(['middleware' => ['auth', 'email']], function () {
     //攤位類型管理
     //權限：type.manage
-    Route::resource('type', 'TypeController');
+    Route::resource('type', 'TypeController', [
+        'except' => [
+            'show'
+        ]
+    ]);
     //攤位管理
     //權限：booth.manage
     Route::resource('booth', 'BoothController');

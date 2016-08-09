@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ColorTagTrait;
 use App\Type;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //TODO
+        $types = Type::all();
+        return view('type.index', compact('types'));
     }
 
     /**
@@ -32,7 +34,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //TODO
+        return view('type.create-or-edit');
     }
 
     /**
@@ -43,18 +45,15 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO
-    }
+        $this->validate($request, [
+            'name'   => 'required',
+            'target' => 'integer|min:0',
+            'color'  => 'required|in:' . implode(',', ColorTagTrait::$validColors),
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Type $type
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Type $type)
-    {
-        //TODO
+        Type::create($request->all());
+
+        return redirect()->route('type.index')->with('global', '攤位類型已新增');
     }
 
     /**
@@ -65,7 +64,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //TODO
+        return view('type.create-or-edit', compact('type'));
     }
 
     /**
@@ -77,7 +76,15 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //TODO
+        $this->validate($request, [
+            'name'   => 'required',
+            'target' => 'integer|min:0',
+            'color'  => 'required|in:' . implode(',', ColorTagTrait::$validColors),
+        ]);
+
+        $type->update($request->all());
+
+        return redirect()->route('type.index')->with('global', '攤位類型已更新');
     }
 
     /**
@@ -88,6 +95,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //TODO
+        $type->delete();
+
+        return redirect()->route('type.index')->with('global', '攤位類型已刪除');
     }
 }

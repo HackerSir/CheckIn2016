@@ -16,6 +16,7 @@ class CreateTypesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('target')->default(0);
+            $table->string('color')->default('');
             $table->timestamps();
         });
     }

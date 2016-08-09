@@ -23,7 +23,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
+        $types = Type::with('booths')->get();
         return view('type.index', compact('types'));
     }
 

@@ -29,10 +29,13 @@
                     {!! $type->tag !!}
                 </td>
                 <td>
-                    {{ $type->booths->count() }}
+                    {{ count($type->booths) }}
                 </td>
                 <td>
                     {{ $type->target }}
+                    @if(count($type->booths) < $type->target)
+                        <i class="large red warning sign icon" title="攤位數量不足，請調整目標或增加攤位"></i>
+                    @endif
                 </td>
                 <td>
                     <a href="{{ route('type.edit', $type) }}" class="ui icon brown inverted button" title="編輯類型">
@@ -46,6 +49,13 @@
                 </td>
             </tr>
         @endforeach
+        <tr>
+            <td>（未分類）</td>
+            <td></td>
+            <td>{{ \App\Booth::whereNull('type_id')->count() }}</td>
+            <td><i class="large info circle icon" title="無法為未分類攤位設定目標"></i></td>
+            <td></td>
+        </tr>
         </tbody>
     </table>
 @endsection

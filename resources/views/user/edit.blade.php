@@ -22,8 +22,10 @@
                 <div class="ui checkbox">
                     @if($user->id == Auth::user()->id && $role->name == 'Admin')
                         {!! Form::checkbox('role[]', $role->id, $user->hasRole($role->name), ['disabled']) !!}
-                        <label>{{ $role->display_name }} <i class="warning sign icon red popup"
-                                                            data-content="禁止解除自己的管理員職務"></i></label>
+                        <label>
+                            {{ $role->display_name }}
+                            <i class="warning sign icon red" title="禁止解除自己的管理員職務"></i>
+                        </label>
                     @else
                         {!! Form::checkbox('role[]', $role->id, $user->hasRole($role->name)) !!}
                         <label>{{ $role->display_name }} </label>
@@ -33,8 +35,9 @@
             @endforeach
         </div>
         <div style="text-align: center">
-            <a href="{{ route('user.show', $user) }}" class="ui icon blue inverted button"><i
-                        class="icon arrow left"></i> 返回會員資料</a>
+            <a href="{{ route('user.show', $user) }}" class="ui icon blue inverted button">
+                <i class="icon arrow left"></i> 返回會員資料
+            </a>
             {!! SemanticForm::submit('<i class="checkmark icon"></i> 更新會員資料')->addClass('ui icon submit red inverted button') !!}
         </div>
     </div>
@@ -50,12 +53,4 @@
     @endif
     {!! SemanticForm::close() !!}
 
-@endsection
-
-@section('js')
-    <script>
-        $('i.popup').popup({
-            variation: 'inverted'
-        });
-    </script>
 @endsection

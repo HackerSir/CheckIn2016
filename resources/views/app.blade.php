@@ -17,6 +17,7 @@
             margin-top: 50px;
             height: auto;
         }
+
         body::before {
             content: "";
             position: absolute;
@@ -28,6 +29,7 @@
             z-index: -1;
             background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center;
         }
+
         div#footer {
             margin: 0;
             width: 100%;
@@ -101,6 +103,13 @@
         @if(Session::has('warning'))
             alertify.notify('{{ Session::get('warning') }}', 'warning', 5);
         @endif
+        // popup
+        $('[title]').each(function () {
+            $(this).popup({
+                variation: 'inverted',
+                position: 'right center'
+            });
+        });
     });
 </script>
 @yield('js')

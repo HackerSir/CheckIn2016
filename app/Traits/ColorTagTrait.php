@@ -33,6 +33,8 @@ trait ColorTagTrait
 
     public function getTagAttribute()
     {
-        return "<span class=\"ui tag label single line {$this->color}\">{$this->display_name}</span>";
+        $tagTextField = $this->tagTextField ?: 'name';
+        $tagText = $this->$tagTextField;
+        return "<span class=\"ui tag label single line {$this->color}\">{$tagText}</span>";
     }
 }

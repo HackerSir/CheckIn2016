@@ -23,6 +23,7 @@ use Zizaco\Entrust\EntrustRole;
 class Role extends EntrustRole
 {
     use ColorTagTrait;
+    protected $tagTextField = 'display_name';
 
     protected $fillable = [
         'name',

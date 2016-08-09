@@ -18,8 +18,8 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     //權限：type.manage
     Route::resource('type', 'TypeController', [
         'except' => [
-            'show'
-        ]
+            'show',
+        ],
     ]);
     //攤位管理
     //權限：booth.manage

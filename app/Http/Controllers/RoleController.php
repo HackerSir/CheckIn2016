@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Permission;
 use App\Role;
+use App\Traits\ColorTagTrait;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -45,7 +46,7 @@ class RoleController extends Controller
             'name'         => 'required|unique:roles,name',
             'display_name' => 'required',
             'permissions'  => 'array',
-            'color'        => 'required|in:' . implode(',', Role::$validColors),
+            'color'        => 'required|in:' . implode(',', ColorTagTrait::$validColors),
         ]);
 
         $role = Role::create([
@@ -86,7 +87,7 @@ class RoleController extends Controller
             'name'         => 'required|unique:roles,name,' . $role->id . ',id',
             'display_name' => 'required',
             'permissions'  => 'array',
-            'color'        => 'required|in:' . implode(',', Role::$validColors),
+            'color'        => 'required|in:' . implode(',', ColorTagTrait::$validColors),
         ]);
 
         if ($role->protection) {

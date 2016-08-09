@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\ColorTagTrait;
 use Zizaco\Entrust\EntrustRole;
 
 /**
@@ -21,6 +22,8 @@ use Zizaco\Entrust\EntrustRole;
  */
 class Role extends EntrustRole
 {
+    use ColorTagTrait;
+
     protected $fillable = [
         'name',
         'display_name',
@@ -28,36 +31,4 @@ class Role extends EntrustRole
         'color',
         'protection',
     ];
-
-    public static $validColors = [
-        'grey',
-        'red',
-        'orange',
-        'yellow',
-        'olive',
-        'green',
-        'teal',
-        'blue',
-        'violet',
-        'purple',
-        'pink',
-        'brown',
-        'black',
-    ];
-
-    public function getColorAttribute()
-    {
-        $color = $this->getOriginal('color');
-        $color = strtolower($color);
-        if (!in_array($color, static::$validColors)) {
-            $color = array_first(static::$validColors);
-        }
-
-        return $color;
-    }
-
-    public function getTagAttribute()
-    {
-        return "<span class=\"ui tag label single line {$this->color}\">{$this->display_name}</span>";
-    }
 }

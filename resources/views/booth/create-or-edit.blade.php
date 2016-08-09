@@ -16,7 +16,7 @@
         {!! SemanticForm::open()->action(route('booth.store')) !!}
     @endif
     <div class="ui stacked segment">
-        <div class="field required{{ ($errors->has('type_id'))?' error':'' }}">
+        <div class="field{{ ($errors->has('type_id'))?' error':'' }}">
             <label>攤位類型</label>
             <div class="ui fluid selection dropdown">
                 @if($isEditMode)
@@ -31,10 +31,12 @@
                     <span class="ui tag label single line" style="margin-left: 10px">請選擇攤位類型</span>
                 </div>
                 <div class="menu">
+                    <div class="item" data-value="">
+                        <span class="ui tag label single line" style="margin-left: 10px">請選擇攤位類型</span>
+                    </div>
                     @foreach(\App\Type::all() as $booth)
                         <div class="item" data-value="{{ $booth->id }}">
-                            <span class="ui tag label single line {{ $booth->color }}"
-                                  style="margin-left: 10px">{{ $booth->name }}</span>
+                            <span class="ui tag label single line {{ $booth->color }}" style="margin-left: 10px">{{ $booth->name }}</span>
                         </div>
                     @endforeach
                 </div>

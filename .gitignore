@@ -73,7 +73,6 @@ Homestead.json
 .env.local.php
 .env.php
 .env
-composer.phar
 composer.lock
 
 

@@ -1,4 +1,5 @@
 # CheckIn
+[![Build Status](https://travis-ci.org/HackerSir/CheckIn.svg?branch=master)](https://travis-ci.org/HackerSir/CheckIn)
 [![Style CI](https://styleci.io/repos/65193423/shield)](https://styleci.io/repos/65193423/)
 [![License](https://img.shields.io/github/license/HackerSir/CheckIn.svg)](https://raw.githubusercontent.com/HackerSir/CheckIn/master/LICENSE)
   

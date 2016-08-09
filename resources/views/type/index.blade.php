@@ -34,7 +34,7 @@
                 <td>
                     {{ $type->target }}
                     @if(count($type->booths) < $type->target)
-                        <i class="large red warning sign icon" title="攤位數量不足，請調整目標或增加攤位"></i>
+                        <i class="large red warning sign icon" title="目標高於攤位數量，請調整目標或增加攤位"></i>
                     @endif
                 </td>
                 <td>

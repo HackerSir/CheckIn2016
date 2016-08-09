@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property Type type
  *
+ * @property-read string displayDescription
+ *
  * @property \Carbon\Carbon|null created_at
  * @property \Carbon\Carbon|null updated_at
  * @mixin \Eloquent
@@ -42,5 +44,10 @@ class Booth extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function getDisplayDescriptionAttribute()
+    {
+        return nl2br(htmlspecialchars($this->description));
     }
 }

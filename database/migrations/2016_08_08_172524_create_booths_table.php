@@ -16,7 +16,7 @@ class CreateBoothsTable extends Migration
             $table->increments('id');
             $table->integer('type_id')->unsigned()->nullable();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('url')->nullable();
             $table->string('image')->nullable();
             $table->string('code');

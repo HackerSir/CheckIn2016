@@ -12,7 +12,7 @@ class BoothController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:type.manage', [
+        $this->middleware('permission:booth.manage', [
             'except' => [
                 'index',
                 'show',
@@ -27,7 +27,8 @@ class BoothController extends Controller
      */
     public function index()
     {
-        //TODO
+        $booths = Booth::with('type')->paginate();
+        return view('booth.index', compact('booths'));
     }
 
     /**
@@ -37,7 +38,7 @@ class BoothController extends Controller
      */
     public function create()
     {
-        //TODO
+        return view('booth.create-or-edit');
     }
 
     /**
@@ -48,7 +49,19 @@ class BoothController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO
+        $this->validate($request, [
+            'type_id' => 'exists:types,id',
+            'name'    => 'required',
+            'url'     => 'url',
+            'image'   => 'url',
+        ]);
+
+        $booth = Booth::create(array_merge($request->all(), [
+            'type_id' => $request->get('type_id') ?: null,
+            'code'    => str_random(10)
+        ]));
+
+        return redirect()->route('booth.show', $booth)->with('global', '攤位已新增');
     }
 
     /**
@@ -59,7 +72,7 @@ class BoothController extends Controller
      */
     public function show(Booth $booth)
     {
-        //TODO
+        return view('booth.show', compact('booth'));
     }
 
     /**
@@ -70,7 +83,7 @@ class BoothController extends Controller
      */
     public function edit(Booth $booth)
     {
-        //TODO
+        return view('booth.create-or-edit', compact('booth'));
     }
 
     /**
@@ -82,7 +95,18 @@ class BoothController extends Controller
      */
     public function update(Request $request, Booth $booth)
     {
-        //TODO
+        $this->validate($request, [
+            'type_id' => 'exists:types,id',
+            'name'    => 'required',
+            'url'     => 'url',
+            'image'   => 'url',
+        ]);
+
+        $booth->update(array_merge($request->all(), [
+            'type_id' => $request->get('type_id') ?: null
+        ]));
+
+        return redirect()->route('booth.show', $booth)->with('global', '攤位已更新');
     }
 
     /**
@@ -93,6 +117,8 @@ class BoothController extends Controller
      */
     public function destroy(Booth $booth)
     {
-        //TODO
+        $booth->delete();
+
+        return redirect()->route('booth.index')->with('global', '攤位已刪除');
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string name 攤位名稱
  * @property string description 攤位簡介
  * @property string url 攤位（社團或學會）的網址
+ * @property string image 攤位圖片網址
  * @property string code 打卡代碼（隨機字串，生成網址和QR碼使用）
  *
  * @property Type type
@@ -28,6 +29,7 @@ class Booth extends Model
         'name',
         'description',
         'url',
+        'image',
         'code',
     ];
 

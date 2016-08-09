@@ -18,6 +18,7 @@ class CreateBoothsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('url')->nullable();
+            $table->string('image')->nullable();
             $table->string('code');
             $table->timestamps();
 

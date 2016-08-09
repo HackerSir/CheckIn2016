@@ -31,7 +31,7 @@
                 </td>
                 <td>
                     @if($booth->image)
-                        <img src="{{ $booth->image  }}" style="max-height: 100px; max-width: 200px"/>
+                        <img src="{{ $booth->image  }}" class="ui small centered rounded image"/>
                     @endif
                 </td>
                 <td>

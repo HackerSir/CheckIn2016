@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Booth;
 use App\Point;
 use App\Setting;
-use App\Ticket;
 use App\Type;
 use App\User;
 use Carbon\Carbon;

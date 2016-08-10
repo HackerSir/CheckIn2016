@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Ticket;
-use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
@@ -15,6 +14,7 @@ class TicketController extends Controller
     public function index()
     {
         $tickets = Ticket::paginate();
+
         return view('ticket.index', compact('tickets'));
     }
 

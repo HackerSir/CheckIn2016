@@ -2,7 +2,6 @@
 
 use App\Permission;
 use App\Role;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateTicketManagePermission extends Migration
@@ -14,7 +13,6 @@ class CreateTicketManagePermission extends Migration
      */
     public function up()
     {
-
         $permTicketManage = Permission::create([
             'name'         => 'ticket.manage',
             'display_name' => '管理抽獎券',

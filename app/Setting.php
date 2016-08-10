@@ -160,7 +160,7 @@ class Setting extends Model
         if ($this->getType() == 'boolean') {
             return 'select';
         }
-        if ($this->getType() == 'text') {
+        if ($this->getType() == 'int') {
             return 'text';
         }
         //無效型態

@@ -77,7 +77,11 @@
             </tr>
             <tr>
                 <td class="four wide right aligned">打卡網址：</td>
-                <td>{{-- TODO: 打卡網址 --}}</td>
+                <td>
+                    <a href="{{ route('check.booth', $booth->code) }}" target="_blank">
+                        <i class="linkify icon"></i> {{ route('check.booth', $booth->code) }}
+                    </a>
+                </td>
             </tr>
             <tr>
                 <td class="four wide right aligned">打卡QR碼：</td>

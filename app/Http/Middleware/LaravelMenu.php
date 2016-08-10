@@ -43,8 +43,11 @@ class LaravelMenu
                     /** @var \Lavary\Menu\Builder $adminMenu */
                     $adminMenu = $menu->add('管理選單', 'javascript:void(0)');
 
-                    if (Entrust::can(['user.manage', 'type.manage'])) {
-                        $adminMenu->add('攤位類型', ['route' => 'type.index'])->active('type/*')->divide();
+                    if (Entrust::can(['type.manage'])) {
+                        $adminMenu->add('攤位類型', ['route' => 'type.index'])->active('type/*');
+                    }
+                    if (Entrust::can(['setting.manage'])) {
+                        $adminMenu->add('網站設定', ['route' => 'setting.index'])->divide();
                     }
 
                     if (Entrust::can(['user.manage', 'user.view'])) {

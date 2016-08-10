@@ -25,6 +25,16 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     //權限：booth.manage
     Route::post('booth/{booth}/updateCode', 'BoothController@updateCode')->name('booth.updateCode');
     Route::resource('booth', 'BoothController');
+    //網站設定
+    //權限：setting.edit
+    Route::group(['middleware' => 'permission:setting.manage'], function () {
+        Route::resource('setting', 'SettingController', [
+            'only' => [
+                'index',
+                'update'
+            ]
+        ]);
+    });
     //會員管理
     //權限：user.manage、user.view
     Route::resource('user', 'UserController', [

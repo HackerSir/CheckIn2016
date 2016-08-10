@@ -31,8 +31,8 @@ Route::group(['middleware' => ['auth', 'email']], function () {
         Route::resource('setting', 'SettingController', [
             'only' => [
                 'index',
-                'update'
-            ]
+                'update',
+            ],
         ]);
     });
     //會員管理

@@ -15,6 +15,7 @@ class SettingController extends Controller
     public function index()
     {
         $settings = Setting::all();
+
         return view('setting.index', compact('settings'));
     }
 
@@ -28,15 +29,15 @@ class SettingController extends Controller
     public function update(Request $request, Setting $setting)
     {
         $this->validate($request, [
-            'data' => 'max:65536'
+            'data' => 'max:65536',
         ]);
 
         $setting->update([
-            'data' => $request->get('value')
+            'data' => $request->get('value'),
         ]);
 
         $json = [
-            'success' => true
+            'success' => true,
         ];
 
         return response()->json($json);

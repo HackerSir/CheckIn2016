@@ -13,8 +13,6 @@
 
 
 //會員（須完成信箱驗證）
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 Route::group(['middleware' => ['auth', 'email']], function () {
     //攤位類型管理
     //權限：type.manage

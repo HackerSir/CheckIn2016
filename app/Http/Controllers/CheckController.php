@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Booth;
 use App\Point;
 use App\Services\CheckInService;
+use App\Setting;
+use App\Type;
 use Illuminate\Http\Request;
 
 class CheckController extends Controller
@@ -28,11 +30,33 @@ class CheckController extends Controller
     public function getIndex()
     {
         $user = auth()->user();
+        //類型
+        $types = Type::all();
+        //打卡集點記錄
+        $points = Point::with('user', 'booth.type')->where('user_id', $user->id)->groupBy('booth_id')->get();
+        //進度
+        $progress = [];
+        $progress['total'] = [
+            'now'    => count($points),
+            'target' => Setting::get('GlobalTarget'),
+        ];
+        foreach ($types as $type) {
+            $progress[$type->id] = [
+                'now'    => 0,
+                'target' => $type->target,
+            ];
+        }
+
+        foreach ($points as $point) {
+            if (isset($progress[$point->booth->type_id])) {
+                $progress[$point->booth->type_id]['now']++;
+            }
+        }
+
         //最近打卡集點記錄
         $lastPoints = Point::with('user', 'booth.type')->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')->take(5)->get();
-
-        return view('check.index', compact('lastPoints'));
+        return view('check.index', compact('types', 'progress', 'lastPoints'));
     }
 
     /**

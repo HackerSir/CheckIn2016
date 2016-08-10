@@ -6,8 +6,50 @@
     <h2 class="ui teal header center aligned">
         打卡集點
     </h2>
+    <div class="ui segment">
+        <span class="ui brown ribbon label">使用者</span>
+        {{ auth()->user()->name }}
+    </div>
     {{-- TODO: 抽獎券 --}}
-    {{-- TODO: 進度 --}}
+    {{-- 進度 --}}
+    <div class="ui segment">
+        <span class="ui teal ribbon label">進度</span>
+        <p>達成所有目標後，即可取得抽獎序號</p>
+        <div class="ui grid">
+            <div class="two column row">
+                <div class="column"><span class="ui tag label single line">所有攤位</span></div>
+                <div class="column">
+                    @if($progress['total']['target'] > 0)
+                        <div class="ui indicating progress" data-value="{{ $progress['total']['now'] }}" data-total="{{ $progress['total']['target'] }}">
+                            <div class="bar">
+                                <div class="progress"></div>
+                            </div>
+                            <div class="label">{{ $progress['total']['now'] }} / {{ $progress['total']['target'] }}</div>
+                        </div>
+                    @else
+                        {{ $progress['total']['now'] }} / 無目標
+                    @endif
+                </div>
+            </div>
+            @foreach($types as $type)
+                <div class="two column row">
+                    <div class="column">{!! $type->tag !!}</div>
+                    <div class="column">
+                        @if($type->target > 0)
+                            <div class="ui indicating progress" data-value="{{ $progress[$type->id]['now'] }}" data-total="{{ $progress[$type->id]['target'] }}">
+                                <div class="bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <div class="label">{{ $progress[$type->id]['now'] }} / {{ $progress[$type->id]['target'] }}</div>
+                            </div>
+                        @else
+                            {{ $progress[$type->id]['now'] }} / 無目標
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
     {{-- 打卡集點記錄 --}}
     <div class="ui segment">
         <span class="ui blue ribbon label">最近5筆打卡集點記錄</span>
@@ -33,4 +75,14 @@
             @endforelse
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(function () {
+            $('.ui.progress').each(function () {
+                $(this).progress();
+            });
+        });
+    </script>
 @endsection

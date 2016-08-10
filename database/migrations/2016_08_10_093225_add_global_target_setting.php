@@ -15,7 +15,7 @@ class AddGlobalTargetSetting extends Migration
         Setting::create([
             'name' => 'GlobalTarget',
             'type' => 'int',
-            'desc' => '總目標攤位數量（到多少攤位打卡集點才能抽獎）'
+            'desc' => '總目標攤位數量（到多少攤位打卡集點才能抽獎）',
         ]);
     }
 

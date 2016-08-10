@@ -8,7 +8,6 @@ use Zizaco\Entrust\EntrustRole;
 /**
  * 角色
  *
- *
  * @property-read int id
  * @property string name
  * @property string display_name

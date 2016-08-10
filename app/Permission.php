@@ -7,7 +7,6 @@ use Zizaco\Entrust\EntrustPermission;
 /**
  * 權限
  *
- *
  * @property-read int id
  * @property string name
  * @property string display_name

@@ -8,7 +8,6 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 /**
  * 使用者
  *
- *
  * @property-read int id
  * @property string name
  * @property string email

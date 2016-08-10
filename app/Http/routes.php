@@ -13,6 +13,8 @@
 
 
 //會員（須完成信箱驗證）
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 Route::group(['middleware' => ['auth', 'email']], function () {
     //攤位類型管理
     //權限：type.manage
@@ -41,6 +43,17 @@ Route::group(['middleware' => ['auth', 'email']], function () {
                 'show',
             ],
         ]);
+    });
+    //打卡集點相關
+    Route::group(['prefix' => 'check'], function () {
+        Route::get('/', 'CheckController@getIndex')->name('check.index');
+        //重新綁定模型，並以code作為篩選條件
+        Route::model('checkBooth', 'App\Booth');
+        Route::bind('checkBooth', function ($code) {
+            return \App\Booth::where('code', $code)->first();
+        });
+        Route::get('{checkBooth}', 'CheckController@getBooth')->name('check.booth');
+        Route::post('{checkBooth}', 'CheckController@postCheck')->name('check.check');
     });
     //會員資料
     Route::group(['prefix' => 'profile'], function () {

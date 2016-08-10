@@ -73,6 +73,15 @@ Route::group(['middleware' => ['auth', 'email']], function () {
             ],
         ]);
     });
+    //抽獎券管理
+    Route::group(['middleware' => 'permission:ticket.manage'], function () {
+        Route::resource('ticket', 'TicketController', [
+            'only' => [
+                'index',
+                'destroy',
+            ],
+        ]);
+    });
     //會員資料
     Route::group(['prefix' => 'profile'], function () {
         //查看會員資料

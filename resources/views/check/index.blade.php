@@ -11,10 +11,16 @@
         {{ auth()->user()->name }}
     </div>
     {{-- TODO: 抽獎券 --}}
+    @if(count(auth()->user()->tickets))
+        <div class="ui segment">
+            <span class="ui green ribbon label">抽獎編號</span>
+            {{ auth()->user()->tickets->first()->id }}
+        </div>
+    @endif
     {{-- 進度 --}}
     <div class="ui segment">
         <span class="ui teal ribbon label">進度</span>
-        <p>達成所有目標後，即可取得抽獎序號</p>
+        <p>達成所有目標後，即可取得抽獎編號</p>
         <div class="ui grid">
             <div class="two column row">
                 <div class="column"><span class="ui tag label single line">所有攤位</span></div>

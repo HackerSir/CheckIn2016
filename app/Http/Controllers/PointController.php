@@ -2,11 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Booth;
 use App\Point;
+use App\Services\CheckInService;
+use App\User;
 use Illuminate\Http\Request;
 
 class PointController extends Controller
 {
+    /**
+     * @var CheckInService
+     */
+    protected $checkInService;
+
+    /**
+     * PointController constructor.
+     * @param CheckInService $checkInService
+     */
+    public function __construct(CheckInService $checkInService)
+    {
+        $this->checkInService = $checkInService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +59,9 @@ class PointController extends Controller
             'booth_id' => 'required|exists:booths,id',
         ]);
 
-        Point::create($request->all());
+        $user = User::find($request->get('user_id'));
+        $booth = Booth::find($request->get('booth_id'));
+        $this->checkInService->checkIn($booth, $user, false);
 
         return redirect()->route('point.index')->with('global', '打卡集點記錄已新增');
     }

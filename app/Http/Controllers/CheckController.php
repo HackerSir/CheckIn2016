@@ -32,6 +32,7 @@ class CheckController extends Controller
         $user = auth()->user();
         //類型
         $types = Type::all();
+        //FIXME: 查詢可優化
         //打卡集點記錄
         $points = Point::with('user', 'booth.type')->where('user_id', $user->id)->groupBy('booth_id')->get();
         //進度

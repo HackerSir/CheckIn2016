@@ -52,6 +52,10 @@ class LaravelMenu
                         $adminMenu->add('打卡集點記錄', ['route' => 'point.index']);
                     }
 
+                    if (Entrust::can(['ticket.manage'])) {
+                        $adminMenu->add('抽獎券', ['route' => 'ticket.index']);
+                    }
+
                     if (Entrust::can(['setting.manage'])) {
                         $adminMenu->add('網站設定', ['route' => 'setting.index'])->divide();
                     }

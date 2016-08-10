@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Booth;
+use App\Services\CheckInService;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class CheckController extends Controller
 {
+    protected $checkInService;
+
+    /**
+     * CheckController constructor.
+     * @param CheckInService $checkInService
+     */
+    public function __construct(CheckInService $checkInService)
+    {
+        $this->checkInService = $checkInService;
+    }
+
     /**
      * 進度＆抽獎券
      *
@@ -27,7 +37,7 @@ class CheckController extends Controller
      */
     public function getBooth(Booth $checkBooth)
     {
-        //TODO
+        return view('check.booth', ['booth' => $checkBooth]);
     }
 
     /**
@@ -39,6 +49,10 @@ class CheckController extends Controller
      */
     public function postBooth(Booth $checkBooth, Request $request)
     {
-        //TODO
+        $user = auth()->user();
+        //打卡集點
+        $this->checkInService->checkIn($checkBooth, $user);
+
+        return redirect()->route('check.index')->with('global', '打卡集點成功');
     }
 }

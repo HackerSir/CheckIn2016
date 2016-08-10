@@ -11,10 +11,10 @@
         {{ auth()->user()->name }}
     </div>
     {{-- TODO: 抽獎券 --}}
-    @if(count(auth()->user()->tickets))
+    @if(auth()->user()->ticket)
         <div class="ui segment">
             <span class="ui green ribbon label">抽獎編號</span>
-            {{ auth()->user()->tickets->first()->id }}
+            {{ auth()->user()->ticket->id }}
         </div>
     @endif
     {{-- 進度 --}}

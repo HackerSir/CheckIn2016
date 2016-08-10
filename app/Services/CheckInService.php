@@ -41,7 +41,7 @@ class CheckInService
     public function checkTarget(User $user)
     {
         //檢查使用者未擁有抽獎券
-        if (count($user->tickets)) {
+        if ($user->ticket) {
             return;
         }
         //檢查完成任務
@@ -78,6 +78,6 @@ class CheckInService
         }
 
         //建立抽獎劵
-        $user->tickets()->create([]);
+        $user->ticket()->create([]);
     }
 }

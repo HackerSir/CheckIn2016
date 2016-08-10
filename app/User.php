@@ -21,7 +21,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role[]|null roles
  * @property \Illuminate\Database\Eloquent\Collection|Point[] points
- * @property \Illuminate\Database\Eloquent\Collection|Ticket[] tickets
+ * @property Ticket ticket
  *
  * @property \Carbon\Carbon|null created_at
  * @property \Carbon\Carbon|null updated_at
@@ -77,8 +77,8 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tickets()
+    public function ticket()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasOne(Ticket::class);
     }
 }

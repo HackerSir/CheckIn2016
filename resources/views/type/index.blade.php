@@ -20,6 +20,25 @@
         </tr>
         </thead>
         <tbody>
+        <tr>
+            <td>（全部）</td>
+            <td></td>
+            <td>{{ $boothCount = \App\Booth::count() }}</td>
+            <td>
+                {{ $globalTarget = \App\Setting::get('GlobalTarget') }}
+                @if($globalTarget <= 0)
+                    <i class="large red warning sign icon" title="目標過低，無法啟動抽獎劵機制"></i>
+                @endif
+                @if($boothCount < $globalTarget)
+                    <i class="large red warning sign icon" title="目標高於攤位數量，請調整目標或增加攤位"></i>
+                @endif
+            </td>
+            <td>
+                <a href="{{ route('setting.index') }}" class="ui icon blue inverted button" title="目標請至「網站設定」頁面設定">
+                    <i class="external icon"></i>
+                </a>
+            </td>
+        </tr>
         @foreach($types as $type)
             <tr>
                 <td>

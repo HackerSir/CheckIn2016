@@ -10,6 +10,7 @@
 
     {{-- CSS --}}
     {!! Html::style('semantic/semantic.min.css') !!}
+    {!! Html::style('https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css') !!}
     <style>
@@ -80,6 +81,7 @@
 
 {{-- Javascript --}}
 {!! Html::script('//code.jquery.com/jquery-3.1.0.min.js') !!}
+{!! Html::script('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js') !!}
 {!! Html::script('semantic/semantic.js') !!}
 {!! Html::script('//cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js') !!}
 <script>

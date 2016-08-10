@@ -20,6 +20,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * @property string last_login_ip
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role[]|null roles
+ * @property \Illuminate\Database\Eloquent\Collection|Point[] points
  *
  * @property \Carbon\Carbon|null created_at
  * @property \Carbon\Carbon|null updated_at
@@ -62,5 +63,13 @@ class User extends Authenticatable
     public function getIsConfirmedAttribute()
     {
         return !empty($this->confirm_at);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function points()
+    {
+        return $this->hasMany(Point::class);
     }
 }

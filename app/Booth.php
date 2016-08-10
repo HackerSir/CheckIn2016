@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string code 打卡代碼（隨機字串，生成網址和QR碼使用）
  *
  * @property Type type
+ * @property \Illuminate\Database\Eloquent\Collection|Point[] points
  *
  * @property-read string displayDescription
  *
@@ -44,6 +45,14 @@ class Booth extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function points()
+    {
+        return $this->hasMany(Point::class);
     }
 
     public function getDisplayDescriptionAttribute()

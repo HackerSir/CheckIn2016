@@ -72,6 +72,7 @@ class User extends Authenticatable
         foreach ($users as $user) {
             $options[$user->id] = $user->name;
         }
+
         return $options;
     }
 

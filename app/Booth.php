@@ -74,6 +74,7 @@ class Booth extends Model
             $fullName .= '[' . $this->type->name . '] ';
         }
         $fullName .= $this->name;
+
         return $fullName;
     }
 
@@ -84,6 +85,7 @@ class Booth extends Model
         foreach ($booths as $booth) {
             $options[$booth->id] = $booth->fullName;
         }
+
         return $options;
     }
 

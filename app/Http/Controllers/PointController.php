@@ -15,6 +15,7 @@ class PointController extends Controller
     public function index()
     {
         $points = Point::with('user', 'booth')->orderBy('created_at', 'desc')->paginate();
+
         return view('point.index', compact('points'));
     }
 

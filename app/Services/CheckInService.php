@@ -26,6 +26,7 @@ class CheckInService
         ]);
         //檢查是否達成目標
         $this->checkTarget($user);
+
         return true;
     }
 

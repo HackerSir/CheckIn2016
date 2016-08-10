@@ -8,9 +8,8 @@
     </h2>
     {!! SemanticForm::open()->action(route('point.store')) !!}
     <div class="ui stacked segment">
-        {{-- TODO: 改用下拉選單等方式 --}}
-        {!! SemanticForm::text('user_id')->label('使用者編號')->placeholder('如：1')->required() !!}
-        {!! SemanticForm::text('booth_id')->label('攤位編號')->placeholder('如：1')->required() !!}
+        {!! SemanticForm::select('user_id', \App\User::selectOptions())->label('使用者')->required() !!}
+        {!! SemanticForm::select('booth_id', \App\Booth::selectOptions())->label('攤位')->required() !!}
         <div style="text-align: center">
             <a href="{{ route('point.index') }}" class="ui blue inverted icon button">
                 <i class="icon arrow left"></i> 返回列表

@@ -67,6 +67,26 @@ class Booth extends Model
         return $html;
     }
 
+    public function getFullNameAttribute()
+    {
+        $fullName = '';
+        if ($this->type) {
+            $fullName .= '[' . $this->type->name . '] ';
+        }
+        $fullName .= $this->name;
+        return $fullName;
+    }
+
+    public static function selectOptions()
+    {
+        $booths = static::with('type')->orderBy('type_id')->get();
+        $options = [null => ''];
+        foreach ($booths as $booth) {
+            $options[$booth->id] = $booth->fullName;
+        }
+        return $options;
+    }
+
     /**
      * 打卡QR碼
      *

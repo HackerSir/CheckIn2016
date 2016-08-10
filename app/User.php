@@ -65,6 +65,16 @@ class User extends Authenticatable
         return !empty($this->confirm_at);
     }
 
+    public static function selectOptions()
+    {
+        $users = static::all();
+        $options = [null => ''];
+        foreach ($users as $user) {
+            $options[$user->id] = $user->name;
+        }
+        return $options;
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

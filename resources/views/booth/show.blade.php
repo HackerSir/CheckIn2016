@@ -2,59 +2,11 @@
 
 @section('title', "{$booth->name} - 攤位")
 
-@section('css')
-    <style>
-        /* TODO: 看要置左還是置中，然後看要不要抽出來做*/
-        @media only screen and (max-width: 767px) {
-            td {
-                text-align: center !important;
-            }
-        }
-
-        #gravatar {
-            border: 3px solid white;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-
-        #gravatar:hover {
-            border: 3px dotted black;
-        }
-    </style>
-@endsection
-
 @section('content')
     <h2 class="ui teal header center aligned">
         {{ $booth->name }} - 攤位
     </h2>
-    <div class="ui center aligned">
-        @if($booth->image)
-            <img src="{{ $booth->image  }}" class="ui big rounded centered image" style="max-width: 100%"/>
-        @endif
-    </div>
-
-    <table class="ui selectable stackable table">
-        <tr>
-            <td class="four wide right aligned">類型：</td>
-            <td>{!! $booth->type->tag or '' !!}</td>
-        </tr>
-        <tr>
-            <td class="four wide right aligned">名稱：</td>
-            <td>{{ $booth->name }}</td>
-        </tr>
-        <tr>
-            <td class="four wide right aligned">簡介：</td>
-            <td>{!! $booth->displayDescription !!}</td>
-        </tr>
-        <tr>
-            <td class="four wide right aligned">網址：</td>
-            <td>
-                @if($booth->url)
-                    <a href="{{ $booth->url }}" target="_blank"><i class="linkify icon"></i> {{ $booth->url }}</a>
-                @endif
-            </td>
-        </tr>
-    </table>
+    @include('booth.info', $booth)
 
     @if(Entrust::can('booth.manage'))
         <table class="ui selectable stackable table">

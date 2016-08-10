@@ -57,6 +57,11 @@ class Booth extends Model
 
     public function getDisplayDescriptionAttribute()
     {
-        return nl2br(htmlspecialchars($this->description));
+        if ($this->description) {
+            $html = nl2br(htmlspecialchars($this->description));
+        } else {
+            $html = "<sapn style='color: gray'>（未提供簡介）</sapn>";
+        }
+        return $html;
     }
 }

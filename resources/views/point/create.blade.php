@@ -8,8 +8,8 @@
     </h2>
     {!! SemanticForm::open()->action(route('point.store')) !!}
     <div class="ui stacked segment">
-        {!! SemanticForm::select('user_id', \App\User::selectOptions())->label('使用者')->required() !!}
-        {!! SemanticForm::select('booth_id', \App\Booth::selectOptions())->label('攤位')->required() !!}
+        @include('form.field.user_id', compact('errors'))
+        @include('form.field.booth_id', compact('errors'))
         <div style="text-align: center">
             <a href="{{ route('point.index') }}" class="ui blue inverted icon button">
                 <i class="icon arrow left"></i> 返回列表

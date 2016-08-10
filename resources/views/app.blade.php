@@ -91,7 +91,9 @@
 //            });
 //            $('.ui.sidebar').sidebar('attach events', '.toc.item').sidebar('setting', 'transition', 'overlay');
         $('.ui.dropdown').each(function () {
-            $(this).dropdown();
+            $(this).dropdown({
+                fullTextSearch: true
+            });
         });
 
         //AlertifyJS

@@ -62,6 +62,7 @@ class Booth extends Model
         } else {
             $html = "<sapn style='color: gray'>（未提供簡介）</sapn>";
         }
+
         return $html;
     }
 }

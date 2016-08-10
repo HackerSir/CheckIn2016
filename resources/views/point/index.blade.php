@@ -29,7 +29,9 @@
                     {{ link_to_route('user.show', $point->user->name, $point->user, ['target' => '_blank']) }}
                 </td>
                 <td>
-                    {{ link_to_route('booth.show', $point->booth->name, $point->booth, ['target' => '_blank']) }}
+                    <a href="{{ route('booth.show', $point->booth) }}" target="_blank">
+                        {!! $point->booth->type->tag or '' !!} {{ $point->booth->name }}
+                    </a>
                 </td>
                 <td>
                     {{ $point->check_at }}

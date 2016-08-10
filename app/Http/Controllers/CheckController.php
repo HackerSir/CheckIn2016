@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Booth;
+use App\Point;
 use App\Services\CheckInService;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,12 @@ class CheckController extends Controller
      */
     public function getIndex()
     {
-        //TODO
+        $user = auth()->user();
+        //最近打卡集點記錄
+        $lastPoints = Point::with('user', 'booth.type')->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('check.index', compact('lastPoints'));
     }
 
     /**

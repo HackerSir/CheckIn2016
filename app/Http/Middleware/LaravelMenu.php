@@ -22,6 +22,7 @@ class LaravelMenu
             /* @var \Lavary\Menu\Builder $menu */
             $menu->add('首頁', ['route' => 'index']);
             $menu->add('攤位', ['route' => 'booth.index'])->active('booth/*');
+            $menu->add('打卡集點', ['route' => 'check.index'])->active('check/*');
         });
         //右側
         Menu::make('right', function ($menu) {

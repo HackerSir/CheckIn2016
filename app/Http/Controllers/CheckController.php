@@ -37,7 +37,7 @@ class CheckController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function postCheck(Booth $checkBooth, Request $request)
+    public function postBooth(Booth $checkBooth, Request $request)
     {
         //TODO
     }

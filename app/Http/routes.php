@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
             return \App\Booth::where('code', $code)->first();
         });
         Route::get('{checkBooth}', 'CheckController@getBooth')->name('check.booth');
-        Route::post('{checkBooth}', 'CheckController@postCheck')->name('check.check');
+        Route::post('{checkBooth}', 'CheckController@postBooth')->name('check.booth');
     });
     //會員資料
     Route::group(['prefix' => 'profile'], function () {

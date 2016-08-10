@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 設定
  *
- *
  * @property-read int id
  * @property string name
  * @property string type
@@ -67,7 +66,7 @@ class Setting extends Model
         /** @var Setting $setting */
         $setting = self::where('name', $name)->first();
         if (!$setting) {
-            return;
+            return null;
         }
 
         return $setting->data;

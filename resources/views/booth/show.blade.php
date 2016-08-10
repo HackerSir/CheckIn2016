@@ -37,7 +37,11 @@
             </tr>
             <tr>
                 <td class="four wide right aligned">打卡QR碼：</td>
-                <td>{{-- TODO: 打卡QR碼 --}}</td>
+                <td>
+                    <a href="{{ $booth->QR }}" target="_blank">
+                        <img src="{{ $booth->QR }}">
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>

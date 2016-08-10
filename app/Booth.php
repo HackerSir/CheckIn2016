@@ -65,4 +65,26 @@ class Booth extends Model
 
         return $html;
     }
+
+    /**
+     * 打卡QR碼
+     *
+     * @link https://developers.google.com/chart/infographics/docs/qr_codes
+     *
+     * @return string
+     */
+    public function getQRAttribute()
+    {
+        $checkUrl = route('check.booth', $this->code);
+        $query = [
+            'cht'  => 'qr',
+            'chs'  => '400x400',
+            'chl'  => $checkUrl,
+            'chld' => 'M',
+        ];
+
+        $url = "https://chart.googleapis.com/chart";
+        $url .= '?' . http_build_query($query);
+        return $url;
+    }
 }

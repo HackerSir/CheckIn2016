@@ -1,0 +1,27 @@
+#!/bin/bash
+
+
+# Deploy Laravel
+echo "Task<1>: Deploying Laravel environment..."
+composer install
+cp .env.example .env
+php artisan key:generate
+composer run-script post-update-cmd
+echo "Task<1>: Done."
+
+# Build Semantic UI
+echo "Task<2>: Building Semantic UI..."
+npm install
+cd semantic
+gulp build
+echo "Task<2>: Done"
+
+# Remove Extra File
+echo "Task<3>: Removing extra files..."
+cd ..
+rm -Rf public/semantic/components
+rm -Rf public/semantic/themes/basic
+rm -Rf public/semantic/themes/github
+rm -f public/semantic/semantic.css
+rm -f public/semantic/semantic.js
+echo "Task<3>: Done"

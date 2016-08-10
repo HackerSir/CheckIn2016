@@ -83,8 +83,9 @@ class Booth extends Model
             'chld' => 'M',
         ];
 
-        $url = "https://chart.googleapis.com/chart";
+        $url = 'https://chart.googleapis.com/chart';
         $url .= '?' . http_build_query($query);
+
         return $url;
     }
 }

@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 設定
  *
- * @package Hackersir
  *
- * @property-read integer id
+ * @property-read int id
  * @property string name
  * @property string type
  * @property string desc
@@ -53,6 +52,7 @@ class Setting extends Model
             //找不到設定時，回傳預設值
             return $default;
         }
+
         return $setting->getData();
     }
 
@@ -67,8 +67,9 @@ class Setting extends Model
         /** @var Setting $setting */
         $setting = self::where('name', $name)->first();
         if (!$setting) {
-            return null;
+            return;
         }
+
         return $setting->data;
     }
 
@@ -84,7 +85,7 @@ class Setting extends Model
         /** @var Setting $setting */
         $setting = self::where('name', $name)->first();
         if (!$setting) {
-            return null;
+            return;
         }
         $setting->update([
             'data' => $data,
@@ -103,6 +104,7 @@ class Setting extends Model
             //若不是，則自動選擇第一個型態
             return head(array_keys(static::$types));
         }
+
         return $this->type;
     }
 
@@ -132,6 +134,7 @@ class Setting extends Model
         }
         if ($this->getType() == 'boolean') {
             $bool = filter_var($this->data, FILTER_VALIDATE_BOOLEAN);
+
             return $bool;
         }
         if ($this->getType() == 'int') {

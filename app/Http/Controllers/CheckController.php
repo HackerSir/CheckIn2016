@@ -56,6 +56,7 @@ class CheckController extends Controller
         //最近打卡集點記錄
         $lastPoints = Point::with('user', 'booth.type')->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')->take(5)->get();
+
         return view('check.index', compact('types', 'progress', 'lastPoints'));
     }
 

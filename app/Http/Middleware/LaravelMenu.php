@@ -46,6 +46,11 @@ class LaravelMenu
                     if (Entrust::can(['type.manage'])) {
                         $adminMenu->add('攤位類型', ['route' => 'type.index'])->active('type/*');
                     }
+
+                    if (Entrust::can(['point.manage'])) {
+                        $adminMenu->add('打卡集點記錄', ['route' => 'point.index']);
+                    }
+
                     if (Entrust::can(['setting.manage'])) {
                         $adminMenu->add('網站設定', ['route' => 'setting.index'])->divide();
                     }

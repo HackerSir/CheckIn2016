@@ -63,6 +63,16 @@ Route::group(['middleware' => ['auth', 'email']], function () {
         Route::get('{checkBooth}', 'CheckController@getBooth')->name('check.booth');
         Route::post('{checkBooth}', 'CheckController@postBooth')->name('check.booth');
     });
+    //打卡集點記錄管理
+    Route::group(['middleware' => 'permission:point.manage'], function () {
+        Route::resource('point', 'PointController', [
+            'except' => [
+                'show',
+                'edit',
+                'update',
+            ],
+        ]);
+    });
     //會員資料
     Route::group(['prefix' => 'profile'], function () {
         //查看會員資料

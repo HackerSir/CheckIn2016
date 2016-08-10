@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Booth;
+use App\Point;
 use App\User;
+use Carbon\Carbon;
 
 class CheckInService
 {
@@ -16,16 +18,23 @@ class CheckInService
      */
     public function checkIn(Booth $booth, User $user)
     {
-        //TODO:打卡集點
+        //打卡集點
+        Point::create([
+            'user_id'  => $user->id,
+            'booth_id' => $booth->id,
+            'check_at' => Carbon::now(),
+        ]);
+        //檢查是否達成目標
+        $this->checkTarget($user);
         return true;
     }
 
     /**
-     * 檢查是否需要建立抽獎券
+     * 檢查是否達成目標
      *
      * @param User $user
      */
-    public function checkTicket(User $user)
+    public function checkTarget(User $user)
     {
         //TODO:檢查使用者未擁有抽獎券
         //TODO:檢查完成任務

@@ -4,9 +4,7 @@
 # Deploy Laravel
 echo "Task<1>: Deploying Laravel environment..."
 composer install
-cp .env.example .env
-php artisan key:generate
-composer run-script post-update-cmd
+php artisan migrate
 echo "Task<1>: Done."
 
 # Build Semantic UI

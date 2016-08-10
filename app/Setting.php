@@ -29,11 +29,13 @@ class Setting extends Model
         'desc',
         'data',
     ];
+
     /** @static array $types 有效型態與對應簡介 */
     public static $types = [
         'text'      => '單行文字',
         'multiline' => '多行文字',
-        'boolean'   => '布林值'
+        'boolean'   => '布林值',
+        'int'       => '整數',
     ];
 
     /**
@@ -132,6 +134,9 @@ class Setting extends Model
             $bool = filter_var($this->data, FILTER_VALIDATE_BOOLEAN);
             return $bool;
         }
+        if ($this->getType() == 'int') {
+            return intval($this->data);
+        }
         //無效型態
         return 'Invalid Setting Type';
     }
@@ -152,6 +157,9 @@ class Setting extends Model
         }
         if ($this->getType() == 'boolean') {
             return 'select';
+        }
+        if ($this->getType() == 'text') {
+            return 'text';
         }
         //無效型態
         return 'Invalid Setting Type';

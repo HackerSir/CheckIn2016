@@ -1,7 +1,7 @@
-<div class="field search required{{ ($errors->has('color'))?' error':'' }}">
+<div class="field search required{{ ($errors->has('user_id'))?' error':'' }}">
     <label>使用者</label>
     <div class="ui fluid search selection dropdown">
-        <input type="hidden" name="user_id">
+        <input type="hidden" name="user_id" value="{{ Request::old('user_id') }}">
         <i class="dropdown icon"></i>
         <div class="default text">選擇使用者</div>
         <div class="menu">

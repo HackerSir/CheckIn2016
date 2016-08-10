@@ -21,7 +21,7 @@ class LaravelMenu
         Menu::make('left', function ($menu) {
             /* @var \Lavary\Menu\Builder $menu */
             $menu->add('首頁', ['route' => 'index']);
-            $menu->add('攤位', ['route' => 'booth.index']);
+            $menu->add('攤位', ['route' => 'booth.index'])->active('booth/*');
         });
         //右側
         Menu::make('right', function ($menu) {

@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     //攤位管理
     //權限：booth.manage
     Route::post('booth/{booth}/updateCode', 'BoothController@updateCode')->name('booth.updateCode');
+    Route::any('booth/data', 'BoothController@anyData')->name('booth.data');
     Route::resource('booth', 'BoothController');
     //網站設定
     //權限：setting.edit

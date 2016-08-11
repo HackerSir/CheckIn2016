@@ -40,4 +40,18 @@ class Type extends Model
     {
         return $this->hasMany(Booth::class);
     }
+
+    public static function getList()
+    {
+        $types = static::all();
+        $typeList = [];
+        foreach ($types as $type) {
+            $typeList[$type->id] = [
+                'name' => $type->name,
+                'tag'  => $type->tag,
+            ];
+        }
+
+        return json_encode($typeList);
+    }
 }

@@ -11,6 +11,7 @@
     {{-- CSS --}}
     {!! Html::style('semantic/semantic.min.css') !!}
     {!! Html::style('https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css') !!}
+    {!! Html::style('https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css') !!}
     <style>
@@ -82,6 +83,8 @@
 {{-- Javascript --}}
 {!! Html::script('//code.jquery.com/jquery-3.1.0.min.js') !!}
 {!! Html::script('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js') !!}
+{!! Html::script('https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js') !!}
+{!! Html::script('https://cdn.datatables.net/1.10.12/js/dataTables.semanticui.min.js') !!}
 {!! Html::script('semantic/semantic.js') !!}
 {!! Html::script('//cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js') !!}
 <script>
@@ -114,6 +117,28 @@
                 variation: 'inverted',
                 position: 'right center'
             });
+        });
+
+        // DataTable 預設設定
+        $.extend(true, $.fn.dataTable.defaults, {
+            processing: true,
+            serverSide: true,
+            pageLength: 50,
+            oLanguage: {
+                sProcessing: '處理中...',
+                sLengthMenu: '顯示 _MENU_ 項結果',
+                sZeroRecords: '沒有匹配結果',
+                sInfo: '顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項',
+                sInfoEmpty: '顯示第 0 至 0 項結果，共 0 項',
+                sInfoFiltered: '（從 _MAX_ 項結果過濾）',
+                sSearch: '搜索：',
+                oPaginate: {
+                    sFirst: '第一頁',
+                    sPrevious: '上一頁',
+                    sNext: '下一頁',
+                    sLast: '最後一頁'
+                }
+            }
         });
     });
 </script>

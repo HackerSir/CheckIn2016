@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Booth;
+use Datatables;
 use Illuminate\Http\Request;
 
 class BoothController extends Controller
@@ -16,6 +17,7 @@ class BoothController extends Controller
             'except' => [
                 'index',
                 'show',
+                'anyData',
             ],
         ]);
     }
@@ -27,9 +29,7 @@ class BoothController extends Controller
      */
     public function index()
     {
-        $booths = Booth::with('type')->paginate();
-
-        return view('booth.index', compact('booths'));
+        return view('booth.index');
     }
 
     /**
@@ -121,6 +121,16 @@ class BoothController extends Controller
         $booth->delete();
 
         return redirect()->route('booth.index')->with('global', '攤位已刪除');
+    }
+
+    /**
+     * Process datatables ajax request.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function anyData()
+    {
+        return Datatables::of(Booth::query())->make(true);
     }
 
     public function updateCode(Booth $booth, Request $request)

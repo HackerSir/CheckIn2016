@@ -32,7 +32,6 @@ class TicketController extends Controller
         return redirect()->route('ticket.index')->with('global', '抽獎券已刪除');
     }
 
-
     /**
      * Process datatables ajax request.
      *

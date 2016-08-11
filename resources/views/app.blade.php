@@ -16,20 +16,7 @@
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css') !!}
     <style>
         body {
-            margin-top: 70px;
-            margin-bottom: 70px;
-            height: auto;
-        }
-
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: .4;
-            z-index: -1;
+            padding-top: 70px;
             background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center;
         }
 

@@ -10,7 +10,7 @@
         <span class="ui brown ribbon label">使用者</span>
         {{ auth()->user()->name }}
     </div>
-    {{-- TODO: 抽獎券 --}}
+    {{-- 抽獎券 --}}
     @if(auth()->user()->ticket)
         <div class="ui segment">
             <span class="ui green ribbon label">抽獎編號</span>

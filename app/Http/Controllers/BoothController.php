@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Booth;
 use Datatables;
-use DB;
 use Illuminate\Http\Request;
 
 class BoothController extends Controller

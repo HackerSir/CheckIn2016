@@ -131,7 +131,7 @@ class BoothController extends Controller
     public function anyData()
     {
         $dataTables = Datatables::of(Booth::with('type'))
-            ->filterColumn('type', function ($query, $keyword) {
+            ->filterColumn('type_id', function ($query, $keyword) {
                 //FIXME: 過濾查詢優化
                 $query->whereIn('type_id', function ($query) use ($keyword) {
                     $query->select('types.id')

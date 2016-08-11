@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     });
     //抽獎券管理
     Route::group(['middleware' => 'permission:ticket.manage'], function () {
+        Route::any('ticket/data', 'TicketController@anyData')->name('ticket.data');
         Route::resource('ticket', 'TicketController', [
             'only' => [
                 'index',

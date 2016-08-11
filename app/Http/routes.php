@@ -66,6 +66,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     });
     //打卡集點記錄管理
     Route::group(['middleware' => 'permission:point.manage'], function () {
+        Route::any('point/data', 'PointController@anyData')->name('point.data');
         Route::resource('point', 'PointController', [
             'except' => [
                 'show',

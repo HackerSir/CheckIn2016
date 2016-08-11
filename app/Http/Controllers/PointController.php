@@ -6,6 +6,7 @@ use App\Booth;
 use App\Point;
 use App\Services\CheckInService;
 use App\User;
+use Datatables;
 use Illuminate\Http\Request;
 
 class PointController extends Controller
@@ -31,9 +32,7 @@ class PointController extends Controller
      */
     public function index()
     {
-        $points = Point::with('user', 'booth')->orderBy('created_at', 'desc')->paginate();
-
-        return view('point.index', compact('points'));
+        return view('point.index');
     }
 
     /**
@@ -77,5 +76,37 @@ class PointController extends Controller
         $point->delete();
 
         return redirect()->route('point.index')->with('global', '打卡集點記錄已刪除');
+    }
+
+    /**
+     * Process datatables ajax request.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function anyData()
+    {
+        $dataTables = Datatables::of(Point::with('user', 'booth'))
+            ->filterColumn('user_id', function ($query, $keyword) {
+                //FIXME: 過濾查詢優化
+                $query->whereIn('user_id', function ($query) use ($keyword) {
+                    $query->select('users.id')
+                        ->from('users')
+                        ->join('points', 'users.id', '=', 'points.user_id')
+                        ->whereRaw('users.name LIKE ?', ['%' . $keyword . '%']);
+                });
+            })
+            ->filterColumn('booth_id', function ($query, $keyword) {
+                //FIXME: 過濾查詢優化
+                //TODO: 連同攤位分類名稱一起查詢
+                $query->whereIn('booth_id', function ($query) use ($keyword) {
+                    $query->select('booths.id')
+                        ->from('booths')
+                        ->join('points', 'booths.id', '=', 'points.booth_id')
+                        ->whereRaw('booths.name LIKE ?', ['%' . $keyword . '%']);
+                });
+            })
+            ->make(true);
+
+        return $dataTables;
     }
 }

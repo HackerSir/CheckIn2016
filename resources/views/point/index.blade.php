@@ -9,7 +9,7 @@
     <a href="{{ route('point.create') }}" class="ui icon brown inverted button">
         <i class="plus icon" aria-hidden="true"></i> 新增打卡集點記錄
     </a>
-    <table class="ui selectable celled padded unstackable table">
+    <table class="ui selectable celled padded unstackable table" id="point-table">
         <thead>
         <tr>
             <th>#</th>
@@ -18,36 +18,63 @@
             <th>打卡集點時間</th>
             <th>操作</th>
         </tr>
-        </thead>
-        <tbody>
-        @foreach($points as $point)
-            <tr>
-                <td>
-                    {{ $point->id }}
-                </td>
-                <td>
-                    {{ link_to_route('user.show', $point->user->name, $point->user, ['target' => '_blank']) }}
-                </td>
-                <td>
-                    <a href="{{ route('booth.show', $point->booth) }}" target="_blank">
-                        {!! $point->booth->type->tag or '' !!} {{ $point->booth->name }}
-                    </a>
-                </td>
-                <td>
-                    {{ $point->check_at }}
-                </td>
-                <td>
-                    {!! Form::open(['route' => ['point.destroy', $point], 'style' => 'display: inline', 'method' => 'DELETE', 'onSubmit' => "return confirm('確定要刪除此打卡集點記錄嗎？');"]) !!}
-                    <button type="submit" class="ui icon red inverted button" title="刪除打卡集點記錄">
-                        <i class="trash icon"></i>
-                    </button>
-                    {!! Form::close() !!}
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
     </table>
-    <div class="ui center aligned attached segment" style="border: none">
-        {!! (new Landish\Pagination\SemanticUI($points))->render() !!}
-    </div>
+@endsection
+
+@section('js')
+    <script>
+        var types;
+        $(function () {
+            types = {!! \App\Type::getList() !!};
+            $('#point-table').DataTable({
+                ajax: '{!! route('point.data') !!}',
+                order: [[0, 'desc']],
+                columns: [
+                    {data: 'id'},
+                    {
+                        data: 'user_id',
+                        render: function (data, type, full, meta) {
+                            if (type === 'display') {
+                                return '<a href="{{ route('user.index') }}/' + full.user.id + '" target="_blank">' + full.user.name + '</a>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'booth_id',
+                        render: function (data, type, full, meta) {
+                            if (type === 'display') {
+                                var html = '<a href="{{ route('booth.index') }}/' + full.booth.id + '" target="_blank">';
+                                if (types[full.booth.type_id] != undefined) {
+                                    html += types[full.booth.type_id]['tag'] + ' ';
+                                }
+                                html += full.booth.name + '</a>';
+                                return html;
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'check_at'
+                    },
+                    {
+                        searchable: false,
+                        sortable: false,
+                        data: 'id',
+                        render: function (data, type, full, meta) {
+                            var btnBar = '';
+                            btnBar += '<form method="POST" action="{{ route('point.index') }}/' + data + '" accept-charset="UTF-8" style="display: inline" onsubmit="return confirm(\'確定要刪除此打卡集點記錄嗎？\');">';
+                            btnBar += '{{ method_field('DELETE') }}';
+                            btnBar += '<input name="_token" type="hidden" value="{{ csrf_token() }}">';
+                            btnBar += '<button type="submit" class="ui icon red inverted button" data-tooltip="刪除打卡集點記錄" data-position="right center" data-inverted="">';
+                            btnBar += '<i class="trash icon"></i>';
+                            btnBar += '</button>';
+                            btnBar += '</form>';
+                            return btnBar;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
 @endsection

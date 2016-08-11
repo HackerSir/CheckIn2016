@@ -44,6 +44,8 @@
                     },
                     {data: 'name'},
                     {
+                        searchable: false,
+                        sortable: false,
                         data: 'image',
                         render: function (data, type, full, meta) {
                             if (!data) {
@@ -53,6 +55,8 @@
                         }
                     },
                     {
+                        searchable: false,
+                        sortable: false,
                         data: 'id',
                         render: function (data, type, full, meta) {
                             var btnBar = '';
@@ -65,7 +69,7 @@
                             btnBar += '<i class="trash icon"></i>';
                             btnBar += '</button>';
                             btnBar += '</form>';
-                            return btnBar
+                            return btnBar;
                         }
                     }
                 ]

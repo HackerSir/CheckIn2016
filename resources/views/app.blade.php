@@ -14,18 +14,12 @@
     {!! Html::style('https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css') !!}
+    {!! Html::style('css/sticky-footer.css') !!}
     <style>
         body {
             padding-top: 70px;
+            height: auto;
             background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center;
-        }
-
-        div#footer {
-            margin: 0;
-            width: 100%;
-            position: fixed;
-            bottom: 0;
-            /*opacity: 0.8;*/
         }
 
         .secondary.pointing.menu {
@@ -59,7 +53,7 @@
 </div>
 
 {{-- Footer --}}
-<div class="ui inverted center aligned segment" id="footer">
+<div class="ui inverted center aligned segment footer">
     <div class="ui container center aligned">
         <p>
             Copyright (c) 2016 Feng Chia University Hackers' Club (a.k.a. HackerSir), All rights reserved.

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Booth;
 use Datatables;
+use DB;
 use Illuminate\Http\Request;
 
 class BoothController extends Controller
@@ -130,7 +131,19 @@ class BoothController extends Controller
      */
     public function anyData()
     {
-        return Datatables::of(Booth::query())->make(true);
+        $dataTables = Datatables::of(Booth::with('type'))
+            ->filterColumn('type', function ($query, $keyword) {
+                //FIXME: 過濾查詢優化
+                $query->whereIn('type_id', function ($query) use ($keyword) {
+                    $query->select('types.id')
+                        ->from('types')
+                        ->join('booths', 'types.id', '=', 'booths.type_id')
+                        ->whereRaw('types.name LIKE ?', ['%' . $keyword . '%']);
+                });
+            })
+            ->make(true);
+
+        return $dataTables;
     }
 
     public function updateCode(Booth $booth, Request $request)

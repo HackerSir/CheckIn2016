@@ -34,12 +34,12 @@
                 columns: [
                     {data: 'id'},
                     {
-                        data: 'type_id',
+                        data: 'type',
                         render: function (data, type, full, meta) {
-                            if (types[data] === undefined) {
+                            if (data == null || types[data.id] === undefined) {
                                 return '';
                             }
-                            return types[data]['tag'];
+                            return types[data.id]['tag'];
                         }
                     },
                     {data: 'name'},

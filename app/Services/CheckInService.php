@@ -8,6 +8,7 @@ use App\Setting;
 use App\Type;
 use App\User;
 use Carbon\Carbon;
+use DB;
 
 class CheckInService
 {
@@ -47,26 +48,27 @@ class CheckInService
         //檢查完成任務
         //類型
         $types = Type::all();
-        //FIXME: 查詢可優化
-        //打卡集點記錄
-        $points = Point::with('user', 'booth.type')->where('user_id', $user->id)->groupBy('booth_id')->get();
+        //打卡集點記錄（依據攤位聚合）
+        $checkRecords = DB::table('points')
+            ->where('user_id', $user->id)
+            ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
+            ->join('booths', 'points.booth_id', '=', 'booths.id')
+            ->groupBy('booth_id', 'type_id')
+            ->get();
         //進度
         $progress = [];
         $progress['total'] = [
-            'now'    => count($points),
+            'now'    => count($checkRecords),
             'target' => Setting::get('GlobalTarget'),
         ];
         foreach ($types as $type) {
+            $nowCount = count(array_filter($checkRecords, function ($value) use ($type) {
+                return $value->type_id == $type->id;
+            }));
             $progress[$type->id] = [
-                'now'    => 0,
+                'now'    => $nowCount,
                 'target' => $type->target,
             ];
-        }
-
-        foreach ($points as $point) {
-            if (isset($progress[$point->booth->type_id])) {
-                $progress[$point->booth->type_id]['now']++;
-            }
         }
 
         //逐一檢查是否完成

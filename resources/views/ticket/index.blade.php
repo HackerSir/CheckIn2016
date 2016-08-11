@@ -9,7 +9,7 @@
     <table class="ui selectable celled padded unstackable table" id="ticket-table">
         <thead>
         <tr>
-            <th>#</th>
+            <th>抽獎編號</th>
             <th>使用者</th>
             <th>時間</th>
             <th>操作</th>

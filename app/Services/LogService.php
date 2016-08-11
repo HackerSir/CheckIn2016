@@ -8,7 +8,6 @@ use Monolog\Logger as MonologLogger;
 
 /**
  * Class LogService
- * @package App\Services
  *
  * @method null debug($message, $data1 = null, $data2 = null, $data3 = null, $data4 = null, $data5 = null)
  * @method null info($message, $data1 = null, $data2 = null, $data3 = null, $data4 = null, $data5 = null)
@@ -26,7 +25,7 @@ class LogService
      *
      * @var array
      */
-    static protected $levels = [
+    protected static $levels = [
         'debug'     => MonologLogger::DEBUG,
         'info'      => MonologLogger::INFO,
         'notice'    => MonologLogger::NOTICE,
@@ -37,10 +36,10 @@ class LogService
         'emergency' => MonologLogger::EMERGENCY,
     ];
 
-    static protected $jsonOptions =
+    protected static $jsonOptions =
         JSON_UNESCAPED_UNICODE              //不跳脫Unicode字元
         + JSON_UNESCAPED_SLASHES            //不跳脫斜線
-    ;
+;
 
     /**
      * Log an message to the logs.

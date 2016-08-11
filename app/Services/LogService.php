@@ -38,8 +38,7 @@ class LogService
 
     protected static $jsonOptions =
         JSON_UNESCAPED_UNICODE              //不跳脫Unicode字元
-        + JSON_UNESCAPED_SLASHES            //不跳脫斜線
-;
+        + JSON_UNESCAPED_SLASHES;            //不跳脫斜線
 
     /**
      * Log an message to the logs.

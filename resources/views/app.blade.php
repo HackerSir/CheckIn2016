@@ -48,9 +48,15 @@
 @include('navbar.menu')
 
 {{-- Content --}}
-<div class="ui container" style="">
-    @yield('content')
-</div>
+@if(Request::is('/'))
+    <div class="ui container">
+        @yield('content')
+    </div>
+@else
+    <div class="ui container segment" style="background-color: rgba(255,255,255,0.8)">
+        @yield('content')
+    </div>
+@endif
 
 {{-- Footer --}}
 <div class="ui inverted center aligned segment footer">

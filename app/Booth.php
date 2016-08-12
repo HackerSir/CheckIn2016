@@ -77,9 +77,10 @@ class Booth extends Model
     public function getQRAttribute()
     {
         $checkUrl = route('check.booth', $this->code);
+        $size = 450;
         $query = [
             'cht'  => 'qr',
-            'chs'  => '400x400',
+            'chs'  => $size . 'x' . $size,
             'chl'  => $checkUrl,
             'chld' => 'M',
         ];

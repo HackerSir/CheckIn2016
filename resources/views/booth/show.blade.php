@@ -9,42 +9,40 @@
     @include('booth.info', $booth)
 
     @if(Entrust::can('booth.manage'))
-        <table class="ui selectable stackable table">
-            <thead>
-            <tr>
-                <th colspan="2" class="center aligned">管理限定</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="four wide right aligned">CODE：</td>
-                <td>
+        <div class="ui segments">
+            <div class="ui center aligned segment">
+                <span class="ui header">管理限定</span>
+            </div>
+            <div class="ui segment">
+                <span class="ui orange ribbon label">CODE</span>
+                <div>
                     {{ $booth->code }}
                     {!! Form::open(['route' => ['booth.updateCode', $booth], 'style' => 'display: inline', 'onSubmit' => "return confirm('這會使原本的QR碼失效，確定更新CODE嗎？');"]) !!}
                     <button type="submit" class="ui icon red inverted button" title="更新CODE（會使原本的QR碼失效）">
                         <i class="refresh icon"></i>
                     </button>
                     {!! Form::close() !!}
-                </td>
-            </tr>
-            <tr>
-                <td class="four wide right aligned">打卡網址：</td>
-                <td>
-                    <a href="{{ route('check.booth', $booth->code) }}" target="_blank">
-                        <i class="linkify icon"></i> {{ route('check.booth', $booth->code) }}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td class="four wide right aligned">打卡QR碼：</td>
-                <td>
+                </div>
+            </div>
+            <div class="ui segment">
+                <span class="ui blue ribbon label">打卡網址</span>
+                <div>
+                    <nobr>
+                        <a href="{{ route('check.booth', $booth->code) }}" target="_blank">
+                            <i class="linkify icon"></i> {{ route('check.booth', $booth->code) }}
+                        </a>
+                    </nobr>
+                </div>
+            </div>
+            <div class="ui segment">
+                <span class="ui blue ribbon label">打卡QR碼</span>
+                <div style="max-width: 450px">
                     <a href="{{ $booth->QR }}" target="_blank">
-                        <img src="{{ $booth->QR }}">
+                        <img src="{{ $booth->QR }}" class="ui large image">
                     </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </div>
+            </div>
+        </div>
     @endif
 
     <div style="text-align: center">

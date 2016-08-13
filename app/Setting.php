@@ -139,6 +139,7 @@ class Setting extends Model
         if ($this->getType() == 'int') {
             return intval($this->data);
         }
+
         //無效型態
         return 'Invalid Setting Type';
     }
@@ -163,6 +164,7 @@ class Setting extends Model
         if ($this->getType() == 'int') {
             return 'text';
         }
+
         //無效型態
         return 'Invalid Setting Type';
     }

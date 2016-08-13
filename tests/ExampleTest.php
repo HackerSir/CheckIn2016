@@ -1,6 +1,5 @@
 <?php
 
-
 class ExampleTest extends TestCase
 {
     /**
@@ -11,6 +10,6 @@ class ExampleTest extends TestCase
     public function testBasicExample()
     {
         $this->visit('/')
-             ->see('社團博覽會');
+            ->see('社團博覽會');
     }
 }

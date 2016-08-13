@@ -29,7 +29,7 @@ return [
             'AutoFormat.AutoParagraph' => true,
             'AutoFormat.RemoveEmpty'   => true,
         ],
-        'test' => [
+        'test'    => [
             'Attr.EnableID' => true,
         ],
         'youtube' => [

@@ -1,4 +1,4 @@
 <?php
-    return [
-        'name' => 'CheckIn',
-    ];
+return [
+    'name' => 'CheckIn',
+];

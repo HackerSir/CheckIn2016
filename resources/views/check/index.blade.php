@@ -26,11 +26,13 @@
                 <div class="column"><span class="ui tag label single line">所有攤位</span></div>
                 <div class="column">
                     @if($progress['total']['target'] > 0)
-                        <div class="ui indicating progress" data-value="{{ $progress['total']['now'] }}" data-total="{{ $progress['total']['target'] }}">
+                        <div class="ui indicating progress" data-value="{{ $progress['total']['now'] }}"
+                             data-total="{{ $progress['total']['target'] }}">
                             <div class="bar">
                                 <div class="progress"></div>
                             </div>
-                            <div class="label">{{ $progress['total']['now'] }} / {{ $progress['total']['target'] }}</div>
+                            <div class="label">{{ $progress['total']['now'] }}
+                                / {{ $progress['total']['target'] }}</div>
                         </div>
                     @else
                         {{ $progress['total']['now'] }} / 無目標
@@ -42,11 +44,13 @@
                     <div class="column">{!! $type->tag !!}</div>
                     <div class="column">
                         @if($type->target > 0)
-                            <div class="ui indicating progress" data-value="{{ $progress[$type->id]['now'] }}" data-total="{{ $progress[$type->id]['target'] }}">
+                            <div class="ui indicating progress" data-value="{{ $progress[$type->id]['now'] }}"
+                                 data-total="{{ $progress[$type->id]['target'] }}">
                                 <div class="bar">
                                     <div class="progress"></div>
                                 </div>
-                                <div class="label">{{ $progress[$type->id]['now'] }} / {{ $progress[$type->id]['target'] }}</div>
+                                <div class="label">{{ $progress[$type->id]['now'] }}
+                                    / {{ $progress[$type->id]['target'] }}</div>
                             </div>
                         @else
                             {{ $progress[$type->id]['now'] }} / 無目標

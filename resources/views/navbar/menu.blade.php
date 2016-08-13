@@ -1,5 +1,6 @@
 {{-- 由LaravelMenu或自動生成 --}}
-<div class="ui large center aligned secondary pointing menu transition fixed" style="z-index: 3; background-color: white" id="navbar">
+<div class="ui large center aligned secondary pointing menu transition fixed"
+     style="z-index: 3; background-color: white" id="navbar">
     <div class="ui container">
         <a class="toc item inverted">
             <i class="sidebar icon"></i>

@@ -18,7 +18,7 @@ return [
     | the role if it is in a different namespace.
     |
     */
-    'role' => 'App\Role',
+    'role'                  => 'App\Role',
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
     | This is the roles table used by Entrust to save roles to the database.
     |
     */
-    'roles_table' => 'roles',
+    'roles_table'           => 'roles',
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     | Update the permission if it is in a different namespace.
     |
     */
-    'permission' => 'App\Permission',
+    'permission'            => 'App\Permission',
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ return [
     | database.
     |
     */
-    'permissions_table' => 'permissions',
+    'permissions_table'     => 'permissions',
 
     /*
     |--------------------------------------------------------------------------
@@ -72,20 +72,20 @@ return [
     | database.
     |
     */
-    'role_user_table' => 'role_user',
+    'role_user_table'       => 'role_user',
 
     /*
     |--------------------------------------------------------------------------
     | User Foreign key on Entrust's role_user Table (Pivot)
     |--------------------------------------------------------------------------
     */
-    'user_foreign_key' => 'user_id',
+    'user_foreign_key'      => 'user_id',
 
     /*
     |--------------------------------------------------------------------------
     | Role Foreign key on Entrust's role_user Table (Pivot)
     |--------------------------------------------------------------------------
     */
-    'role_foreign_key' => 'role_id',
+    'role_foreign_key'      => 'role_id',
 
 ];

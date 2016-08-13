@@ -1,6 +1,5 @@
 <?php
 
-
 return [
 
     /*
@@ -45,7 +44,6 @@ return [
         'app',
     ],
 
-
     /*
     |--------------------------------------------------------------------------
     | Extra classes
@@ -83,7 +81,7 @@ return [
     |
     */
 
-    'interfaces' => [
+    'interfaces'                  => [
 
     ],
 
@@ -113,7 +111,7 @@ return [
     |  ),
     |
     */
-    'custom_db_types' => [
+    'custom_db_types'             => [
 
     ],
 

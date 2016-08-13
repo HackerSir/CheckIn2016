@@ -37,9 +37,14 @@
             </td>
             <td>
                 @if($setting->getType() == 'boolean')
-                    <div class="editableField" data-pk="{{ $setting->id }}" data-type="select" data-url="{{ route('setting.update', $setting->id) }}" data-source="[{'value':1, 'text':'✔ True'},{'value':0, 'text':'✘ False'}]" data-value="{{ ($setting->getData()) ? 1 : 0 }}">{{ ($setting->getData()) ? '✔ True' : '✘ False' }}</div>
+                    <div class="editableField" data-pk="{{ $setting->id }}" data-type="select"
+                         data-url="{{ route('setting.update', $setting->id) }}"
+                         data-source="[{'value':1, 'text':'✔ True'},{'value':0, 'text':'✘ False'}]"
+                         data-value="{{ ($setting->getData()) ? 1 : 0 }}">{{ ($setting->getData()) ? '✔ True' : '✘ False' }}</div>
                 @else
-                    <div class="editableField" data-pk="{{ $setting->id }}" data-type="{{ $setting->getHtmlFieldType() }}" data-url="{{ route('setting.update', $setting->id) }}">{{ $setting->data }}</div>
+                    <div class="editableField" data-pk="{{ $setting->id }}"
+                         data-type="{{ $setting->getHtmlFieldType() }}"
+                         data-url="{{ route('setting.update', $setting->id) }}">{{ $setting->data }}</div>
                 @endif
             </td>
         @endforeach

@@ -117,6 +117,7 @@ class AuthController extends Controller
             $admin = Role::where('name', '=', 'Admin')->first();
             $user->attachRole($admin);
         }
+
         // 回傳結果
         return $result->with('global', '註冊完成，請至信箱收取驗證信件。');
     }

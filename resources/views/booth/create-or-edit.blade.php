@@ -36,7 +36,8 @@
                     </div>
                     @foreach(\App\Type::all() as $booth)
                         <div class="item" data-value="{{ $booth->id }}">
-                            <span class="ui tag label single line {{ $booth->color }}" style="margin-left: 10px">{{ $booth->name }}</span>
+                            <span class="ui tag label single line {{ $booth->color }}"
+                                  style="margin-left: 10px">{{ $booth->name }}</span>
                         </div>
                     @endforeach
                 </div>

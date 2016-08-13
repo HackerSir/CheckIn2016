@@ -50,7 +50,6 @@ class CreateManagePermissions extends Migration
             'description'  => '新增、修改、刪除角色',
         ]);
 
-
         // Find Admin and give permission to him
         /* @var Role $admin */
         $admin = Role::where('name', 'Admin')->first();

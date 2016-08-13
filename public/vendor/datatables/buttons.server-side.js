@@ -1,7 +1,7 @@
 (function ($, DataTable) {
     "use strict";
 
-    var _buildUrl = function(dt, action) {
+    var _buildUrl = function (dt, action) {
         var url = dt.ajax.url() || '';
         var params = dt.ajax.params();
         params.action = action;
@@ -64,7 +64,7 @@
         className: 'buttons-print',
 
         text: function (dt) {
-            return  '<i class="fa fa-print"></i> ' + dt.i18n('buttons.print', 'Print');
+            return '<i class="fa fa-print"></i> ' + dt.i18n('buttons.print', 'Print');
         },
 
         action: function (e, dt, button, config) {

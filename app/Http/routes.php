@@ -11,7 +11,6 @@
 |
 */
 
-
 //會員（須完成信箱驗證）
 Route::group(['middleware' => ['auth', 'email']], function () {
     //攤位類型管理
@@ -94,7 +93,6 @@ Route::group(['middleware' => ['auth', 'email']], function () {
         Route::put('update', 'ProfileController@updateProfile')->name('profile.update');
     });
 });
-
 
 //會員系統
 //麵包屑要求對全部路由命名，因此將 Route::auth() 複製出來自己命名

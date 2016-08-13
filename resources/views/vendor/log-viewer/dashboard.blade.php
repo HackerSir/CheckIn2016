@@ -12,7 +12,8 @@
                 <div class="row">
                     @foreach($percents as $level => $item)
                         <div class="col-md-4">
-                            <div class="info-box level level-{{ $level }} {{ $item['count'] === 0 ? 'level-empty' : '' }}">
+                            <div
+                                class="info-box level level-{{ $level }} {{ $item['count'] === 0 ? 'level-empty' : '' }}">
                                 <span class="info-box-icon">
                                     {!! log_styler()->icon($level) !!}
                                 </span>
@@ -37,12 +38,12 @@
 
 @section('scripts')
     <script>
-        $(function() {
+        $(function () {
             var data = {!! $reports !!};
 
             new Chart($('#stats-doughnut-chart')[0].getContext('2d'))
                 .Doughnut(data, {
-                    animationEasing : "easeOutQuart"
+                    animationEasing: "easeOutQuart"
                 });
         });
     </script>

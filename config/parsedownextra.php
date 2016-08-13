@@ -13,7 +13,7 @@ return [
                 'HTML.Nofollow'    => true,
                 'HTML.TargetBlank' => true,
 
-                'Output.SortAttr' => true,
+                'Output.SortAttr'   => true,
 
                 // List by https://linkdecrypter.com/
                 'URI.HostBlacklist' => [

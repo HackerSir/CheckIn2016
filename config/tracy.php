@@ -16,7 +16,7 @@ return [
         'routing'        => true,
         'database'       => true,
         'view'           => true,
-        'event'          => false,
+        'event'          => true,
         'session'        => true,
         'request'        => true,
         'auth'           => true,

@@ -52,7 +52,9 @@ class TypeController extends Controller
             'color'  => 'required|in:' . implode(',', ColorTagTrait::$validColors),
         ]);
 
-        Type::create($request->all());
+        Type::create(array_merge($request->all(), [
+            'counted' => $request->has('counted'),
+        ]));
 
         return redirect()->route('type.index')->with('global', '攤位類型已新增');
     }
@@ -83,7 +85,9 @@ class TypeController extends Controller
             'color'  => 'required|in:' . implode(',', ColorTagTrait::$validColors),
         ]);
 
-        $type->update($request->all());
+        $type->update(array_merge($request->all(), [
+            'counted' => $request->has('counted'),
+        ]));
 
         return redirect()->route('type.index')->with('global', '攤位類型已更新');
     }

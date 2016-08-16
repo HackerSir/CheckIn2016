@@ -46,6 +46,7 @@ class CheckInService
             return;
         }
         //檢查完成任務
+        //FIXME: 程式碼重複（CheckController）
         //類型
         $types = Type::all();
         //打卡集點記錄（依據攤位聚合）
@@ -55,10 +56,23 @@ class CheckInService
             ->join('booths', 'points.booth_id', '=', 'booths.id')
             ->groupBy('booth_id', 'type_id')
             ->get();
+        //計算「全部」
+        $countedTypeIds = Type::where('counted', true)->pluck('id');
+        $countedRecords = DB::table('points')
+            ->where('user_id', $user->id)
+            ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
+            ->join('booths', 'points.booth_id', '=', 'booths.id')
+            ->groupBy('booth_id', 'type_id')
+            ->where(function ($query) use ($countedTypeIds) {
+                /** @var \Illuminate\Database\Query\Builder $query */
+                $query->whereIn('type_id', $countedTypeIds)
+                    ->orWhereNull('type_id');
+            })
+            ->get();
         //進度
         $progress = [];
         $progress['total'] = [
-            'now'    => count($checkRecords),
+            'now'    => count($countedRecords),
             'target' => Setting::get('GlobalTarget'),
         ];
         foreach ($types as $type) {

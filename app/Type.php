@@ -28,6 +28,7 @@ class Type extends Model
         'name',
         'target',
         'color',
+        'counted',
     ];
 
     /** @var int $perPage 分頁時的每頁數量 */

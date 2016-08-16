@@ -19,6 +19,11 @@
         {!! SemanticForm::text('name')->label('攤位類型名稱')->placeholder('如：學藝性')->required() !!}
         {!! SemanticForm::text('target')->label('目標攤位數量')->placeholder('過關需求該類型攤位數量，預設為0，表示無要求數量') !!}
         @include('form.field.color', ['errors' => $errors, 'model' => isset($type) ? $type : null])
+        @if($isEditMode)
+            {!! SemanticForm::checkbox('counted')->label('打卡計算到「全部」的攤位數量') !!}
+        @else
+            {!! SemanticForm::checkbox('counted')->label('打卡計算到「全部」的攤位數量')->defaultToChecked() !!}
+        @endif
         <div style="text-align: center">
             <a href="{{ route('type.index') }}" class="ui blue inverted icon button">
                 <i class="icon arrow left"></i> 返回列表

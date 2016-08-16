@@ -39,6 +39,11 @@
         @foreach($types as $type)
             <tr>
                 <td>
+                    @if($type->counted)
+                        <i class="green checkmark icon" title="「全部」包含此類型"></i>
+                    @else
+                        <i class="red remove icon" title="「全部」不包含此類型"></i>
+                    @endif
                     {{ $type->name }}
                 </td>
                 <td>

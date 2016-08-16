@@ -64,7 +64,7 @@ class CheckInService
             ->join('booths', 'points.booth_id', '=', 'booths.id')
             ->groupBy('booth_id', 'type_id')
             ->where(function ($query) use ($countedTypeIds) {
-                /** @var \Illuminate\Database\Query\Builder $query */
+                /* @var \Illuminate\Database\Query\Builder $query */
                 $query->whereIn('type_id', $countedTypeIds)
                     ->orWhereNull('type_id');
             })

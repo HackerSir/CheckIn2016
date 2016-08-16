@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     //打卡集點相關
     Route::group(['prefix' => 'check'], function () {
         Route::get('/', 'CheckController@getIndex')->name('check.index');
+        Route::get('record', 'CheckController@getRecord')->name('check.record');
         //重新綁定模型，並以code作為篩選條件
         Route::model('checkBooth', 'App\Booth');
         Route::bind('checkBooth', function ($code) {

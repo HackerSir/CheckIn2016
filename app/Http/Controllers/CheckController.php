@@ -77,6 +77,15 @@ class CheckController extends Controller
         return view('check.index', compact('types', 'progress', 'lastPoints'));
     }
 
+    public function getRecord()
+    {
+        $user = auth()->user();
+        $points = Point::with('user', 'booth.type')->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')->groupBy('booth_id')->paginate(10);
+
+        return view('check.record', compact('points'));
+    }
+
     /**
      * 攤位頁面（有打卡集點按鈕）
      *

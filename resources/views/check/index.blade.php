@@ -6,6 +6,12 @@
     <h2 class="ui teal header center aligned">
         打卡集點
     </h2>
+    <div style="text-align: right">
+        <a href="{{ route('check.record') }}" class="ui right labeled icon blue inverted button">
+            <i class="arrow right icon"></i>
+            打卡記錄
+        </a>
+    </div>
     <div class="ui segment">
         <span class="ui brown ribbon label">使用者</span>
         {{ auth()->user()->name }}

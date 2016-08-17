@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Booth;
 use App\Traits\ColorTagTrait;
 use App\Type;
 use Illuminate\Http\Request;
@@ -23,9 +24,10 @@ class TypeController extends Controller
      */
     public function index()
     {
+        $boothCount = Booth::join('types', 'booths.type_id', '=', 'types.id')->where('counted', true)->count();
         $types = Type::with('booths')->get();
 
-        return view('type.index', compact('types'));
+        return view('type.index', compact('boothCount', 'types'));
     }
 
     /**

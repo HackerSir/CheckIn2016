@@ -23,7 +23,7 @@
         <tr>
             <td>（全部）</td>
             <td></td>
-            <td>{{ $boothCount = \App\Booth::count() }}</td>
+            <td>{{ $boothCount }}</td>
             <td>
                 {{ $globalTarget = \App\Setting::get('GlobalTarget') }}
                 @if($boothCount < $globalTarget)

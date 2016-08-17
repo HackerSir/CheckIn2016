@@ -23,7 +23,8 @@
         "lavary/laravel-menu": "dev-master",
         "thomaswelton/laravel-gravatar": "^1.1",
         "landish/pagination": "^1.3",
-        "yajra/laravel-datatables-oracle": "^6.17"
+        "yajra/laravel-datatables-oracle": "^6.17",
+        "phpoffice/phpword": "dev-develop"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

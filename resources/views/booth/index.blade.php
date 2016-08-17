@@ -10,6 +10,10 @@
         <a href="{{ route('booth.create') }}" class="ui icon brown inverted button">
             <i class="plus icon" aria-hidden="true"></i> 新增攤位
         </a>
+        <a href="{{ route('booth.downloadQRCode') }}" class="ui blue inverted labeled icon button">
+            <i class="file word outline icon"></i>
+            下載QR碼
+        </a>
     @endif
     <table class="ui selectable celled padded unstackable table" id="booth-table">
         <thead>

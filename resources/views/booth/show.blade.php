@@ -36,6 +36,10 @@
             </div>
             <div class="ui segment">
                 <span class="ui blue ribbon label">打卡QR碼</span>
+                <a href="{{ route('booth.downloadQRCode', $booth) }}" class="ui blue inverted labeled icon button">
+                    <i class="file word outline icon"></i>
+                    下載QR碼
+                </a>
                 <div style="max-width: 450px">
                     <a href="{{ $booth->QR }}" target="_blank">
                         <img src="{{ $booth->QR }}" class="ui large image">

@@ -3,15 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Booth;
+use App\Services\FileService;
+use Carbon\Carbon;
 use Datatables;
 use Illuminate\Http\Request;
+use PhpOffice\PhpWord\IOFactory;
 
 class BoothController extends Controller
 {
     /**
-     * TypeController constructor.
+     * @var FileService
      */
-    public function __construct()
+    private $fileService;
+
+    /**
+     * TypeController constructor.
+     * @param FileService $fileService
+     */
+    public function __construct(FileService $fileService)
     {
         $this->middleware('permission:booth.manage', [
             'except' => [
@@ -20,6 +29,7 @@ class BoothController extends Controller
                 'anyData',
             ],
         ]);
+        $this->fileService = $fileService;
     }
 
     /**
@@ -152,5 +162,29 @@ class BoothController extends Controller
         ]);
 
         return redirect()->route('booth.show', $booth)->with('global', 'CODE已更新，並重新建立QR碼');
+    }
+
+    public function downloadQRCode(Booth $booth = null)
+    {
+        //是否指定單一攤位
+        $isSpecificBooth = !empty($booth->id);
+        //指定的攤位（若無指定，則為所有攤位）
+        $booths = ($isSpecificBooth) ? $booth : Booth::all();
+        //檔名
+        $fileName = 'QRCode_' . (($isSpecificBooth) ? $booth->name : 'All') . '.doc';
+
+        //建立檔案
+        $phpWord = $this->fileService->generateQRCodeDocFile($booths);
+
+        //=========================================================================
+        //輸出檔案
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        //設定路徑（PHP暫存路徑）
+        $filePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'word_' . Carbon::now()->getTimestamp() . '.doc';
+        //建立暫存檔案
+        $objWriter->save($filePath);
+
+        //下載檔案
+        return response()->download($filePath, $fileName);
     }
 }

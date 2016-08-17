@@ -2,11 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\LogService;
 use App\Ticket;
 use Datatables;
 
 class TicketController extends Controller
 {
+    /**
+     * @var LogService
+     */
+    private $logService;
+
+    /**
+     * TicketController constructor.
+     * @param LogService $logService
+     */
+    public function __construct(LogService $logService)
+    {
+        $this->logService = $logService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +42,15 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
+        //Log
+        $user = $ticket->user;
+        $operator = auth()->user();
+        $this->logService->info("[Ticket][Delete] {$operator->name} 移除了 {$user->name} 的抽獎券", [
+            'ip'       => request()->ip(),
+            'operator' => $operator,
+            'user'     => $user,
+        ]);
+
         $ticket->delete();
 
         return redirect()->route('ticket.index')->with('global', '抽獎券已刪除');

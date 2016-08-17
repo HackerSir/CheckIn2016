@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Booth;
 use App\Point;
 use App\Services\CheckInService;
+use App\Services\LogService;
 use App\User;
 use Datatables;
 use Illuminate\Http\Request;
@@ -15,14 +16,20 @@ class PointController extends Controller
      * @var CheckInService
      */
     protected $checkInService;
+    /**
+     * @var LogService
+     */
+    private $logService;
 
     /**
      * PointController constructor.
      * @param CheckInService $checkInService
+     * @param LogService $logService
      */
-    public function __construct(CheckInService $checkInService)
+    public function __construct(CheckInService $checkInService, LogService $logService)
     {
         $this->checkInService = $checkInService;
+        $this->logService = $logService;
     }
 
     /**
@@ -62,6 +69,15 @@ class PointController extends Controller
         $booth = Booth::find($request->get('booth_id'));
         $this->checkInService->checkIn($booth, $user, false);
 
+        //Log
+        $operator = auth()->user();
+        $this->logService->info("[Point][Create] {$operator->name} 新增了 {$user->name} 在 {$booth->name} 的打卡記錄", [
+            'ip'       => request()->ip(),
+            'operator' => $operator,
+            'user'     => $user,
+            'booth'    => $booth,
+        ]);
+
         return redirect()->route('point.index')->with('global', '打卡集點記錄已新增');
     }
 
@@ -73,6 +89,17 @@ class PointController extends Controller
      */
     public function destroy(Point $point)
     {
+        //Log
+        $user = $point->user;
+        $booth = $point->booth;
+        $operator = auth()->user();
+        $this->logService->info("[Point][Delete] {$operator->name} 移除了 {$user->name} 在 {$booth->name} 的打卡記錄", [
+            'ip'       => request()->ip(),
+            'operator' => $operator,
+            'user'     => $user,
+            'booth'    => $booth,
+        ]);
+
         $point->delete();
 
         return redirect()->route('point.index')->with('global', '打卡集點記錄已刪除');

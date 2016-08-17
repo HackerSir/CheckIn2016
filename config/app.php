@@ -228,7 +228,6 @@ return [
         'Markdown'     => AlfredoRamos\ParsedownExtra\Facades\ParsedownExtra::class,
         'Menu'         => Lavary\Menu\Facade::class,
         'Gravatar'     => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
-        'Datatables'   => Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

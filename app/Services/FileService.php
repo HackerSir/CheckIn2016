@@ -40,7 +40,6 @@ class FileService
         $section = $phpWord->addSection();
         //活動標題
         $section->addText('學生社團博覽會 打卡集點抽獎', ['size' => 22], ['alignment' => Jc::CENTER]);
-        $section->addTextBreak(1, ['size' => 22], ['alignment' => Jc::CENTER]);
         //社團類型與名稱
         if ($booth->type) {
             $section->addText($booth->type->name, ['size' => 48], ['alignment' => Jc::CENTER]);

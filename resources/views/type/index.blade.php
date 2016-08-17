@@ -36,6 +36,13 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>（不採計）</td>
+            <td></td>
+            <td>{{ \App\Booth::count() - $boothCount }}</td>
+            <td></td>
+            <td></td>
+        </tr>
         @foreach($types as $type)
             <tr>
                 <td>
@@ -71,7 +78,10 @@
             </tr>
         @endforeach
         <tr>
-            <td>（未分類）</td>
+            <td>
+                <i class="green checkmark icon" title="「全部」包含此類型"></i>
+                （未分類）
+            </td>
             <td></td>
             <td>{{ \App\Booth::whereNull('type_id')->count() }}</td>
             <td><i class="large info circle icon" title="無法為未分類攤位設定目標"></i></td>

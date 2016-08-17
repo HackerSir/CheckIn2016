@@ -24,7 +24,11 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $boothCount = Booth::join('types', 'booths.type_id', '=', 'types.id')->where('counted', true)->count();
+        $boothCount = Booth::leftJoin('types', 'booths.type_id', '=', 'types.id')->where(function ($query) {
+            /* @var \Illuminate\Database\Query\Builder $query */
+            $query->where('types.counted', true)
+                ->orWhereNull('booths.type_id');
+        })->count();
         $types = Type::with('booths')->get();
 
         return view('type.index', compact('boothCount', 'types'));

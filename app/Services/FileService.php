@@ -50,8 +50,13 @@ class FileService
         $section->addText($booth->name, ['size' => 72], ['alignment' => Jc::CENTER]);
         //QR Code
         $section->addImage($booth->QR, ['height' => 450, 'width' => 450, 'alignment' => Jc::CENTER]);
-
-        //TODO: 課外活動組與黑客社廣告
+        //課外活動組與黑客社廣告
+        $textRun = $section->addTextRun(['alignment' => Jc::CENTER]);
+        $textRun->addImage(resource_path('assets/image/fcu.png'), ['height' => 50, 'width' => 50]);
+        $textRun->addText('課外活動組', ['size' => 22]);
+        $textRun->addText(str_repeat(' ', 10), ['size' => 22]);
+        $textRun->addImage(resource_path('assets/image/hacker.png'), ['height' => 50, 'width' => 50]);
+        $textRun->addText('黑客社', ['size' => 22]);
 
         return $phpWord;
     }

@@ -171,7 +171,7 @@ class BoothController extends Controller
         //指定的攤位（若無指定，則為所有攤位）
         $booths = ($isSpecificBooth) ? $booth : Booth::all();
         //檔名
-        $fileName = 'QRCode_' . (($isSpecificBooth) ? $booth->name : 'All') . '.doc';
+        $fileName = 'QRCode_' . (($isSpecificBooth) ? $booth->name : 'All') . '.docx';
 
         //建立檔案
         $phpWord = $this->fileService->generateQRCodeDocFile($booths);
@@ -180,7 +180,7 @@ class BoothController extends Controller
         //輸出檔案
         $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
         //設定路徑（PHP暫存路徑）
-        $filePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'word_' . Carbon::now()->getTimestamp() . '.doc';
+        $filePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'word_' . Carbon::now()->getTimestamp() . '.docx';
         //建立暫存檔案
         $objWriter->save($filePath);
 

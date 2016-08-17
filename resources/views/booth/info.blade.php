@@ -5,9 +5,17 @@
 </div>
 <div class="ui segment">
     @if($booth->type)
-        <span class="ui {{ $booth->type->color }} ribbon label">{{ $booth->type->name }}</span>
+        <span class="ui {{ $booth->type->color }} ribbon label" style="margin-bottom: .5em">
+            {{ $booth->type->name }}
+        </span>
     @endif
     <span class="ui header">{{ $booth->name }}</span>
+    @if(!$booth->counted)
+        <div class="ui label">
+            <i class="warning sign icon"></i>
+            此攤位不列入抽獎集點
+        </div>
+    @endif
     <p style="margin-top: 1em">
         {!! $booth->displayDescription !!}
     </p>

@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read string displayDescription
  * @property-read string QR
+ * @property-read bool counted 是否列入抽獎集點
  *
  * @property \Carbon\Carbon|null created_at
  * @property \Carbon\Carbon|null updated_at
@@ -89,5 +90,21 @@ class Booth extends Model
         $url .= '?' . http_build_query($query);
 
         return $url;
+    }
+
+    /**
+     * 是否列入抽獎集點的「全部」進度當中
+     *
+     * @return bool
+     */
+    public function getCountedAttribute()
+    {
+        //若無類別，強制計算至「全部」
+        if (!$this->type) {
+            return true;
+        }
+
+        //根據類別決定
+        return $this->type->counted;
     }
 }

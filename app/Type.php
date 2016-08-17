@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string name 類型名稱
  * @property int target 過關需求該類型攤位數量
  * @property string color 標籤顏色
+ * @property bool counted 是否列入抽獎集點
  *
  * @property \Illuminate\Database\Eloquent\Collection|Booth[] booths
  *

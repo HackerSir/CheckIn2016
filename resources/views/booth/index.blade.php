@@ -46,7 +46,15 @@
                             return types[data]['tag'];
                         }
                     },
-                    {data: 'name'},
+                    {
+                        data: 'name',
+                        render: function (data, type, full, meta) {
+                            if (type === 'display') {
+                                return '<a href="{{ route('booth.index') }}/' + full.id + '">' + data + '</a>';
+                            }
+                            return data;
+                        }
+                    },
                     {
                         searchable: false,
                         sortable: false,

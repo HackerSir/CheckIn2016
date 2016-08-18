@@ -170,6 +170,8 @@ return [
         Lavary\Menu\ServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Collective\Bus\BusServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -228,6 +230,7 @@ return [
         'Markdown'     => AlfredoRamos\ParsedownExtra\Facades\ParsedownExtra::class,
         'Menu'         => Lavary\Menu\Facade::class,
         'Gravatar'     => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
+        'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

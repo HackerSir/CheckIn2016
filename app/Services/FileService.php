@@ -76,7 +76,6 @@ class FileService
      */
     public function generateXlsxFile($fileName = 'fileName')
     {
-
         $excelFile = Excel::create($fileName, function ($excel) {
             /* @var LaravelExcelWriter $excel */
             //檔案基本資料
@@ -85,7 +84,7 @@ class FileService
                 ->setDescription('學生社團博覽會 打卡集點抽獎 打卡集點完整記錄報表');
 
             $excel->sheet('打卡集點', function ($sheet) {
-                /** @var LaravelExcelWorksheet $sheet */
+                /* @var LaravelExcelWorksheet $sheet */
                 //標題列
                 $staticTitleRow = ['完成序號', 'NID', '姓名'];
                 $titleRow = $staticTitleRow;

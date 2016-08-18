@@ -13,6 +13,7 @@
         <i class="file excel outline icon"></i>
         下載Excel檔
     </a>
+    <div class="ui divider"></div>
     <table class="ui selectable celled padded unstackable table" id="point-table">
         <thead>
         <tr>

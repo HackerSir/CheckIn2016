@@ -14,6 +14,7 @@
             <i class="file word outline icon"></i>
             下載QR碼
         </a>
+        <div class="ui divider"></div>
     @endif
     <table class="ui selectable celled padded unstackable table" id="booth-table">
         <thead>

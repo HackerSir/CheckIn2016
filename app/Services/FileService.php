@@ -3,6 +3,14 @@
 namespace App\Services;
 
 use App\Booth;
+use App\Point;
+use App\User;
+use Excel;
+use Maatwebsite\Excel\Classes\LaravelExcelWorksheet;
+use Maatwebsite\Excel\Writers\LaravelExcelWriter;
+use PHPExcel_Cell;
+use PHPExcel_Style_Border;
+use PHPExcel_Style_NumberFormat;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\SimpleType\Jc;
 
@@ -58,5 +66,114 @@ class FileService
         $textRun->addText('黑客社', ['size' => 22]);
 
         return $phpWord;
+    }
+
+    /**
+     * 產生檔案，打卡集點記錄，doc
+     *
+     * @param string $fileName
+     * @return mixed
+     */
+    public function generateXlsxFile($fileName = 'fileName')
+    {
+
+        $excelFile = Excel::create($fileName, function ($excel) {
+            /* @var LaravelExcelWriter $excel */
+            //檔案基本資料
+            $excel->setTitle('打卡集點記錄')
+                ->setCreator('KID')
+                ->setDescription('學生社團博覽會 打卡集點抽獎 打卡集點完整記錄報表');
+
+            $excel->sheet('打卡集點', function ($sheet) {
+                /** @var LaravelExcelWorksheet $sheet */
+                //標題列
+                $staticTitleRow = ['完成序號', 'NID', '姓名'];
+                $titleRow = $staticTitleRow;
+                $dataStartColumns = [];
+                for ($i = 1; $i <= 10; $i++) {
+                    $titleRow = array_merge($titleRow, [
+                        '時間' . $i,
+                        '社團' . $i,
+                        '類型' . $i,
+                    ]);
+                    $startColumnName = PHPExcel_Cell::stringFromColumnIndex(count($staticTitleRow) + ($i - 1) * 3);
+                    $dataStartColumns[] = $startColumnName;
+                }
+                $sheet->row(1, $titleRow);
+                //設定凍結
+                $sheet->setFreeze(PHPExcel_Cell::stringFromColumnIndex(count($staticTitleRow)) . '2');
+
+                //有抽獎券的使用者
+                $userHasTickets = User::with('ticket', 'points.booth.type')
+                    ->has('ticket', '>', 0)->get()
+                    ->sortBy(function ($user) {
+                        return $user->ticket->created_at;
+                    });
+                //沒抽獎券的使用者
+                $userNoTickets = User::with('ticket', 'points.booth.type')
+                    ->has('ticket', '=', 0)->get()
+                    ->sortBy(function ($user) {
+                        return $user->points->count();
+                    }, SORT_REGULAR, true);
+                /* @var User[] $users */
+                $users = $userHasTickets->merge($userNoTickets);
+                foreach ($users as $user) {
+                    //抽獎編號（完成序號）、NID、姓名
+                    //TODO: 第二欄輸出NID
+                    $rowData = [
+                        ($user->ticket) ? $user->ticket->id : '未完成',
+                        $user->email,
+                        $user->name,
+                    ];
+                    //打卡紀錄
+                    /* @var Point[] $points */
+                    $points = $user->points()->groupBy('booth_id')->orderBy('created_at')->distinct()->get();
+                    foreach ($points as $point) {
+                        //時間、社團、類型
+                        $pointData = [
+                            ($point->check_at) ? $point->check_at->format('H:i') : '',
+                            $point->booth->name,
+                            ($point->booth->type) ? $point->booth->type->name : '',
+                        ];
+                        $rowData = array_merge($rowData, $pointData);
+                    }
+                    //新增一列
+                    $sheet->appendRow($rowData);
+                }
+                $lastRow = $sheet->getHighestRow();
+                //調整格式
+                foreach ($dataStartColumns as $startColumn) {
+                    //時間格式
+                    //FIXME: 設定後，雖套用格式，但開啟檔案後，需編輯儲存格才會確實套用
+                    $sheet->setColumnFormat([
+                        $startColumn => PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME3,
+                    ]);
+                    //左邊線
+                    $sheet->getStyle($startColumn . '1:' . $startColumn . $lastRow)->applyFromArray([
+                        'borders' => [
+                            'left' => [
+                                'style' => PHPExcel_Style_Border::BORDER_THICK,
+                            ],
+                        ],
+                    ]);
+                }
+                //水平分隔線
+                $dividerRow = count($userHasTickets) + 1;
+                $lastColumn = $sheet->getHighestColumn();
+                $dividerStyle = [
+                    'borders' => [
+                        'bottom' => [
+                            'style' => PHPExcel_Style_Border::BORDER_THICK,
+                        ],
+                    ],
+                ];
+                //標題下方
+                $sheet->getStyle('A1:' . $lastColumn . '1')->applyFromArray($dividerStyle);
+                //完成與未完成之間
+                $sheet->getStyle('A' . $dividerRow . ':' . $lastColumn . $dividerRow)->applyFromArray($dividerStyle);
+            });
+        });
+
+        return $excelFile;
     }
 }

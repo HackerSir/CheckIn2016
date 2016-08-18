@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Booth;
 use App\Point;
 use App\Services\CheckInService;
+use App\Services\FileService;
 use App\Services\LogService;
 use App\User;
 use Datatables;
@@ -20,16 +21,22 @@ class PointController extends Controller
      * @var LogService
      */
     private $logService;
+    /**
+     * @var FileService
+     */
+    private $fileService;
 
     /**
      * PointController constructor.
      * @param CheckInService $checkInService
      * @param LogService $logService
+     * @param FileService $fileService
      */
-    public function __construct(CheckInService $checkInService, LogService $logService)
+    public function __construct(CheckInService $checkInService, LogService $logService, FileService $fileService)
     {
         $this->checkInService = $checkInService;
         $this->logService = $logService;
+        $this->fileService = $fileService;
     }
 
     /**
@@ -135,5 +142,12 @@ class PointController extends Controller
             ->make(true);
 
         return $dataTables;
+    }
+
+    public function downloadXlsxFile()
+    {
+        $fileName = '打卡紀錄';
+        $excelFile = $this->fileService->generateXlsxFile($fileName);
+        $excelFile->download('xlsx');
     }
 }

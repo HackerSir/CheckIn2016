@@ -58,15 +58,15 @@ return [
     ],
 
     'properties' => [
-        'creator'        => 'Maatwebsite',
-        'lastModifiedBy' => 'Maatwebsite',
-        'title'          => 'Spreadsheet',
-        'description'    => 'Default spreadsheet export',
-        'subject'        => 'Spreadsheet export',
-        'keywords'       => 'maatwebsite, excel, export',
+        'creator'        => '逢甲大學黑客社',
+        'lastModifiedBy' => '逢甲大學黑客社',
+        'title'          => '',
+        'description'    => '',
+        'subject'        => '',
+        'keywords'       => '逢甲大學黑客社',
         'category'       => 'Excel',
-        'manager'        => 'Maatwebsite',
-        'company'        => 'Maatwebsite',
+        'manager'        => '逢甲大學黑客社',
+        'company'        => '逢甲大學黑客社',
     ],
 
     /*
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'creator' => 'Maatwebsite',
+    'creator' => '逢甲大學黑客社',
 
     'csv' => [
         /*

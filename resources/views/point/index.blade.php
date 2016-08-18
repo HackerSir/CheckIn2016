@@ -9,6 +9,10 @@
     <a href="{{ route('point.create') }}" class="ui icon brown inverted button">
         <i class="plus icon" aria-hidden="true"></i> 新增打卡集點記錄
     </a>
+    <a href="{{ route('point.downloadXlsxFile') }}" class="ui blue inverted labeled icon button">
+        <i class="file excel outline icon"></i>
+        下載Excel檔
+    </a>
     <table class="ui selectable celled padded unstackable table" id="point-table">
         <thead>
         <tr>

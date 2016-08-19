@@ -37,7 +37,5 @@
             @endforelse
         </div>
     </div>
-    <div class="ui center aligned attached segment" style="border: none; background: none">
-        {!! (new Landish\Pagination\SemanticUI($points))->render() !!}
-    </div>
+    @include('components.pagination-bar', ['models' => $points])
 @endsection

@@ -84,6 +84,21 @@ class LaravelMenu
                 $menu->add('登入', ['action' => 'Auth\AuthController@showLoginForm']);
             }
         });
+        //Sidebar
+        Menu::make('sidebar', function ($menu) {
+            /* @var \Lavary\Menu\Builder $menu */
+            $menu->add('首頁', ['route' => 'index'])->data('icon', 'home');
+            if (auth()->check()) {
+                $menu->add('攤位', ['route' => 'booth.index'])->active('booth/*')->data('icon', 'marker');
+                $menu->add('打卡集點', ['route' => 'check.index'])->active('check/*')->data('icon', 'street view');
+                if (!auth()->user()->isConfirmed) {
+                    $menu->add('信箱未驗證', ['route' => 'auth.resend-confirm-mail'])->data('icon', 'red mail');
+                }
+                $menu->add('登出', ['action' => 'Auth\AuthController@logout'])->data('icon', 'spy');
+            } else {
+                $menu->add('登入/註冊', ['action' => 'Auth\AuthController@showLoginForm'])->data('icon', 'spy');
+            }
+        });
 
         return $next($request);
     }

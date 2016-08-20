@@ -16,6 +16,7 @@
           <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
           <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
           <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
+          <option name="SPACE_AFTER_TYPE_CAST" value="true" />
         </codeStyleSettings>
       </value>
     </option>

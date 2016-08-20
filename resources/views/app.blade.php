@@ -17,7 +17,6 @@
     {!! Html::style('css/sticky-footer.css') !!}
     <style>
         body {
-            padding-top: 70px;
             height: auto;
             background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center !important;
         }
@@ -54,11 +53,11 @@
 
 {{-- Content --}}
 @if(Request::is('/'))
-    <div class="ui pusher container">
+    <div class="ui container">
         @yield('content')
     </div>
 @else
-    <div class="ui pusher container segment" style="background-color: rgba(255,255,255,0.8)">
+    <div class="ui container segment" style="background-color: rgba(255,255,255,0.8);margin-top:70px;margin-bottom: 70px">
         @yield('content')
     </div>
 @endif

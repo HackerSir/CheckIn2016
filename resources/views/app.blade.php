@@ -94,9 +94,11 @@
                 .sidebar('setting', 'transition', 'overlay')
                 .sidebar('setting', 'onHide', function () {
                     $('i.sidebar.icon').transition('fade in');
-                    $('.button').each(function () {
-                        $(this).removeClass('disabled');
-                    });
+                    setTimeout(function () {
+                        $('.button').each(function () {
+                            $(this).removeClass('disabled');
+                        });
+                    }, 500);
                 });
         $('.ui.dropdown').each(function () {
             $(this).dropdown({

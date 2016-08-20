@@ -9,6 +9,6 @@ body {
 .footer {
     margin: 0 !important;
     position: absolute !important;
-    bottom: 0;
-    width: 100%;
+    bottom: 0 !important;
+    width: 100% !important;
 }

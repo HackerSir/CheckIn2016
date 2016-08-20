@@ -52,24 +52,28 @@
 @include('navbar.menu')
 
 {{-- Content --}}
-@if(Request::is('/'))
-    <div class="ui container">
-        @yield('content')
-    </div>
-@else
-    <div class="ui container segment" style="background-color: rgba(255,255,255,0.8);margin-top:70px;margin-bottom: 70px">
-        @yield('content')
-    </div>
-@endif
+<div class="pusher">
+    @if(Request::is('/'))
+        <div class="ui container">
+            @yield('content')
+        </div>
+    @else
+        <div class="ui container segment"
+             style="background-color: rgba(255,255,255,0.8);margin-top:70px;margin-bottom: 70px">
+            @yield('content')
+        </div>
+    @endif
 
-{{-- Footer --}}
-<div class="ui inverted center aligned segment footer">
-    <div class="ui container center aligned">
-        <p>
-            Copyright (c) 2016 Feng Chia University Hackers' Club (a.k.a. HackerSir), All rights reserved.
-        </p>
+    {{-- Footer --}}
+    <div class="ui inverted center aligned segment footer">
+        <div class="ui container center aligned">
+            <p>
+                Copyright (c) 2016 Feng Chia University Hackers' Club (a.k.a. HackerSir), All rights reserved.
+            </p>
+        </div>
     </div>
 </div>
+
 
 {{-- Javascript --}}
 {!! Html::script('//code.jquery.com/jquery-3.1.0.min.js') !!}

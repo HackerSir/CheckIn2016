@@ -86,19 +86,15 @@
     $(document).ready(function () {
         $('.toc.item').click(function () {
             $('i.sidebar.icon').transition('fade out');
-            $('.button').each(function () {
-                $(this).addClass('disabled');
-            });
+            $('.button').addClass('disabled');
         });
         $('.ui.sidebar').sidebar('attach events', '.toc.item')
                 .sidebar('setting', 'transition', 'overlay')
                 .sidebar('setting', 'onHide', function () {
                     $('i.sidebar.icon').transition('fade in');
                     setTimeout(function () {
-                        $('.button').each(function () {
-                            $(this).removeClass('disabled');
-                        });
-                    }, 500);
+                        $('.button').removeClass('disabled');
+                    }, 750);
                 });
         $('.ui.dropdown').each(function () {
             $(this).dropdown({

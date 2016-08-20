@@ -87,7 +87,7 @@
         $('.toc.item').click(function () {
             $('i.sidebar.icon').transition('fade out');
             $('.button').each(function () {
-                $(this).disable = true;
+                $(this).addClass('disabled');
             });
         });
         $('.ui.sidebar').sidebar('attach events', '.toc.item')
@@ -95,7 +95,7 @@
                 .sidebar('setting', 'onHide', function () {
                     $('i.sidebar.icon').transition('fade in');
                     $('.button').each(function () {
-                        $(this).disable = false;
+                        $(this).removeClass('disabled');
                     });
                 });
         $('.ui.dropdown').each(function () {

@@ -53,6 +53,7 @@
 
 {{-- Content --}}
 <div class="pusher">
+    <div class="shelter" style="width: 100vh;height: 100vh;background-color: rgba(15,15,15,0.1)" hidden></div>
     @if(Request::is('/'))
         <div class="ui container">
             @yield('content')
@@ -85,12 +86,14 @@
 <script>
     $(document).ready(function () {
         $('.toc.item').click(function () {
+            $('div.shelter').transition('fade out');
             $('i.sidebar.icon').transition('fade out');
         });
         $('.ui.sidebar').sidebar('attach events', '.toc.item')
                 .sidebar('setting', 'transition', 'overlay')
                 .sidebar('setting', 'onHide', function () {
                     $('i.sidebar.icon').transition('fade in');
+                    $('div.shelter').hide();
                 });
         $('.ui.dropdown').each(function () {
             $(this).dropdown({

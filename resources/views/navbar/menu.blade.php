@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<div class="ui sidebar inverted vertical labeled icon menu" style="z-index: 2;">
+<div class="ui sidebar inverted vertical labeled icon menu" style="z-index: 999;">
     {{-- FIXME: 改由LaravelMenu生成 --}}
     <a class="item" href="{!! route('index') !!}">
         <i class="home icon"></i>

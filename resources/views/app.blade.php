@@ -19,7 +19,7 @@
         body {
             padding-top: 70px;
             height: auto;
-            background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center;
+            background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center !important;
         }
 
         .secondary.pointing.menu {
@@ -40,20 +40,25 @@
                 display: block;
             }
         }
+
+        .pusher {
+            background: none !important;
+        }
     </style>
     @yield('css')
 </head>
-<body>
+<body class="pushable"
+      style='background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center !important;'>
 {{-- Navbar --}}
 @include('navbar.menu')
 
 {{-- Content --}}
 @if(Request::is('/'))
-    <div class="ui container">
+    <div class="ui pusher container">
         @yield('content')
     </div>
 @else
-    <div class="ui container segment" style="background-color: rgba(255,255,255,0.8)">
+    <div class="ui pusher container segment" style="background-color: rgba(255,255,255,0.8)">
         @yield('content')
     </div>
 @endif
@@ -72,14 +77,18 @@
 {!! Html::script('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js') !!}
 {!! Html::script('https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js') !!}
 {!! Html::script('https://cdn.datatables.net/1.10.12/js/dataTables.semanticui.min.js') !!}
-{!! Html::script('semantic/semantic.js') !!}
+{!! Html::script('semantic/semantic.min.js') !!}
 {!! Html::script('//cdn.jsdelivr.net/alertifyjs/1.8.0/alertify.min.js') !!}
 <script>
     $(document).ready(function () {
-//            $('.toc.item').click(function () {
-//                $('i.sidebar.icon').transition('fade out');
-//            });
-//            $('.ui.sidebar').sidebar('attach events', '.toc.item').sidebar('setting', 'transition', 'overlay');
+        $('.toc.item').click(function () {
+            $('i.sidebar.icon').transition('fade out');
+        });
+        $('.ui.sidebar').sidebar('attach events', '.toc.item')
+                .sidebar('setting', 'transition', 'overlay')
+                .sidebar('setting', 'onHide', function () {
+                    $('i.sidebar.icon').transition('fade in');
+                });
         $('.ui.dropdown').each(function () {
             $(this).dropdown({
                 fullTextSearch: true

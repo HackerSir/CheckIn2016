@@ -23,7 +23,9 @@
             <th>類型</th>
             <th>名稱</th>
             <th>圖片</th>
-            <th>操作</th>
+            @if(Entrust::can('booth.manage'))
+                <th>操作</th>
+            @endif
         </tr>
         </thead>
     </table>
@@ -66,8 +68,9 @@
                             }
                             return '<img src="' + data + '" class="ui small centered rounded image"/>';
                         }
-                    },
-                    {
+                    }
+                    @if(Entrust::can('booth.manage'))
+                    , {
                         searchable: false,
                         sortable: false,
                         data: 'id',
@@ -85,6 +88,7 @@
                             return btnBar;
                         }
                     }
+                    @endif
                 ]
             });
         });

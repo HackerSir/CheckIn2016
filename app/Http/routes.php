@@ -15,6 +15,12 @@
 Route::group(['prefix' => 'map'], function () {
     Route::get('/', 'MapController@index')->name('map.index');
 });
+//攤位管理
+//權限：booth.manage
+Route::post('booth/{booth}/updateCode', 'BoothController@updateCode')->name('booth.updateCode');
+Route::get('booth/downloadQRCode/{booth?}', 'BoothController@downloadQRCode')->name('booth.downloadQRCode');
+Route::any('booth/data', 'BoothController@anyData')->name('booth.data');
+Route::resource('booth', 'BoothController');
 
 //會員（須完成信箱驗證）
 Route::group(['middleware' => ['auth', 'email']], function () {
@@ -25,12 +31,6 @@ Route::group(['middleware' => ['auth', 'email']], function () {
             'show',
         ],
     ]);
-    //攤位管理
-    //權限：booth.manage
-    Route::post('booth/{booth}/updateCode', 'BoothController@updateCode')->name('booth.updateCode');
-    Route::get('booth/downloadQRCode/{booth?}', 'BoothController@downloadQRCode')->name('booth.downloadQRCode');
-    Route::any('booth/data', 'BoothController@anyData')->name('booth.data');
-    Route::resource('booth', 'BoothController');
     //網站設定
     //權限：setting.edit
     Route::group(['middleware' => 'permission:setting.manage'], function () {

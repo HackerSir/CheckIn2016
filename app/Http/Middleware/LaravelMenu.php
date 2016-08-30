@@ -90,8 +90,8 @@ class LaravelMenu
             /* @var \Lavary\Menu\Builder $menu */
             $menu->add('首頁', ['route' => 'index'])->data('icon', 'home');
             $menu->add('地圖', ['route' => 'map.index'])->active('map/*')->data('icon', 'map outline');
+            $menu->add('攤位', ['route' => 'booth.index'])->active('booth/*')->data('icon', 'marker');
             if (auth()->check()) {
-                $menu->add('攤位', ['route' => 'booth.index'])->active('booth/*')->data('icon', 'marker');
                 $menu->add('打卡集點', ['route' => 'check.index'])->active('check/*')->data('icon', 'checkmark box');
                 if (!auth()->user()->isConfirmed) {
                     $menu->add('信箱未驗證', ['route' => 'auth.resend-confirm-mail'])->data('icon', 'red mail');

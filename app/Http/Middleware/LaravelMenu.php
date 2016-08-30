@@ -21,6 +21,7 @@ class LaravelMenu
         Menu::make('left', function ($menu) {
             /* @var \Lavary\Menu\Builder $menu */
             $menu->add('首頁', ['route' => 'index']);
+            $menu->add('地圖', ['route' => 'map.index'])->active('map/*');
             $menu->add('攤位', ['route' => 'booth.index'])->active('booth/*');
             $menu->add('打卡集點', ['route' => 'check.index'])->active('check/*');
         });
@@ -88,6 +89,7 @@ class LaravelMenu
         Menu::make('sidebar', function ($menu) {
             /* @var \Lavary\Menu\Builder $menu */
             $menu->add('首頁', ['route' => 'index'])->data('icon', 'home');
+            $menu->add('地圖', ['route' => 'map.index'])->active('map/*')->data('icon', 'map outline');
             if (auth()->check()) {
                 $menu->add('攤位', ['route' => 'booth.index'])->active('booth/*')->data('icon', 'marker');
                 $menu->add('打卡集點', ['route' => 'check.index'])->active('check/*')->data('icon', 'checkmark box');

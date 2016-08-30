@@ -11,6 +11,11 @@
 |
 */
 
+//地圖
+Route::group(['prefix' => 'map'], function () {
+    Route::get('/', 'MapController@index')->name('map.index');
+});
+
 //會員（須完成信箱驗證）
 Route::group(['middleware' => ['auth', 'email']], function () {
     //攤位類型管理

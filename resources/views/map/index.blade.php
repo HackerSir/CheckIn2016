@@ -2,6 +2,14 @@
 
 @section('title', '地圖')
 
+@section('css')
+    <style>
+        img {
+            max-height: 800px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <h2 class="ui teal header center aligned">
         地圖

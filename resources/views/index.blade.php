@@ -23,7 +23,10 @@
                     打卡集點抽獎
                 </p>
             </h1>
-            <a href="javascript:void(0)" class="ui large inverted red center aligned button" style="margin-top: 5vh;">GO!</a>
+            <a href="{{ route('map.index') }}" class="ui large inverted red center aligned button"
+               style="margin-top: 5vh;">
+                GO!
+            </a>
         </div>
     </div>
 @endsection

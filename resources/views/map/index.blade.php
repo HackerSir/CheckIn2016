@@ -45,14 +45,14 @@
     </div>
     <div style="overflow: auto">
         @if(empty($zone))
-            <img src="{{ $imgUrl }}" alt="地圖" class="ui image" id="map" usemap="#linkMap">
+            <img src="{{ $thumbnailUrl }}" alt="地圖" class="ui image" id="map" usemap="#linkMap">
             <map name="linkMap">
                 <area shape="rect" coords="344,467,36,246" href="{{ route('map.index', 'A') }}">
                 <area shape="rect" coords="354,247,610,464" href="{{ route('map.index', 'B') }}">
                 <area shape="rect" coords="117,476,585,724" href="{{ route('map.index', 'C') }}">
             </map>
         @else
-            <img src="{{ $imgUrl }}" alt="地圖" class="ui image" id="map">
+            <img src="{{ $thumbnailUrl }}" alt="地圖" class="ui image" id="map">
         @endif
     </div>
 @endsection

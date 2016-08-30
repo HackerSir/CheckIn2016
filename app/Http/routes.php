@@ -13,8 +13,7 @@
 
 //地圖
 Route::group(['prefix' => 'map'], function () {
-    Route::get('/', 'MapController@index')->name('map.index');
-    Route::get('{zone}', 'MapController@zone')->name('map.zone');
+    Route::get('/{zone?}', 'MapController@index')->name('map.index');
 });
 //攤位管理
 //權限：booth.manage

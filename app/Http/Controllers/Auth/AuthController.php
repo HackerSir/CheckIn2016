@@ -78,15 +78,19 @@ class AuthController extends Controller
         //信箱域名白名單
         $domainSetting = Setting::getRaw('AllowedEmailDomains');
         if (!empty(trim($domainSetting))) {
+            //切割設定值，每行為一筆
             $domains = preg_split('/$\R?^/m', Setting::getRaw('AllowedEmailDomains'));
             $domainPattern = 'regex:/';
             foreach ($domains as $domain) {
-                if (empty($domain)) {
+                //不處理空白行
+                if (empty(trim($domain))) {
                     continue;
                 }
                 $domainPattern .= '^[^@]+@' . str_replace('.', '\.', $domain) . '$|';
             }
+            //替換pattern結尾字符
             $domainPattern = str_replace_last('|', '/', $domainPattern);
+            //追加到驗證規則
             array_push($emailRule, $domainPattern);
         }
 

@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Helpers\ImgurHelper;
-use App\Services\ImageService;
 use Illuminate\Database\Eloquent\Model;
 
 /**

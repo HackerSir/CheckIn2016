@@ -31,22 +31,24 @@
         </thead>
         <tbody>
         @foreach($settings as $setting)
-            <td>
-                {{ $setting->name }}（{{ $setting->getTypeDesc() }}）<br/>
-                <small><i class="angle double right icon"></i> {{ $setting->desc }}</small>
-            </td>
-            <td>
-                @if($setting->getType() == 'boolean')
-                    <div class="editableField" data-pk="{{ $setting->id }}" data-type="select"
-                         data-url="{{ route('setting.update', $setting->id) }}"
-                         data-source="[{'value':1, 'text':'✔ True'},{'value':0, 'text':'✘ False'}]"
-                         data-value="{{ ($setting->getData()) ? 1 : 0 }}">{{ ($setting->getData()) ? '✔ True' : '✘ False' }}</div>
-                @else
-                    <div class="editableField" data-pk="{{ $setting->id }}"
-                         data-type="{{ $setting->getHtmlFieldType() }}"
-                         data-url="{{ route('setting.update', $setting->id) }}">{{ $setting->data }}</div>
-                @endif
-            </td>
+            <tr>
+                <td>
+                    {{ $setting->name }}（{{ $setting->getTypeDesc() }}）<br/>
+                    <small><i class="angle double right icon"></i> {{ $setting->desc }}</small>
+                </td>
+                <td>
+                    @if($setting->getType() == 'boolean')
+                        <div class="editableField" data-pk="{{ $setting->id }}" data-type="select"
+                             data-url="{{ route('setting.update', $setting->id) }}"
+                             data-source="[{'value':1, 'text':'✔ True'},{'value':0, 'text':'✘ False'}]"
+                             data-value="{{ ($setting->getData()) ? 1 : 0 }}">{{ ($setting->getData()) ? '✔ True' : '✘ False' }}</div>
+                    @else
+                        <div class="editableField" data-pk="{{ $setting->id }}"
+                             data-type="{{ $setting->getHtmlFieldType() }}"
+                             data-url="{{ route('setting.update', $setting->id) }}">{{ $setting->data }}</div>
+                    @endif
+                </td>
+            </tr>
         @endforeach
         </tbody>
     </table>

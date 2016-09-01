@@ -33,7 +33,6 @@
 
 @section('js')
     <script>
-        var types;
         $(function () {
             $('#booth-table').DataTable({
                 ajax: '{!! route('booth.data') !!}',

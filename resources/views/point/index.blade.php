@@ -28,7 +28,6 @@
 
 @section('js')
     <script>
-        var types;
         $(function () {
             $('#point-table').DataTable({
                 ajax: '{!! route('point.data') !!}',

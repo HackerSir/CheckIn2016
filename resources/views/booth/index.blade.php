@@ -35,7 +35,6 @@
     <script>
         var types;
         $(function () {
-            types = {!! \App\Type::getList() !!};
             $('#booth-table').DataTable({
                 ajax: '{!! route('booth.data') !!}',
                 columns: [
@@ -43,10 +42,10 @@
                     {
                         data: 'type_id',
                         render: function (data, type, full, meta) {
-                            if (types[data] === undefined) {
+                            if (!full.type) {
                                 return '';
                             }
-                            return types[data]['tag'];
+                            return full.type.tag;
                         }
                     },
                     {

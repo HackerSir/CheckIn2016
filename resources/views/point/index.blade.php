@@ -30,7 +30,6 @@
     <script>
         var types;
         $(function () {
-            types = {!! \App\Type::getList() !!};
             $('#point-table').DataTable({
                 ajax: '{!! route('point.data') !!}',
                 order: [[0, 'desc']],
@@ -50,8 +49,8 @@
                         render: function (data, type, full, meta) {
                             if (type === 'display') {
                                 var html = '<a href="{{ route('booth.index') }}/' + full.booth.id + '" target="_blank">';
-                                if (types[full.booth.type_id] != undefined) {
-                                    html += types[full.booth.type_id]['tag'] + ' ';
+                                if (full.booth.type) {
+                                    html += full.booth.type.tag + ' ';
                                 }
                                 html += full.booth.name + '</a>';
                                 return html;

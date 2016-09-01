@@ -35,25 +35,15 @@ class Type extends Model
     /** @var int $perPage 分頁時的每頁數量 */
     protected $perPage = 20;
 
+    protected $appends = [
+        'tag',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function booths()
     {
         return $this->hasMany(Booth::class);
-    }
-
-    public static function getList()
-    {
-        $types = static::all();
-        $typeList = [];
-        foreach ($types as $type) {
-            $typeList[$type->id] = [
-                'name' => $type->name,
-                'tag'  => $type->tag,
-            ];
-        }
-
-        return json_encode($typeList);
     }
 }

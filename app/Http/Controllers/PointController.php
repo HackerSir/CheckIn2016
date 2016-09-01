@@ -119,7 +119,7 @@ class PointController extends Controller
      */
     public function anyData()
     {
-        $dataTables = Datatables::of(Point::with('user', 'booth'))
+        $dataTables = Datatables::of(Point::with('user', 'booth.type'))
             ->filterColumn('user_id', function ($query, $keyword) {
                 //FIXME: 過濾查詢優化
                 $query->whereIn('user_id', function ($query) use ($keyword) {

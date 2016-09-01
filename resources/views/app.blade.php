@@ -43,6 +43,11 @@
         .pusher {
             background: none !important;
         }
+
+        .table-responsive {
+            min-height: .01%;
+            overflow-x: auto;
+        }
     </style>
     @yield('css')
 </head>

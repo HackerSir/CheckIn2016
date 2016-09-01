@@ -54,6 +54,16 @@
             <div class="six wide column">
                 <h2>Already have an account?</h2>
                 <p>You can just {{ link_to_action('Auth\AuthController@showLoginForm', 'Sign in') }}!</p>
+
+                @if(\App\Setting::getRaw('AllowedEmailDomains'))
+                    <div class="ui horizontal divider">&nbsp;</div>
+                    <h2>Allowed email domains</h2>
+                    <ul style="text-align: left">
+                        @foreach(preg_split('/$\R?^/m', \App\Setting::getRaw('AllowedEmailDomains')) as $domain)
+                            <li>{{ $domain }}</li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         </div>
     </div>

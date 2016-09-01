@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Role;
 use App\Services\MailService;
+use App\Setting;
 use Carbon\Carbon;
 use App\User;
 use Illuminate\Http\Request;
@@ -73,9 +74,25 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
+        $emailRule = ['required', 'email', 'max:255', 'unique:users'];
+        //信箱域名白名單
+        $domainSetting = Setting::getRaw('AllowedEmailDomains');
+        if (!empty(trim($domainSetting))) {
+            $domains = preg_split('/$\R?^/m', Setting::getRaw('AllowedEmailDomains'));
+            $domainPattern = 'regex:/';
+            foreach ($domains as $domain) {
+                if (empty($domain)) {
+                    continue;
+                }
+                $domainPattern .= '^[^@]+@' . str_replace('.', '\.', $domain) . '$|';
+            }
+            $domainPattern = str_replace_last('|', '/', $domainPattern);
+            array_push($emailRule, $domainPattern);
+        }
+
         return Validator::make($data, [
             'name'     => 'required|max:255',
-            'email'    => 'required|email|max:255|unique:users',
+            'email'    => $emailRule,
             'password' => 'required|min:6|confirmed',
         ]);
     }

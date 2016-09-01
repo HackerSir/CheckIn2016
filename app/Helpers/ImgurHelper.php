@@ -5,7 +5,7 @@ namespace App\Helpers;
 class ImgurHelper
 {
     /**
-     * @var array $validSuffix 縮圖後綴
+     * @var array 縮圖後綴
      *
      * Thumbnail Suffix | Thumbnail Name   | Thumbnail Size | Keeps Image Proportions
      * s                | Small Square     | 90x90          | No

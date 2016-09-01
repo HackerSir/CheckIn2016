@@ -66,7 +66,7 @@
                             if (!data) {
                                 return '';
                             }
-                            return '<img src="' + data + '" class="ui small centered rounded image"/>';
+                            return '<img src="' + full.thumbnail + '" class="ui small centered rounded image"/>';
                         }
                     }
                     @if(Entrust::can('booth.manage'))

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Helpers\ImgurHelper;
+use App\Services\ImageService;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -40,6 +42,11 @@ class Booth extends Model
 
     /** @var int $perPage 分頁時的每頁數量 */
     protected $perPage = 20;
+
+    /** @var array 追加到toArray()的自訂屬性 */
+    protected $appends = [
+        'thumbnail',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -106,5 +113,13 @@ class Booth extends Model
 
         //根據類別決定
         return $this->type->counted;
+    }
+
+    public function getThumbnailAttribute()
+    {
+        //嘗試取得Imgur縮圖（若非Imgur，則直接回傳原網址）
+        $imageUrl = ImgurHelper::thumbnail($this->image, 't');
+
+        return $imageUrl;
     }
 }

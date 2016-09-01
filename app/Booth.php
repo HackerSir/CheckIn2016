@@ -47,6 +47,10 @@ class Booth extends Model
         'thumbnail',
     ];
 
+    protected $hidden = [
+        'code',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

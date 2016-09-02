@@ -12,7 +12,7 @@
 */
 
 //服務條款(含隱私權跟免責)
-Route::get('terms', function(){
+Route::get('terms', function () {
     return view('terms');
 })->name('terms');
 

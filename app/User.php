@@ -19,6 +19,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * @property \Carbon\Carbon|null last_login_at
  * @property string last_login_ip
  *
+ * @property Student|null student
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Role[]|null roles
  * @property \Illuminate\Database\Eloquent\Collection|Point[] points
  * @property Ticket ticket
@@ -64,6 +65,11 @@ class User extends Authenticatable
     public function getIsConfirmedAttribute()
     {
         return !empty($this->confirm_at);
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
     }
 
     /**

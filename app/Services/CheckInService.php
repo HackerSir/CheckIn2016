@@ -20,7 +20,6 @@ class CheckInService
      */
     public function __construct(RecordService $recordService)
     {
-
         $this->recordService = $recordService;
     }
 
@@ -71,5 +70,4 @@ class CheckInService
         //建立抽獎劵
         $student->ticket()->create([]);
     }
-
 }

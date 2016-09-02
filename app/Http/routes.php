@@ -95,7 +95,14 @@ Route::group(['middleware' => ['auth', 'email']], function () {
 
     //學生管理
     Route::group(['middleware' => 'permission:student.manage'], function () {
-        Route::resource('student', 'StudentController');
+        Route::post('student/{student}/fetch', 'StudentController@fetch')->name('student.fetch');
+        Route::resource('student', 'StudentController', [
+            'except' => [
+                'show',
+                'edit',
+                'update',
+            ],
+        ]);
     });
     //會員資料
     Route::group(['prefix' => 'profile'], function () {

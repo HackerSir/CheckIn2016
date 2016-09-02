@@ -2,11 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\FcuApiService;
+use App\Services\LogService;
 use App\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    /**
+     * @var LogService
+     */
+    private $logService;
+    /**
+     * @var FcuApiService
+     */
+    private $fcuApiService;
+
+    /**
+     * StudentController constructor.
+     * @param LogService $logService
+     * @param FcuApiService $fcuApiService
+     */
+    public function __construct(LogService $logService, FcuApiService $fcuApiService)
+    {
+        $this->logService = $logService;
+        $this->fcuApiService = $fcuApiService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +36,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //TODO
+        $students = Student::paginate();
+
+        return view('student.index', compact('students'));
     }
 
     /**
@@ -24,7 +48,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //TODO
+        return view('student.create');
     }
 
     /**
@@ -35,41 +59,49 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO
+        $this->validate($request, [
+            'nid' => [
+                'required',
+                'unique:students,nid',
+                'regex:/\\w\\d+/',
+            ],
+        ]);
+
+        $stuInfo = $this->fcuApiService->getStuInfo($request->get('nid'));
+        if (!$stuInfo) {
+            return back()->with('warning', '查無此人');
+        }
+
+        Student::create([
+            'nid'       => $stuInfo['stu_id'],
+            'name'      => $stuInfo['stu_name'],
+            'class'     => $stuInfo['stu_class'],
+            'unit_name' => $stuInfo['unit_name'],
+            'dept_name' => $stuInfo['dept_name'],
+            'in_year'   => $stuInfo['in_year'],
+            'sex'       => $stuInfo['stu_sex'],
+        ]);
+
+        return redirect()->route('student.index')->with('global', '學生已新增');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Student $student
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Student $student)
+    public function fetch(Request $request, Student $student)
     {
-        //TODO
-    }
+        $stuInfo = $this->fcuApiService->getStuInfo($student->nid);
+        if (!$stuInfo) {
+            return back()->with('warning', '無法更新資料');
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Student $student
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Student $student)
-    {
-        //TODO
-    }
+        $student->update([
+            'name'      => $stuInfo['stu_name'],
+            'class'     => $stuInfo['stu_class'],
+            'unit_name' => $stuInfo['unit_name'],
+            'dept_name' => $stuInfo['dept_name'],
+            'in_year'   => $stuInfo['in_year'],
+            'sex'       => $stuInfo['stu_sex'],
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param Student $student
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Student $student)
-    {
-        //TODO
+        return redirect()->route('student.index')->with('global', '學生已更新');
     }
 
     /**
@@ -80,6 +112,16 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //TODO
+        //Log
+        $operator = auth()->user();
+        $this->logService->info("[Student][Delete] {$operator->name} 移除了 {$student->displayName}", [
+            'ip'       => request()->ip(),
+            'operator' => $operator,
+            'student'  => $student,
+        ]);
+
+        $student->delete();
+
+        return redirect()->route('student.index')->with('global', '學生已刪除');
     }
 }

@@ -41,6 +41,7 @@ class Student extends Model
     protected $appends = [
         'displayName',
     ];
+    protected $perPage = 50;
 
     public function user()
     {

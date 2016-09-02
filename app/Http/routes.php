@@ -92,6 +92,11 @@ Route::group(['middleware' => ['auth', 'email']], function () {
             ],
         ]);
     });
+
+    //學生管理
+    Route::group(['middleware' => 'permission:student.manage'], function () {
+        Route::resource('student', 'StudentController');
+    });
     //會員資料
     Route::group(['prefix' => 'profile'], function () {
         //查看會員資料

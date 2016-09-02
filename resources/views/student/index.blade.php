@@ -38,11 +38,6 @@
                             <i class="refresh icon"></i>
                         </button>
                         {!! Form::close() !!}
-                        {!! Form::open(['route' => ['student.destroy', $student], 'style' => 'display: inline', 'method' => 'DELETE', 'onSubmit' => "return confirm('確定要刪除此學生嗎？');"]) !!}
-                        <button type="submit" class="ui icon red inverted button" title="刪除學生">
-                            <i class="trash icon"></i>
-                        </button>
-                        {!! Form::close() !!}
                     </td>
                 </tr>
             @endforeach

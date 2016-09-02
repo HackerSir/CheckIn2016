@@ -111,25 +111,4 @@ class StudentController extends Controller
 
         return redirect()->route('student.index')->with('global', '學生已更新');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Student $student
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Student $student)
-    {
-        //Log
-        $operator = auth()->user();
-        $this->logService->info("[Student][Delete] {$operator->name} 移除了 {$student->displayName}", [
-            'ip'       => request()->ip(),
-            'operator' => $operator,
-            'student'  => $student,
-        ]);
-
-        $student->delete();
-
-        return redirect()->route('student.index')->with('global', '學生已刪除');
-    }
 }

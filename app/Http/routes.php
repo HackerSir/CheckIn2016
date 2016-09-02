@@ -101,6 +101,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
                 'show',
                 'edit',
                 'update',
+                'destroy',
             ],
         ]);
     });

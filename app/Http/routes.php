@@ -11,6 +11,11 @@
 |
 */
 
+//服務條款(含隱私權跟免責)
+Route::get('terms', function(){
+    return view('terms');
+})->name('terms');
+
 //地圖
 Route::group(['prefix' => 'map'], function () {
     Route::get('/{zone?}', 'MapController@index')->name('map.index');

@@ -74,6 +74,7 @@
         <div class="ui container center aligned">
             <p>
                 Copyright (c) 2016 Feng Chia University Hackers' Club (a.k.a. HackerSir), All rights reserved.
+                <a href="{{ route('terms') }}">Terms of Service</a>
             </p>
         </div>
     </div>

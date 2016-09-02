@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Booth;
 use App\Point;
 use App\Setting;
+use App\Student;
 use App\Type;
-use App\User;
 use Carbon\Carbon;
 use DB;
 
@@ -16,20 +16,20 @@ class CheckInService
      * 打卡集點
      *
      * @param Booth $booth
-     * @param User $user
+     * @param Student $student
      * @param bool $hasTime
      * @return bool 打卡成功
      */
-    public function checkIn(Booth $booth, User $user, $hasTime = true)
+    public function checkIn(Booth $booth, Student $student, $hasTime = true)
     {
         //打卡集點
         Point::create([
-            'user_id'  => $user->id,
-            'booth_id' => $booth->id,
-            'check_at' => ($hasTime) ? Carbon::now() : null,
+            'student_nid' => $student->nid,
+            'booth_id'    => $booth->id,
+            'check_at'    => ($hasTime) ? Carbon::now() : null,
         ]);
         //檢查是否達成目標
-        $this->checkTarget($user);
+        $this->checkTarget($student);
 
         return true;
     }
@@ -37,12 +37,12 @@ class CheckInService
     /**
      * 檢查是否達成目標
      *
-     * @param User $user
+     * @param Student $student
      */
-    public function checkTarget(User $user)
+    public function checkTarget(Student $student)
     {
-        //檢查使用者未擁有抽獎券
-        if ($user->ticket) {
+        //檢查學生未擁有抽獎券
+        if ($student->ticket) {
             return;
         }
         //檢查完成任務
@@ -51,7 +51,7 @@ class CheckInService
         $types = Type::all();
         //打卡集點記錄（依據攤位聚合）
         $checkRecords = DB::table('points')
-            ->where('user_id', $user->id)
+            ->where('student_nid', $student->nid)
             ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
             ->join('booths', 'points.booth_id', '=', 'booths.id')
             ->groupBy('booth_id', 'type_id')
@@ -59,7 +59,7 @@ class CheckInService
         //計算「全部」
         $countedTypeIds = Type::where('counted', true)->pluck('id');
         $countedRecords = DB::table('points')
-            ->where('user_id', $user->id)
+            ->where('student_nid', $student->nid)
             ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
             ->join('booths', 'points.booth_id', '=', 'booths.id')
             ->groupBy('booth_id', 'type_id')
@@ -94,6 +94,6 @@ class CheckInService
         }
 
         //建立抽獎劵
-        $user->ticket()->create([]);
+        $student->ticket()->create([]);
     }
 }

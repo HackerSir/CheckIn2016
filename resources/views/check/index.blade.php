@@ -13,14 +13,14 @@
         </a>
     </div>
     <div class="ui segment">
-        <span class="ui brown ribbon label">使用者</span>
-        {{ auth()->user()->name }}
+        <span class="ui brown ribbon label">學生</span>
+        {{ auth()->user()->student->displayName }}
     </div>
     {{-- 抽獎券 --}}
-    @if(auth()->user()->ticket)
+    @if(auth()->user()->student->ticket)
         <div class="ui segment">
             <span class="ui green ribbon label">抽獎編號</span>
-            {{ auth()->user()->ticket->id }}
+            {{ auth()->user()->student->ticket->id }}
         </div>
     @endif
     {{-- 進度 --}}

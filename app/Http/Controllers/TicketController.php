@@ -43,12 +43,12 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //Log
-        $user = $ticket->user;
+        $student = $ticket->student;
         $operator = auth()->user();
-        $this->logService->info("[Ticket][Delete] {$operator->name} 移除了 {$user->name} 的抽獎券", [
+        $this->logService->info("[Ticket][Delete] {$operator->name} 移除了 {$student->displayName} 的抽獎券", [
             'ip'       => request()->ip(),
             'operator' => $operator,
-            'user'     => $user,
+            'student'  => $student,
         ]);
 
         $ticket->delete();
@@ -63,14 +63,15 @@ class TicketController extends Controller
      */
     public function anyData()
     {
-        $dataTables = Datatables::of(Ticket::with('user'))
-            ->filterColumn('user_id', function ($query, $keyword) {
+        $dataTables = Datatables::of(Ticket::with('student'))
+            ->filterColumn('student_nid', function ($query, $keyword) {
                 //FIXME: 過濾查詢優化
-                $query->whereIn('user_id', function ($query) use ($keyword) {
-                    $query->select('users.id')
-                        ->from('users')
-                        ->join('tickets', 'users.id', '=', 'tickets.user_id')
-                        ->whereRaw('users.name LIKE ?', ['%' . $keyword . '%']);
+                $query->whereIn('student_nid', function ($query) use ($keyword) {
+                    $query->select('students.nid')
+                        ->from('students')
+                        ->join('tickets', 'students.nid', '=', 'tickets.student_nid')
+                        ->whereRaw('students.name LIKE ?', ['%' . $keyword . '%'])
+                        ->orWhereRaw('students.nid LIKE ?', ['%' . strtoupper($keyword) . '%']);
                 });
             })
             ->make(true);

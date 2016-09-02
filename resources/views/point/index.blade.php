@@ -35,10 +35,10 @@
                 columns: [
                     {data: 'id'},
                     {
-                        data: 'user_id',
+                        data: 'student_nid',
                         render: function (data, type, full, meta) {
                             if (type === 'display') {
-                                return '<a href="{{ route('user.index') }}/' + full.user.id + '" target="_blank">' + full.user.name + '</a>';
+                                return '<a href="{{ route('student.index') }}/' + full.student.nid + '" target="_blank">' + full.student.displayName + '</a>';
                             }
                             return data;
                         }

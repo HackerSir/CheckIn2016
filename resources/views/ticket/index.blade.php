@@ -10,7 +10,7 @@
         <thead>
         <tr>
             <th>抽獎編號</th>
-            <th>使用者</th>
+            <th>學生</th>
             <th>時間</th>
             <th>操作</th>
         </tr>
@@ -25,10 +25,10 @@
                 columns: [
                     {data: 'id'},
                     {
-                        data: 'user_id',
+                        data: 'student_nid',
                         render: function (data, type, full, meta) {
                             if (type === 'display') {
-                                return '<a href="{{ route('user.index') }}/' + full.user.id + '" target="_blank">' + full.user.name + '</a>';
+                                return '<a href="{{ route('student.index') }}/' + full.student.nid + '" target="_blank">' + full.student.displayName + '</a>';
                             }
                             return data;
                         }

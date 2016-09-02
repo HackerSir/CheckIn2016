@@ -7,6 +7,7 @@ use App\Point;
 use App\Services\CheckInService;
 use App\Services\FileService;
 use App\Services\LogService;
+use App\Student;
 use App\User;
 use Datatables;
 use Illuminate\Http\Request;
@@ -68,22 +69,25 @@ class PointController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'user_id'  => 'required|exists:users,id',
-            'booth_id' => 'required|exists:booths,id',
+            'student_nid' => 'required|exists:students,nid',
+            'booth_id'    => 'required|exists:booths,id',
         ]);
 
-        $user = User::find($request->get('user_id'));
+        $student = Student::find($request->get('student_nid'));
         $booth = Booth::find($request->get('booth_id'));
-        $this->checkInService->checkIn($booth, $user, false);
+        $this->checkInService->checkIn($booth, $student, false);
 
         //Log
         $operator = auth()->user();
-        $this->logService->info("[Point][Create] {$operator->name} 新增了 {$user->name} 在 {$booth->name} 的打卡記錄", [
-            'ip'       => request()->ip(),
-            'operator' => $operator,
-            'user'     => $user,
-            'booth'    => $booth,
-        ]);
+        $this->logService->info(
+            "[Point][Create] {$operator->name} 新增了 {$student->displayName} 在 {$booth->name} 的打卡記錄",
+            [
+                'ip'       => request()->ip(),
+                'operator' => $operator,
+                'student'  => $student,
+                'booth'    => $booth,
+            ]
+        );
 
         return redirect()->route('point.index')->with('global', '打卡集點記錄已新增');
     }
@@ -97,15 +101,18 @@ class PointController extends Controller
     public function destroy(Point $point)
     {
         //Log
-        $user = $point->user;
+        $student = $point->student;
         $booth = $point->booth;
         $operator = auth()->user();
-        $this->logService->info("[Point][Delete] {$operator->name} 移除了 {$user->name} 在 {$booth->name} 的打卡記錄", [
-            'ip'       => request()->ip(),
-            'operator' => $operator,
-            'user'     => $user,
-            'booth'    => $booth,
-        ]);
+        $this->logService->info(
+            "[Point][Delete] {$operator->name} 移除了 {$student->displayName} 在 {$booth->name} 的打卡記錄",
+            [
+                'ip'       => request()->ip(),
+                'operator' => $operator,
+                'student'  => $student,
+                'booth'    => $booth,
+            ]
+        );
 
         $point->delete();
 
@@ -119,14 +126,15 @@ class PointController extends Controller
      */
     public function anyData()
     {
-        $dataTables = Datatables::of(Point::with('user', 'booth.type'))
-            ->filterColumn('user_id', function ($query, $keyword) {
+        $dataTables = Datatables::of(Point::with('student', 'booth.type'))
+            ->filterColumn('student_nid', function ($query, $keyword) {
                 //FIXME: 過濾查詢優化
-                $query->whereIn('user_id', function ($query) use ($keyword) {
-                    $query->select('users.id')
-                        ->from('users')
-                        ->join('points', 'users.id', '=', 'points.user_id')
-                        ->whereRaw('users.name LIKE ?', ['%' . $keyword . '%']);
+                $query->whereIn('student_nid', function ($query) use ($keyword) {
+                    $query->select('students.nid')
+                        ->from('students')
+                        ->join('points', 'students.nid', '=', 'points.student_nid')
+                        ->whereRaw('students.name LIKE ?', ['%' . $keyword . '%'])
+                        ->orWhereRaw('students.nid LIKE ?', ['%' . strtoupper($keyword) . '%']);
                 });
             })
             ->filterColumn('booth_id', function ($query, $keyword) {

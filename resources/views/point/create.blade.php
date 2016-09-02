@@ -8,7 +8,7 @@
     </h2>
     {!! SemanticForm::open()->action(route('point.store')) !!}
     <div class="ui stacked segment">
-        @include('form.field.user_id', compact('errors'))
+        @include('form.field.student_nid', compact('errors'))
         @include('form.field.booth_id', compact('errors'))
         <div style="text-align: center">
             <a href="{{ route('point.index') }}" class="ui blue inverted icon button">

@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Database\Eloquent\Collection|Point[] points
  * @property Ticket ticket
  *
+ * @property-read string displayName
+ *
  * @property \Carbon\Carbon|null created_at
  * @property \Carbon\Carbon|null updated_at
  * @mixin \Eloquent
@@ -35,6 +37,9 @@ class Student extends Model
         'dept_name',
         'in_year',
         'sex',
+    ];
+    protected $appends = [
+        'displayName',
     ];
 
     public function user()
@@ -56,5 +61,10 @@ class Student extends Model
     public function ticket()
     {
         return $this->hasOne(Ticket::class, 'student_nid');
+    }
+
+    public function getDisplayNameAttribute()
+    {
+        return $this->nid . ' ' . $this->name;
     }
 }

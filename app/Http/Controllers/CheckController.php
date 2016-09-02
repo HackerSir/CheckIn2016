@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Booth;
 use App\Point;
 use App\Services\CheckInService;
+use App\Services\RecordService;
 use App\Setting;
 use App\Type;
 use DB;
@@ -13,14 +14,17 @@ use Illuminate\Http\Request;
 class CheckController extends Controller
 {
     protected $checkInService;
+    protected $recordService;
 
     /**
      * CheckController constructor.
      * @param CheckInService $checkInService
+     * @param RecordService $recordService
      */
-    public function __construct(CheckInService $checkInService)
+    public function __construct(CheckInService $checkInService, RecordService $recordService)
     {
         $this->checkInService = $checkInService;
+        $this->recordService = $recordService;
     }
 
     /**
@@ -35,44 +39,9 @@ class CheckController extends Controller
         if (!$student) {
             return redirect()->route('index')->with('warning', '無法取得學生資料');
         }
-        //FIXME: 程式碼重複（CheckInService）
-        //類型
-        $types = Type::all();
-        //打卡集點記錄（依據攤位聚合）
-        $checkRecords = DB::table('points')
-            ->where('student_nid', $student->nid)
-            ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
-            ->join('booths', 'points.booth_id', '=', 'booths.id')
-            ->groupBy('booth_id', 'type_id')
-            ->get();
-        //計算「全部」
-        $countedTypeIds = Type::where('counted', true)->pluck('id');
-        $countedRecords = DB::table('points')
-            ->where('student_nid', $student->nid)
-            ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
-            ->join('booths', 'points.booth_id', '=', 'booths.id')
-            ->groupBy('booth_id', 'type_id')
-            ->where(function ($query) use ($countedTypeIds) {
-                /* @var \Illuminate\Database\Query\Builder $query */
-                $query->whereIn('type_id', $countedTypeIds)
-                    ->orWhereNull('type_id');
-            })
-            ->get();
-        //進度
-        $progress = [];
-        $progress['total'] = [
-            'now'    => count($countedRecords),
-            'target' => Setting::get('GlobalTarget'),
-        ];
-        foreach ($types as $type) {
-            $nowCount = count(array_filter($checkRecords, function ($value) use ($type) {
-                return $value->type_id == $type->id;
-            }));
-            $progress[$type->id] = [
-                'now'    => $nowCount,
-                'target' => $type->target,
-            ];
-        }
+
+        //取得打卡進度
+        $progress = $this->recordService->getStudentProgress($student->nid);
 
         //最近打卡集點記錄
         $lastPoints = Point::with('student', 'booth.type')->where('student_nid', $student->nid)

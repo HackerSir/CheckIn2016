@@ -4,14 +4,26 @@ namespace App\Services;
 
 use App\Booth;
 use App\Point;
-use App\Setting;
 use App\Student;
-use App\Type;
 use Carbon\Carbon;
-use DB;
 
 class CheckInService
 {
+    /**
+     * @var \App\Services\RecordService
+     */
+    private $recordService;
+
+    /**
+     * CheckInService constructor.
+     * @param RecordService $recordService
+     */
+    public function __construct(RecordService $recordService)
+    {
+
+        $this->recordService = $recordService;
+    }
+
     /**
      * 打卡集點
      *
@@ -45,45 +57,8 @@ class CheckInService
         if ($student->ticket) {
             return;
         }
-        //檢查完成任務
-        //FIXME: 程式碼重複（CheckController）
-        //類型
-        $types = Type::all();
-        //打卡集點記錄（依據攤位聚合）
-        $checkRecords = DB::table('points')
-            ->where('student_nid', $student->nid)
-            ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
-            ->join('booths', 'points.booth_id', '=', 'booths.id')
-            ->groupBy('booth_id', 'type_id')
-            ->get();
-        //計算「全部」
-        $countedTypeIds = Type::where('counted', true)->pluck('id');
-        $countedRecords = DB::table('points')
-            ->where('student_nid', $student->nid)
-            ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
-            ->join('booths', 'points.booth_id', '=', 'booths.id')
-            ->groupBy('booth_id', 'type_id')
-            ->where(function ($query) use ($countedTypeIds) {
-                /* @var \Illuminate\Database\Query\Builder $query */
-                $query->whereIn('type_id', $countedTypeIds)
-                    ->orWhereNull('type_id');
-            })
-            ->get();
-        //進度
-        $progress = [];
-        $progress['total'] = [
-            'now'    => count($countedRecords),
-            'target' => Setting::get('GlobalTarget'),
-        ];
-        foreach ($types as $type) {
-            $nowCount = count(array_filter($checkRecords, function ($value) use ($type) {
-                return $value->type_id == $type->id;
-            }));
-            $progress[$type->id] = [
-                'now'    => $nowCount,
-                'target' => $type->target,
-            ];
-        }
+        //取得完成任務進度
+        $progress = $this->recordService->getStudentProgress($student->nid);
 
         //逐一檢查是否完成
         foreach ($progress as $checkProgress) {
@@ -96,4 +71,5 @@ class CheckInService
         //建立抽獎劵
         $student->ticket()->create([]);
     }
+
 }

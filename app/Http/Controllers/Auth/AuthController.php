@@ -180,7 +180,7 @@ class AuthController extends Controller
         //自動綁定學生
         if (ends_with($user->email, '@fcu.edu.tw')) {
             $nid = preg_split('/@/', $user->email)[0];
-            if (preg_match("/\\w\\d+/", $nid)) {
+            if (preg_match('/\\w\\d+/', $nid)) {
                 $stuInfo = $this->fcuApiService->getStuInfo($nid);
                 if ($stuInfo) {
                     $user->student()->save(Student::updateOrCreate(['nid' => $nid], [
@@ -203,7 +203,6 @@ class AuthController extends Controller
                         'student' => $user->student,
                     ]);
                 }
-
             }
         }
 

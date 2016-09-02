@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string sex
  *
  * @property User|null user
+ * @property \Illuminate\Database\Eloquent\Collection|Point[] points
+ * @property Ticket ticket
  *
  * @property \Carbon\Carbon|null created_at
  * @property \Carbon\Carbon|null updated_at
@@ -38,5 +40,21 @@ class Student extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function points()
+    {
+        return $this->hasMany(Point::class, 'student_nid');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ticket()
+    {
+        return $this->hasOne(Ticket::class, 'student_nid');
     }
 }

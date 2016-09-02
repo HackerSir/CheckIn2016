@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int id
  * @property int user_id
  *
- * @property User user
+ * @property Student student
  *
  * @property \Carbon\Carbon|null created_at
  * @property \Carbon\Carbon|null updated_at
@@ -20,7 +20,7 @@ class Ticket extends Model
 {
     /** @var array $fillable 可大量指派的屬性 */
     protected $fillable = [
-        'user_id',
+        'student_nid',
     ];
 
     /** @var int $perPage 分頁時的每頁數量 */
@@ -29,8 +29,8 @@ class Ticket extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class, 'student_nid');
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int booth_id
  * @property \Carbon\Carbon|null check_at
  *
- * @property User user
+ * @property Student student
  * @property Booth booth
  *
  * @property \Carbon\Carbon|null created_at
@@ -23,7 +23,7 @@ class Point extends Model
 {
     /** @var array $fillable 可大量指派的屬性 */
     protected $fillable = [
-        'user_id',
+        'student_nid',
         'booth_id',
         'check_at',
     ];
@@ -37,9 +37,9 @@ class Point extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class, 'student_nid');
     }
 
     /**

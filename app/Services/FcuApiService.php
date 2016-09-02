@@ -15,6 +15,9 @@ class FcuApiService
     public function getStuInfo($nid)
     {
         $nid = strtoupper($nid);
+        if (empty(trim($nid))) {
+            return null;
+        }
         //API資訊
         $apiUrl = env('FCU_API_GET_STU_INFO');
         $apiClientId = env('FCU_API_CLIENT_ID');

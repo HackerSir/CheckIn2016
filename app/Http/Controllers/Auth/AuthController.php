@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Role;
+use App\Services\FcuApiService;
+use App\Services\LogService;
 use App\Services\MailService;
 use App\Setting;
+use App\Student;
 use Carbon\Carbon;
 use App\User;
 use Illuminate\Http\Request;
@@ -39,13 +42,23 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    /**
+     * @var FcuApiService
+     */
+    private $fcuApiService;
+    /**
+     * @var LogService
+     */
+    private $logService;
 
     /**
      * Create a new authentication controller instance.
      *
      * @param MailService $mailService
+     * @param FcuApiService $fcuApiService
+     * @param LogService $logService
      */
-    public function __construct(MailService $mailService)
+    public function __construct(MailService $mailService, FcuApiService $fcuApiService, LogService $logService)
     {
         $this->middleware($this->guestMiddleware(), [
             'except' => [
@@ -64,6 +77,8 @@ class AuthController extends Controller
         ]);
 
         $this->mailService = $mailService;
+        $this->fcuApiService = $fcuApiService;
+        $this->logService = $logService;
     }
 
     /**
@@ -161,6 +176,36 @@ class AuthController extends Controller
         $user->confirm_code = null;
         $user->confirm_at = Carbon::now()->toDateTimeString();
         $user->save();
+
+        //自動綁定學生
+        if (ends_with($user->email, '@fcu.edu.tw')) {
+            $nid = preg_split('/@/', $user->email)[0];
+            if (preg_match("/\\w\\d+/", $nid)) {
+                $stuInfo = $this->fcuApiService->getStuInfo($nid);
+                if ($stuInfo) {
+                    $user->student()->save(Student::updateOrCreate(['nid' => $nid], [
+                        'nid'       => $stuInfo['stu_id'],
+                        'name'      => $stuInfo['stu_name'],
+                        'class'     => $stuInfo['stu_class'],
+                        'unit_name' => $stuInfo['unit_name'],
+                        'dept_name' => $stuInfo['dept_name'],
+                        'in_year'   => $stuInfo['in_year'],
+                        'sex'       => $stuInfo['stu_sex'],
+                    ]));
+                    $user->update([
+                        'name' => $user->student->name,
+                    ]);
+
+                    //Log
+                    $this->logService->info("[Student][Bind] {$user->name} 綁定了 {$user->student->displayName}", [
+                        'ip'      => request()->ip(),
+                        'user'    => $user,
+                        'student' => $user->student,
+                    ]);
+                }
+
+            }
+        }
 
         return redirect()->route('index')->with('global', '信箱驗證完成。');
     }

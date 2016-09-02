@@ -72,7 +72,7 @@ class StudentController extends Controller
             return back()->with('warning', '查無此人');
         }
 
-        Student::create([
+        $student = Student::create([
             'nid'       => $stuInfo['stu_id'],
             'name'      => $stuInfo['stu_name'],
             'class'     => $stuInfo['stu_class'],
@@ -80,6 +80,14 @@ class StudentController extends Controller
             'dept_name' => $stuInfo['dept_name'],
             'in_year'   => $stuInfo['in_year'],
             'sex'       => $stuInfo['stu_sex'],
+        ]);
+
+        //Log
+        $operator = auth()->user();
+        $this->logService->info("[Student][Create] {$operator->name} 新增了 {$student->displayName}", [
+            'ip'       => request()->ip(),
+            'operator' => $operator,
+            'student'  => $student,
         ]);
 
         return redirect()->route('student.index')->with('global', '學生已新增');

@@ -38,6 +38,9 @@ class CheckController extends Controller
             return redirect()->route('index')->with('warning', '無法取得學生資料');
         }
 
+        //類型
+        $types = Type::all();
+
         //取得打卡進度
         $progress = $this->recordService->getStudentProgress($student->nid);
 

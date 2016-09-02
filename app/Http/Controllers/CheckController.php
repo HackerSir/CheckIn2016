@@ -42,7 +42,7 @@ class CheckController extends Controller
         $types = Type::all();
 
         //取得打卡進度
-        $progress = $this->recordService->getStudentProgress($student->nid);
+        $progress = $this->recordService->getStudentProgress($student);
 
         //最近打卡集點記錄
         $lastPoints = Point::with('student', 'booth.type')->where('student_nid', $student->nid)

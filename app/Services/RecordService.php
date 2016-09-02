@@ -3,15 +3,17 @@
 namespace App\Services;
 
 use App\Setting;
+use App\Student;
 use App\Type;
 use DB;
 
 class RecordService
 {
     /**
-     * 打卡集點記錄（依據攤位聚合）
-     * @param $nid
-     * @return array|static[]
+     * 打卡集點記錄（依據攤位聚合）（個人）
+     *
+     * @param string $nid
+     * @return array
      */
     private function getCheckRecords($nid)
     {
@@ -26,59 +28,68 @@ class RecordService
     }
 
     /**
-     * 計算「全部」紀錄
-     * @param $nid
-     * @param $typeIds
-     * @return array|static[]
+     * 列入「全部」的紀錄總數（個人）
+     *
+     * @param string $nid
+     * @return int
      */
-    private function getCountedRecords($nid, $typeIds)
+    private function getCountedRecordCount($nid)
     {
+        /* @var array $countedTypeIds 列入「全部」的類型ID */
+        $countedTypeIds = Type::where('counted', true)->pluck('id');
+
         $countedRecords = DB::table('points')
             ->where('student_nid', $nid)
             ->select('booth_id', 'type_id', DB::raw('count(*) as count'))
             ->join('booths', 'points.booth_id', '=', 'booths.id')
             ->groupBy('booth_id', 'type_id')
-            ->where(function ($query) use ($typeIds) {
+            ->where(function ($query) use ($countedTypeIds) {
                 /* @var \Illuminate\Database\Query\Builder $query */
-                $query->whereIn('type_id', $typeIds)
+                $query->whereIn('type_id', $countedTypeIds)
                     ->orWhereNull('type_id');
             })
             ->get();
 
-        return $countedRecords;
+        return count($countedRecords);
     }
 
     /**
-     * 取得總進度
-     * @param $countedRecords
+     * 總進度（個人）
+     *
+     * @param string $nid
      * @return array
      */
-    private function getTotalProgress($countedRecords)
+    private function getTotalProgress($nid)
     {
-        $progress = [];
-        $progress['total'] = [
-            'now'    => count($countedRecords),
+        /* @var int $countedRecordCount 列入「全部」的紀錄總數（個人） */
+        $countedRecordCount = $this->getCountedRecordCount($nid);
+
+        $totalProgress = [
+            'now'    => $countedRecordCount,
             'target' => Setting::get('GlobalTarget'),
         ];
 
-        return $progress;
+        return $totalProgress;
     }
 
     /**
-     * 取得學生個人進度
-     * @param $nid
-     * @return array|null
+     * 整體進度（個人）
+     *
+     * @param Student $student
+     * @return array
      */
-    public function getStudentProgress($nid)
+    public function getStudentProgress(Student $student)
     {
-        if (!$nid) {
+        if (!$student) {
             return null;
         }
+        $nid = $student->nid;
 
-        $countedTypeIds = Type::where('counted', true)->pluck('id');
+        /* @var array $checkRecords 打卡集點記錄（依據攤位聚合）（個人） */
         $checkRecords = $this->getCheckRecords($nid);
-        $countedRecords = $this->getCountedRecords($nid, $countedTypeIds);
-        $progress = $this->getTotalProgress($countedRecords);
+        /* @var array $progress 總進度（個人） */
+        $progress = [];
+        $progress['total'] = $this->getTotalProgress($nid);
 
         $types = Type::all();
         foreach ($types as $type) {

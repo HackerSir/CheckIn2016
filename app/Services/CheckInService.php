@@ -57,7 +57,7 @@ class CheckInService
             return;
         }
         //取得完成任務進度
-        $progress = $this->recordService->getStudentProgress($student->nid);
+        $progress = $this->recordService->getStudentProgress($student);
 
         //逐一檢查是否完成
         foreach ($progress as $checkProgress) {

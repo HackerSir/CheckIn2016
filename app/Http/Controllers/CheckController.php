@@ -6,9 +6,7 @@ use App\Booth;
 use App\Point;
 use App\Services\CheckInService;
 use App\Services\RecordService;
-use App\Setting;
 use App\Type;
-use DB;
 use Illuminate\Http\Request;
 
 class CheckController extends Controller

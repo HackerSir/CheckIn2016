@@ -42,6 +42,7 @@
 
         .pusher {
             background: none !important;
+            min-height: 100vh !important;
         }
 
         .table-responsive {

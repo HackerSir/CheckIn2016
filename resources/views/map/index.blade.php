@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', !empty($zone) ? "Zone {$zone} - ":''.'地圖')
+@section('title', (!empty($zone) ? "Zone {$zone} - ":'').'地圖')
 
 @section('css')
     <style>

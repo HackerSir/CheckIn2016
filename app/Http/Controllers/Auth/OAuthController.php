@@ -3,10 +3,24 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Services\FcuApiService;
 
 class OAuthController extends Controller
 {
+    /**
+     * @var FcuApiService
+     */
+    private $fcuApiService;
+
+    /**
+     * OAuthController constructor.
+     * @param FcuApiService $fcuApiService
+     */
+    public function __construct(FcuApiService $fcuApiService)
+    {
+        $this->fcuApiService = $fcuApiService;
+    }
+
     public function index()
     {
         //檢查設定
@@ -26,15 +40,16 @@ class OAuthController extends Controller
         return redirect($redirectUrl);
     }
 
-    public function login(Request $request)
+    public function login()
     {
-        $userCode = $request->get('user_code');
+        $userCode = \Request::get('user_code');
         if (!$userCode) {
             return redirect()->route('index')->with('warning', '登入失敗');
         }
 
-        dd($request, $request->all());
-        //TODO: 利用User Code取得學號
+        //利用User Code取得學號
+        $userInfo = $this->fcuApiService->getLoginUser($userCode);
         //TODO: 嘗試找出使用者
+        dd(\Request::instance(), \Request::all(), $userInfo);
     }
 }

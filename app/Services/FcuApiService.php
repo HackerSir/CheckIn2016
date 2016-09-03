@@ -19,7 +19,7 @@ class FcuApiService
             return null;
         }
         //API資訊
-        $apiUrl = env('FCU_API_GET_STU_INFO');
+        $apiUrl = env('FCU_API_URL_GET_STU_INFO');
         $apiClientId = env('FCU_API_CLIENT_ID');
         if (!$apiUrl || !$apiClientId) {
             return null;

@@ -10,7 +10,7 @@ class OAuthController extends Controller
     public function index()
     {
         //檢查設定
-        $OAuthUrl = env('FCU_API_OAUTH');
+        $OAuthUrl = env('FCU_API_URL_OAUTH');
         $clientId = env('FCU_API_CLIENT_ID');
         $clientUrl = env('FCU_API_CLIENT_URL');
         if (!$OAuthUrl || !$clientId || !$clientUrl) {

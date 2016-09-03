@@ -86,7 +86,7 @@ class FileService
             $excel->sheet('打卡集點', function ($sheet) {
                 /* @var LaravelExcelWorksheet $sheet */
                 //標題列
-                $staticTitleRow = ['完成序號', 'NID', '姓名'];
+                $staticTitleRow = ['完成序號', 'NID', '姓名', '系級', '科系', '學院', '入學年度', '性別'];
                 $titleRow = $staticTitleRow;
                 $dataStartColumns = [];
                 for ($i = 1; $i <= 10; $i++) {
@@ -122,6 +122,11 @@ class FileService
                         ($student->ticket) ? $student->ticket->id : '未完成',
                         $student->nid,
                         $student->name,
+                        $student->class,
+                        $student->unit_name,
+                        $student->dept_name,
+                        $student->in_year,
+                        $student->sex,
                     ];
                     //打卡紀錄
                     /* @var Point[] $points */

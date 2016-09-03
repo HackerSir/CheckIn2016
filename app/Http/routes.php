@@ -14,7 +14,7 @@
 //OAuth
 Route::group(['prefix' => 'oauth', 'namespace' => 'Auth'], function () {
     Route::get('/', 'OAuthController@index')->name('oauth.index');
-    Route::get('login', 'OAuthController@login')->name('oauth.login');
+    Route::any('login', 'OAuthController@login')->name('oauth.login');
 });
 
 //服務條款(含隱私權跟免責)

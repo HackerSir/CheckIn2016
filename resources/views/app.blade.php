@@ -73,7 +73,7 @@
     <div class="ui inverted center aligned segment footer">
         <div class="ui container center aligned">
             <p>
-                Copyright (c) 2016 Feng Chia University Hackers' Club (a.k.a. HackerSir), All rights reserved.
+                &copy;2016 HackerSir. All rights reserved.
                 <a href="{{ route('terms') }}">Terms of Service</a>
             </p>
         </div>

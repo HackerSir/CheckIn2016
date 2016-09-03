@@ -84,7 +84,7 @@
     <script>
         $(function () {
             $('#showBtn').click(function () {
-                $('#loginSegment').show();
+                $('#loginSegment').toggle();
             });
         });
     </script>

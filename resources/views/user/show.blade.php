@@ -29,9 +29,10 @@
     </h2>
     <div class="ui header center aligned">
         {{-- Gravatar大頭貼 --}}
-        <a href="https://zh-tw.gravatar.com/" target="_blank" title="透過Gravatar更換照片"
-           class="ui medium circular image">
-            <img src="{{ Gravatar::src($user->email, 200) }}" class="ui image" id="gravatar"/></a><br/>
+        <div class="ui medium circular image">
+            <img src="{{ Gravatar::src($user->email, 200) }}" class="ui image" id="gravatar" title="Gravatar大頭貼"/>
+        </div>
+        <br/>
     </div>
 
     <table class="ui selectable stackable table">

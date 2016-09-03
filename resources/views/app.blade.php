@@ -64,7 +64,7 @@
         </div>
     @else
         <div class="ui container segment"
-             style="background-color: rgba(255,255,255,0.8);margin-top:70px;margin-bottom: 70px">
+             style="background-color: rgba(255,255,255,0.8);margin-top:70px;margin-bottom: 80px">
             @yield('content')
         </div>
     @endif
@@ -96,6 +96,7 @@
         });
         $('.ui.sidebar').sidebar('attach events', '.toc.item')
             .sidebar('setting', 'transition', 'overlay')
+            .sidebar('setting', 'mobileTransition', 'overlay')
             .sidebar('setting', 'onHide', function () {
                 $('i.sidebar.icon').transition('fade in');
                 setTimeout(function () {

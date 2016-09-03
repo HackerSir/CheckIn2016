@@ -100,9 +100,9 @@ class LaravelMenu
                 if (!auth()->user()->isConfirmed) {
                     $menu->add('信箱未驗證', ['route' => 'auth.resend-confirm-mail'])->data('icon', 'red mail');
                 }
-                $menu->add('登出', ['action' => 'Auth\AuthController@logout'])->data('icon', 'spy');
+                $menu->add('登出', ['action' => 'Auth\AuthController@logout'])->data('icon', 'user');
             } else {
-                $menu->add('登入/註冊', ['action' => 'Auth\AuthController@showLoginForm'])->data('icon', 'spy');
+                $menu->add('登入/註冊', ['action' => 'Auth\AuthController@showLoginForm'])->data('icon', 'user');
             }
         });
 

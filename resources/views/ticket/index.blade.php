@@ -28,7 +28,7 @@
                         data: 'student_nid',
                         render: function (data, type, full, meta) {
                             if (type === 'display') {
-                                return '<a href="{{ route('student.index') }}/' + full.student.nid + '" target="_blank">' + full.student.displayName + '</a>';
+                                return full.student.displayName;
                             }
                             return data;
                         }

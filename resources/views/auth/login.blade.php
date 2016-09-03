@@ -31,6 +31,14 @@
     </div>
     <div class="ui top attached segment" hidden id="loginSegment">
         <div class="ui top attached label">傳統登入</div>
+        <div class="ui error message">
+            <div class="header">
+                注意
+            </div>
+            <ul class="list">
+                <li>若您是逢甲大學學生，請<b>不要</b>使用此功能，請直接使用{{ link_to_route('oauth.index', 'NID快速登入') }}</li>
+            </ul>
+        </div>
         <div class="ui large aligned center aligned relaxed stackable grid">
             <div class="six wide column">
                 <h2 class="ui teal image header">

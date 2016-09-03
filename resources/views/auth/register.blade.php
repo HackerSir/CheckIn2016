@@ -5,6 +5,16 @@
 @section('content')
     <div class="ui top attached segment">
         <div class="ui top attached label">註冊</div>
+        <div class="ui error message">
+            <div class="header">
+                注意
+            </div>
+            <ul class="list">
+                <li>若您是逢甲大學學生，請<b>不要</b>註冊帳號，請直接使用{{ link_to_route('oauth.index', 'NID快速登入') }}</li>
+                <li>若您不是逢甲大學學生，請<b>不要</b>註冊帳號，註冊並不會令您取得任何權限</li>
+                <li>若您堅持註冊帳號，請確定您明確了解註冊流程，並明白透過收取信件驗證帳號之必要性</li>
+            </ul>
+        </div>
         <div class="ui large aligned center aligned relaxed stackable grid">
             <div class="six wide column">
                 <h2 class="ui teal image header">

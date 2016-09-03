@@ -2,9 +2,35 @@
 
 @section('title', '登入')
 
+@section('css')
+    <style>
+        .linkText {
+            font-size: 2em;
+            white-space: nowrap;
+        }
+
+        #OAuthLink:hover {
+            text-decoration: underline;
+        }
+    </style>
+@endsection
+
 @section('content')
-    <div class="ui top attached segment">
-        <div class="ui top attached label">登入</div>
+    <div style="text-align: center; margin-bottom: 3em">
+        <a href="{{ route('oauth.index') }}" id="OAuthLink">
+            <img src="{{ asset('img/nid.gif') }}" alt="NID登入" class="ui centered medium image"><br/>
+            <span class="linkText">
+                <i class="pointing right icon"></i>
+                使用 NID 快速登入
+                <i class="pointing left icon"></i>
+            </span>
+        </a>
+    </div>
+    <div style="text-align: center;">
+        <a href="javascript:void(0)" style="color: grey;" id="showBtn">[傳統登入]</a>
+    </div>
+    <div class="ui top attached segment" hidden id="loginSegment">
+        <div class="ui top attached label">傳統登入</div>
         <div class="ui large aligned center aligned relaxed stackable grid">
             <div class="six wide column">
                 <h2 class="ui teal image header">
@@ -52,4 +78,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(function () {
+            $('#showBtn').click(function () {
+                $('#loginSegment').show();
+            });
+        });
+    </script>
 @endsection

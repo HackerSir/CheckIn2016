@@ -52,6 +52,10 @@ class CheckInService
      */
     public function checkTarget(Student $student)
     {
+        //檢查學生擁有抽獎資格
+        if (!$student->isQualified) {
+            return;
+        }
         //檢查學生未擁有抽獎券
         if ($student->ticket) {
             return;

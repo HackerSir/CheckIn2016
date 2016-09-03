@@ -26,7 +26,17 @@
     {{-- 進度 --}}
     <div class="ui segment">
         <span class="ui teal ribbon label">進度</span>
-        <p>達成所有目標後，即可取得抽獎編號</p>
+        @if(auth()->user()->student->isQualified)
+            <div class="ui success message">
+                <div class="header">提示</div>
+                達成所有目標後，即可取得抽獎編號
+            </div>
+        @else
+            <div class="ui error message">
+                <div class="header">注意</div>
+                您並未具備抽獎資格，即使完成進度，也無法參加抽獎（抽獎活動限新生參加）
+            </div>
+        @endif
         <div class="ui grid">
             <div class="two column row">
                 <div class="column"><span class="ui tag label single line">所有攤位</span></div>

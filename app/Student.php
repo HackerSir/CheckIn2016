@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Ticket ticket
  *
  * @property-read string displayName
+ * @property-read bool isQualified 是否具備抽獎資格
  *
  * @property \Carbon\Carbon|null created_at
  * @property \Carbon\Carbon|null updated_at
@@ -67,5 +68,21 @@ class Student extends Model
     public function getDisplayNameAttribute()
     {
         return $this->nid . ' ' . $this->name;
+    }
+
+    /**
+     * 是否具備抽獎資格
+     *
+     * @return bool
+     */
+    public function getIsQualifiedAttribute()
+    {
+        //TODO: 改為可靈活設定
+        //檢查入學年度
+        if ($this->in_year != 105) {
+            return false;
+        }
+
+        return true;
     }
 }

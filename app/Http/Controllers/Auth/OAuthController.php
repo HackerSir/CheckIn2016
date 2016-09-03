@@ -58,11 +58,7 @@ class OAuthController extends Controller
             return redirect()->route('index')->with('warning', '登入失敗(u)');
         }
         $nid = $userInfo['stu_id'];
-        //取得學生資料
-        $stuInfo = $this->fcuApiService->getStuInfo($nid);
-        if (!is_array($stuInfo) || !isset($stuInfo['status']) || $stuInfo['status'] != 1) {
-            return redirect()->route('index')->with('warning', '登入失敗(s)');
-        }
+
         //嘗試找出使用者
         $email = $userInfo['stu_id'] . '@fcu.edu.tw';
         $user = User::where('email', $email)->first();
@@ -70,7 +66,7 @@ class OAuthController extends Controller
         if (!$user) {
             //先建立使用者
             $user = User::create([
-                'name'        => $stuInfo['stu_name'],
+                'name'        => $nid,
                 'email'       => $email,
                 'password'    => '',
                 'confirm_at'  => Carbon::now(),
@@ -80,6 +76,13 @@ class OAuthController extends Controller
         }
         //登入使用者
         Auth::login($user);
+
+        //取得學生資料
+        $stuInfo = $this->fcuApiService->getStuInfo($nid);
+        if (!is_array($stuInfo) || !isset($stuInfo['status']) || $stuInfo['status'] != 1) {
+            //無學生資料，直接結束流程
+            return redirect()->route('index');
+        }
         //嘗試取得學生
         $student = $user->student;
         //若學生不存在
@@ -100,6 +103,8 @@ class OAuthController extends Controller
             }
             //綁定學生
             $user->student()->save($student);
+            //更新名稱
+            $user->update(['name' => $stuInfo['stu_name']]);
         }
 
         return redirect()->route('index');

@@ -65,8 +65,6 @@ class LogService
             if (is_string($context)) {
                 $temp = $context;
             } else {
-                //TODO: JSON編碼功能抽出來
-//                $temp = JsonHelper::encode($context);
                 $temp = json_encode($context, static::$jsonOptions);
             }
             $message .= $temp . PHP_EOL;

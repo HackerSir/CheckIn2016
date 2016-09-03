@@ -74,7 +74,6 @@
         </tr>
     </table>
 
-    {{-- TODO: text-align: center要獨立成一個text-center --}}
     <div style="text-align: center">
         <a href="{{ route('user.index') }}" class="ui blue inverted icon button"><i class="arrow left icon"></i>
             會員清單</a>

@@ -67,7 +67,6 @@
         </tr>
     </table>
 
-    {{-- TODO: text-align: center要獨立成一個text-center --}}
     <div style="text-align: center">
         <a href="{{ route('profile.edit') }}" class="ui icon brown inverted button">
             <i class="icon edit"></i> 編輯資料</a>

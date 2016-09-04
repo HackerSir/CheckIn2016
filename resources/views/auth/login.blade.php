@@ -19,12 +19,9 @@
     <div style="text-align: center; margin-bottom: 3em">
         <a href="{{ route('oauth.index') }}" id="OAuthLink">
             <img src="{{ asset('img/nid.gif') }}" alt="NID登入" class="ui centered medium image"><br/>
-            <span class="linkText">
-                <i class="pointing right icon"></i>
-                使用 NID 快速登入
-                <i class="pointing left icon"></i>
-            </span>
-        </a>
+            <span class="linkText"><i class="pointing right icon"></i>使用 NID 快速登入<i
+                    class="pointing left icon"></i></span></a><br/>
+        <span style="color: grey">（受限於資訊處政策，目前僅校內網路可使用）</span>
     </div>
     <div style="text-align: center;">
         <a href="javascript:void(0)" style="color: grey;" id="showBtn">[傳統登入]</a>

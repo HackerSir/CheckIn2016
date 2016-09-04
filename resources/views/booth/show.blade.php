@@ -1,10 +1,10 @@
 @extends('app')
 
-@section('title', "{$booth->name} - 攤位")
+@section('title', "{$booth->name} - 攤位{$booth->number}")
 
 @section('content')
     <h2 class="ui teal header center aligned">
-        {{ $booth->name }} - 攤位
+        {{ $booth->name }} - 攤位{{ $booth->number }}
     </h2>
     @include('booth.info', $booth)
 

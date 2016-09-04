@@ -19,7 +19,7 @@
     <table class="ui selectable celled padded unstackable table" id="booth-table">
         <thead>
         <tr>
-            <th>#</th>
+            <th>攤位編號</th>
             <th>類型</th>
             <th>名稱</th>
             <th>圖片</th>
@@ -37,7 +37,7 @@
             $('#booth-table').DataTable({
                 ajax: '{!! route('booth.data') !!}',
                 columns: [
-                    {data: 'id'},
+                    {data: 'number'},
                     {
                         data: 'type_id',
                         render: function (data, type, full, meta) {

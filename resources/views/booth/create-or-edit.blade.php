@@ -16,6 +16,7 @@
         {!! SemanticForm::open()->action(route('booth.store')) !!}
     @endif
     <div class="ui stacked segment">
+        {!! SemanticForm::text('number')->label('攤位編號')->placeholder('如：C9') !!}
         <div class="field{{ ($errors->has('type_id'))?' error':'' }}">
             <label>攤位類型</label>
             <div class="ui fluid selection dropdown">

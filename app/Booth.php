@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * 攤位
  *
  * @property-read int id
+ * @property string number 攤位編號
  * @property int type_id 類型
  * @property string name 攤位名稱
  * @property string description 攤位簡介
@@ -31,6 +32,7 @@ class Booth extends Model
 {
     /** @var array $fillable 可大量指派的屬性 */
     protected $fillable = [
+        'number',
         'type_id',
         'name',
         'description',

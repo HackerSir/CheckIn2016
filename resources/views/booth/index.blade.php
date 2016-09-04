@@ -34,7 +34,8 @@
 @section('js')
     <script>
         $(function () {
-            $('#booth-table').DataTable({
+            var $dataTable = $('#booth-table');
+            $dataTable.DataTable({
                 ajax: '{!! route('booth.data') !!}',
                 columns: [
                     {data: 'id'},
@@ -89,6 +90,7 @@
                     @endif
                 ]
             });
+            $dataTable.parent().addClass('table-responsive');
         });
     </script>
 @endsection

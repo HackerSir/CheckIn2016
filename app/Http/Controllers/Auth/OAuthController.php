@@ -107,6 +107,6 @@ class OAuthController extends Controller
             $user->update(['name' => $stuInfo['stu_name']]);
         }
 
-        return redirect()->route('index');
+        return redirect()->intended();
     }
 }

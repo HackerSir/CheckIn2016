@@ -75,7 +75,7 @@ class OAuthController extends Controller
             ]);
         }
         //登入使用者
-        Auth::login($user);
+        Auth::login($user, true);
 
         //取得學生資料
         $stuInfo = $this->fcuApiService->getStuInfo($nid);

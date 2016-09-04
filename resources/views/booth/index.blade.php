@@ -52,7 +52,7 @@
                         data: 'name',
                         render: function (data, type, full, meta) {
                             if (type === 'display') {
-                                return '<a href="{{ route('booth.index') }}/' + full.id + '">' + data + '</a>';
+                                return '<a href="{{ route('booth.index') }}/' + full.id + '"><nobr>' + data + '</nobr></a>';
                             }
                             return data;
                         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Booth;
 use App\Services\FileService;
+use App\Type;
 use Carbon\Carbon;
 use Datatables;
 use Illuminate\Http\Request;
@@ -168,10 +169,26 @@ class BoothController extends Controller
     {
         //是否指定單一攤位
         $isSpecificBooth = !empty($booth->id);
+        $isSpecificType = \Request::get('type') && Type::find(\Request::get('type'));
+
         //指定的攤位（若無指定，則為所有攤位）
-        $booths = ($isSpecificBooth) ? $booth : Booth::all();
+        if ($isSpecificBooth) {
+            //指定攤位
+            $booths = $booth;
+            $fileNameSuffix = $booth->name;
+        } elseif ($isSpecificType) {
+            //指定攤位類型
+            $typeId = \Request::get('type');
+            $type = Type::find($typeId);
+            $booths = Booth::where('type_id', $type->id)->get();
+            $fileNameSuffix = $type->name;
+        } else {
+            //未指定，所有攤位
+            $booths = Booth::all();
+            $fileNameSuffix = 'All';
+        }
         //檔名
-        $fileName = 'QRCode_' . (($isSpecificBooth) ? $booth->name : 'All') . '.docx';
+        $fileName = 'QRCode_' . $fileNameSuffix . '.docx';
 
         //建立檔案
         $phpWord = $this->fileService->generateQRCodeDocFile($booths);

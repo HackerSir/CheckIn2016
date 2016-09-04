@@ -81,6 +81,9 @@
                             <i class="trash icon"></i>
                         </button>
                         {!! Form::close() !!}
+                        <a href="{{ route('booth.downloadQRCode', [null, 'type' => $type->id]) }}" class="ui icon blue inverted button" title="下載QR碼">
+                            <i class="file word outline icon"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach

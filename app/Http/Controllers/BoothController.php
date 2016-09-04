@@ -141,7 +141,15 @@ class BoothController extends Controller
      */
     public function anyData()
     {
-        $dataTables = Datatables::of(Booth::with('type'))
+        $boothQuery = Booth::with('type');
+        //依類別過濾
+        $typeId = \Request::get('type_id');
+        $selectedType = Type::find($typeId);
+        if ($selectedType) {
+            $boothQuery->where('type_id', $typeId);
+        }
+
+        $dataTables = Datatables::of($boothQuery)
             ->filterColumn('type_id', function ($query, $keyword) {
                 //FIXME: 過濾查詢優化
                 $query->whereIn('type_id', function ($query) use ($keyword) {

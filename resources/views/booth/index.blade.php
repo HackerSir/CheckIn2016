@@ -14,8 +14,15 @@
             <i class="file word outline icon"></i>
             下載QR碼
         </a>
-        <div class="ui divider"></div>
+        <br/>
     @endif
+    {{ Form::open(['id' => 'search_form', 'method' => 'get', 'style' => 'display: inline']) }}
+    {!! SemanticForm::select('type_id')->options([''=>'-- 依類別檢視 --']+\App\Type::pluck('name', 'id')->toArray())->select(Request::get('type_id')) !!}
+    @if(Request::get('type_id'))
+        <a href="{{ route('booth.index') }}" class="ui icon button" title="檢視全部"><i class="remove icon"></i></a>
+    @endif
+    {{ Form::close() }}
+    <div class="ui divider"></div>
     <table class="ui selectable celled padded unstackable table" id="booth-table">
         <thead>
         <tr>
@@ -35,7 +42,7 @@
     <script>
         $(function () {
             $('#booth-table').DataTable({
-                ajax: '{!! route('booth.data') !!}',
+                ajax: '{!! route('booth.data', ['type_id' => Request::get('type_id')]) !!}',
                 columns: [
                     {data: 'number'},
                     {
@@ -88,6 +95,9 @@
                     }
                     @endif
                 ]
+            });
+            $('select[name=type_id]').change(function () {
+                $('#search_form').submit();
             });
         });
     </script>

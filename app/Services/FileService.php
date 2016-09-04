@@ -54,7 +54,12 @@ class FileService
         } else {
             $section->addTextBreak(1, ['size' => 48], ['alignment' => Jc::CENTER]);
         }
-        $section->addText($booth->name, ['size' => 72], ['alignment' => Jc::CENTER]);
+        $nameSize = 72;
+        if (mb_strlen($booth->name) > 6) {
+            //把攤位名稱塞在同一行的字體大小，公式是實驗結果丟給Excel分析後得出
+            $nameSize = 443.4 * pow(mb_strlen($booth->name), -1.004);
+        }
+        $section->addText($booth->name, ['size' => $nameSize], ['alignment' => Jc::CENTER]);
         //QR Code
         $section->addImage($booth->QR, ['height' => 450, 'width' => 450, 'alignment' => Jc::CENTER]);
         //課外活動組與黑客社廣告

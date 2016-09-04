@@ -29,8 +29,7 @@
 @section('js')
     <script>
         $(function () {
-            var $dataTable = $('#point-table');
-            $dataTable.DataTable({
+            $('#point-table').DataTable({
                 ajax: '{!! route('point.data') !!}',
                 order: [[0, 'desc']],
                 columns: [
@@ -79,7 +78,6 @@
                     }
                 ]
             });
-            $dataTable.parent().addClass('table-responsive');
         });
     </script>
 @endsection

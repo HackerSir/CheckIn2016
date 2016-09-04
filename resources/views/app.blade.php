@@ -152,6 +152,9 @@
                     sNext: '下一頁',
                     sLast: '最後一頁'
                 }
+            },
+            initComplete: function () {
+                $(this).parent().addClass('table-responsive');
             }
         });
         // Google分析

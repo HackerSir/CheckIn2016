@@ -20,8 +20,7 @@
 @section('js')
     <script>
         $(function () {
-            var $dataTable = $('#ticket-table');
-            $dataTable.DataTable({
+            $('#ticket-table').DataTable({
                 ajax: '{!! route('ticket.data') !!}',
                 columns: [
                     {data: 'id'},
@@ -56,7 +55,6 @@
                     }
                 ]
             });
-            $dataTable.parent().addClass('table-responsive');
         });
     </script>
 @endsection

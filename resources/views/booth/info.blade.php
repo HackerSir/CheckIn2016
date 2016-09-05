@@ -1,6 +1,6 @@
 <div class="ui center aligned">
     @if($booth->image)
-        <img src="{{ $booth->image  }}" class="ui big rounded centered image" style="max-width: 100%"/>
+        <img src="{{ \App\Helpers\ImgurHelper::thumbnail($booth->image)  }}" class="ui big rounded centered image" style="max-width: 100%"/>
     @endif
 </div>
 <div class="ui segment">

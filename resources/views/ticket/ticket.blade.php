@@ -58,6 +58,7 @@
             $('#ticket_search_form').submit(function () {
                 var searchId = $searchIdInput.val();
                 $searchIdInput.val('');
+                $searchIdInput.focus();
                 if(!searchId || searchId.length === 0){
                     return false;
                 }

@@ -38,6 +38,7 @@ class CheckInService
             'student_nid' => $student->nid,
             'booth_id'    => $booth->id,
             'check_at'    => ($hasTime) ? Carbon::now() : null,
+            'ip'          => \Request::getClientIp(),
         ]);
         //檢查是否達成目標
         $this->checkTarget($student);

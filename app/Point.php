@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int user_id
  * @property int booth_id
  * @property \Carbon\Carbon|null check_at
+ * @property string ip
  *
  * @property Student student
  * @property Booth booth
@@ -26,6 +27,7 @@ class Point extends Model
         'student_nid',
         'booth_id',
         'check_at',
+        'ip',
     ];
 
     /** @var int $perPage 分頁時的每頁數量 */

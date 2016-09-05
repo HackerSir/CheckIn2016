@@ -39,7 +39,7 @@ class ImgurHelper
         //取得副檔名
         $extensionPattern = '/[^\\\\]*\.(\w+)$/';
         preg_match($extensionPattern, $url, $matches);
-        $extension = $matches[1];
+        $extension = isset($matches[1]) ? $matches[1] : 'jpg';
         $thumbnail = '//i.imgur.com/' . self::getImgurID($url) . $suffix . '.' . $extension;
 
         return $thumbnail;

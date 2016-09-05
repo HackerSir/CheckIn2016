@@ -4,6 +4,15 @@
 
 @section('css')
     <style>
+        .ui.segment.normal {
+            background: none;
+            box-shadow: none;
+            border: none;
+            border-radius: 0;
+            margin-top: inherit;
+            margin-bottom: inherit;
+        }
+
         .jumbotron {
             text-align: center;
             background: rgba(100, 100, 100, .6);

@@ -6,6 +6,9 @@
     <h2 class="ui teal header center aligned">
         抽獎券
     </h2>
+    <a href="{{ route('ticket.ticket') }}" class="ui blue inverted icon button" target="_blank">
+        <i class="external icon" aria-hidden="true"></i> 抽獎券展示
+    </a>
     <table class="ui selectable celled padded unstackable table" id="ticket-table">
         <thead>
         <tr>

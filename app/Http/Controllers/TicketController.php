@@ -78,4 +78,9 @@ class TicketController extends Controller
 
         return $dataTables;
     }
+
+    public function ticket()
+    {
+        return view('ticket.ticket');
+    }
 }

@@ -32,6 +32,12 @@
             display: none;
         }
 
+        .ui.segment.normal {
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-top: 70px;
+            margin-bottom: 80px
+        }
+
         @media only screen and (max-width: 700px) {
             .secondary.pointing.menu .item,
             .secondary.pointing.menu .menu {
@@ -58,20 +64,17 @@
 <body class="pushable"
       style='background: url("{{ asset('img/background/index.jpg') }}") no-repeat fixed center !important;'>
 {{-- Navbar --}}
-@include('navbar.menu')
+@if(Request::is('ticket/ticket'))
+    @include('navbar.ticket')
+@else
+    @include('navbar.menu')
+@endif
 
 {{-- Content --}}
 <div class="pusher">
-    @if(Request::is('/'))
-        <div class="ui container">
-            @yield('content')
-        </div>
-    @else
-        <div class="ui container segment"
-             style="background-color: rgba(255,255,255,0.8);margin-top:70px;margin-bottom: 80px">
-            @yield('content')
-        </div>
-    @endif
+    <div class="ui container segment normal">
+        @yield('content')
+    </div>
 
     {{-- Footer --}}
     <div class="ui inverted center aligned segment footer">

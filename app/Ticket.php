@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * 抽獎券
  *
  * @property-read int id
- * @property int user_id
+ * @property int student_nid
  *
  * @property Student student
  *

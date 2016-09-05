@@ -94,6 +94,7 @@ class FileService
                 $staticTitleRow = ['完成序號', 'NID', '姓名', '系級', '科系', '學院', '入學年度', '性別'];
                 $titleRow = $staticTitleRow;
                 $dataStartColumns = [];
+                //FIXME: 攤位數量不該固定
                 for ($i = 1; $i <= 10; $i++) {
                     $titleRow = array_merge($titleRow, [
                         '時間' . $i,

@@ -17,6 +17,7 @@
             text-align: center;
             background: rgba(100, 100, 100, .6);
             margin-top: 20vh;
+            margin-bottom: 20vh;
             padding-top: 40px;
             border-radius: 20px;
         }

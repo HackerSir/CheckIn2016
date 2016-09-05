@@ -43,7 +43,8 @@
         抽獎券
     </h1>
     <div class="ui segment center aligned" id="ticket_info">
-        <p id="ticket_number">#???</p>
+        <p id="ticket_number"></p>
+        <img src="{{ asset('img/cat.png') }}" hidden id="cat" style="margin-top: -50px; margin-bottom: 50px">
         <p id="ticket_name"></p>
         <p id="ticket_class"></p>
     </div>
@@ -54,18 +55,34 @@
         $(function () {
             var $ticketInfo = $('#ticket_info');
             var $searchIdInput = $('#ticket_search_id');
+            var $ticketNumber = $('#ticket_number');
+            var $ticketName = $('#ticket_name');
+            var $ticketClass = $('#ticket_class');
+            var $cat = $('#cat');
             $searchIdInput.focus();
+            $cat.hide();
             $('#ticket_search_form').submit(function () {
+                //重置搜尋框
                 var searchId = $searchIdInput.val();
                 $searchIdInput.val('');
                 $searchIdInput.focus();
-                if(!searchId || searchId.length === 0){
+                if (!searchId || $.trim(searchId).length === 0) {
+                    return false;
+                }
+                //重置顯示區
+                $cat.hide();
+                $ticketNumber.text('');
+                $ticketName.text('');
+                $ticketClass.text('');
+                //檢查ID
+                if ($.isNumeric(searchId) === false) {
+                    $cat.show();
+                    $ticketNumber.text('#' + searchId);
+                    $ticketName.html('<span style="color: red">抽獎編號是...數字</span>');
                     return false;
                 }
                 //Loading
                 $ticketInfo.addClass('loading');
-                $('#ticket_name').text('');
-                $('#ticket_class').text('');
                 //透過Ajax查詢
                 $.ajax({
                     url: '{{ route('ticket.info') }}',
@@ -74,19 +91,20 @@
                         id: searchId
                     },
                     error: function (xhr) {
-                        $('#ticket_name').html('<span style="color: red">發生錯誤</span>');
+                        $ticketName.html('<span style="color: red">發生錯誤</span>');
                     },
                     success: function (response) {
-                        $('#ticket_number').text('#' + response.id);
+                        $ticketNumber.text('#' + response.id);
                         if (response.success) {
-                            $('#ticket_name').text(response.name);
-                            $('#ticket_class').text(response.class);
+                            $ticketName.text(response.name);
+                            $ticketClass.text(response.class);
                         } else {
-                            $('#ticket_name').html('<span style="color: red">查無此抽獎編號</span>');
-                            $('#ticket_class').text('');
+                            $ticketName.html('<span style="color: red">查無此抽獎編號</span>');
+                            $ticketClass.text('');
                         }
                     },
                     complete: function () {
+                        //取消Loading
                         $ticketInfo.removeClass('loading');
                     }
                 });

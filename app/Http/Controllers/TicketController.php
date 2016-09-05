@@ -83,4 +83,26 @@ class TicketController extends Controller
     {
         return view('ticket.ticket');
     }
+
+    public function ticketInfo()
+    {
+        $id = \Request::get('id');
+        $ticket = Ticket::find($id);
+        if (!$ticket) {
+            $json = [
+                'success' => false,
+                'id'      => $id,
+            ];
+
+            return response()->json($json);
+        }
+        $json = [
+            'success' => true,
+            'id'      => $ticket->id,
+            'name'    => $ticket->student->name,
+            'class'   => $ticket->student->class,
+        ];
+
+        return response()->json($json);
+    }
 }

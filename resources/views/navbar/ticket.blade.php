@@ -9,8 +9,8 @@
         <div class="right menu">
             <div class="ui action input">
                 {{ Form::open(['method' => 'get', 'id' => 'ticket_search_form']) }}
-                    <input type="text" placeholder="抽獎券編號">
-                    <button type="submit" class="ui button">Go</button>
+                    <input type="text" placeholder="抽獎編號" id="ticket_search_id">
+                    <button type="submit" class="ui button">查詢</button>
                 {{ Form::close() }}
             </div>
         </div>

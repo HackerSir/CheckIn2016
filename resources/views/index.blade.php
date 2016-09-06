@@ -28,7 +28,8 @@
         <div class="ui translucent vertical center aligned segment">
             <h1 class="ui inverted center aligned icon header">
                 <i class="circular inverted red massive marker icon"></i>
-                逢甲大學 學生社團博覽會
+                <nobr>逢甲大學</nobr>
+                <nobr>學生社團博覽會</nobr>
                 <p class="ui sub header">
                     打卡集點抽獎
                 </p>

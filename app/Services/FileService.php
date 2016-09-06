@@ -94,16 +94,6 @@ class FileService
                 $staticTitleRow = ['完成序號', 'NID', '姓名', '系級', '科系', '學院', '入學年度', '性別'];
                 $titleRow = $staticTitleRow;
                 $dataStartColumns = [];
-                //FIXME: 攤位數量不該固定
-                for ($i = 1; $i <= 10; $i++) {
-                    $titleRow = array_merge($titleRow, [
-                        '時間' . $i,
-                        '社團' . $i,
-                        '類型' . $i,
-                    ]);
-                    $startColumnName = PHPExcel_Cell::stringFromColumnIndex(count($staticTitleRow) + ($i - 1) * 3);
-                    $dataStartColumns[] = $startColumnName;
-                }
                 $sheet->row(1, $titleRow);
                 //設定凍結
                 $sheet->setFreeze(PHPExcel_Cell::stringFromColumnIndex(count($staticTitleRow)) . '2');
@@ -122,6 +112,8 @@ class FileService
                     }, SORT_REGULAR, true);
                 /* @var Student[] $students */
                 $students = $studentHasTickets->merge($studentNoTickets);
+                //單筆打卡數量
+                $maxPointCount = 10;
                 foreach ($students as $student) {
                     //抽獎編號（完成序號）、NID、姓名
                     $rowData = [
@@ -137,6 +129,8 @@ class FileService
                     //打卡紀錄
                     /* @var Point[] $points */
                     $points = $student->points()->groupBy('booth_id')->orderBy('created_at')->distinct()->get();
+                    //更新最大數量
+                    $maxPointCount = (count($points) > $maxPointCount) ? count($points) : $maxPointCount;
                     foreach ($points as $point) {
                         //時間、社團、類型
                         $pointData = [
@@ -149,6 +143,20 @@ class FileService
                     //新增一列
                     $sheet->appendRow($rowData);
                 }
+                //標題列
+                for ($i = 1; $i <= $maxPointCount; $i++) {
+                    $titleRow = array_merge($titleRow, [
+                        '時間' . $i,
+                        '社團' . $i,
+                        '類型' . $i,
+                    ]);
+                    $startColumnName = PHPExcel_Cell::stringFromColumnIndex(count($staticTitleRow) + ($i - 1) * 3);
+                    $sheet->setCellValue($startColumnName . '1', $i);
+                    $dataStartColumns[] = $startColumnName;
+                }
+                //更新標題列
+                $sheet->row(1, $titleRow);
+                //最後一行
                 $lastRow = $sheet->getHighestRow();
                 //調整格式
                 foreach ($dataStartColumns as $startColumn) {

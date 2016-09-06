@@ -69,7 +69,7 @@
                             btnBar += '<form method="POST" action="{{ route('point.index') }}/' + data + '" accept-charset="UTF-8" style="display: inline" onsubmit="return confirm(\'確定要刪除此打卡集點記錄嗎？\');">';
                             btnBar += '{{ method_field('DELETE') }}';
                             btnBar += '<input name="_token" type="hidden" value="{{ csrf_token() }}">';
-                            btnBar += '<button type="submit" class="ui icon red inverted button" data-tooltip="刪除打卡集點記錄" data-position="right center" data-inverted="">';
+                            btnBar += '<button type="submit" class="ui icon red inverted button" data-tooltip="刪除" data-position="right center" data-inverted="">';
                             btnBar += '<i class="trash icon"></i>';
                             btnBar += '</button>';
                             btnBar += '</form>';

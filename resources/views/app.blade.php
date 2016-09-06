@@ -15,6 +15,8 @@
     {!! Html::style('semantic/semantic.min.css') !!}
     {!! Html::style('https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css') !!}
     {!! Html::style('https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css') !!}
+    {!! Html::style('https://cdn.datatables.net/1.10.12/css/dataTables.semanticui.min.css') !!}
+    {!! Html::style('https://cdn.datatables.net/buttons/1.2.2/css/buttons.semanticui.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/alertify.min.css') !!}
     {!! Html::style('//cdn.jsdelivr.net/alertifyjs/1.8.0/css/themes/semantic.min.css') !!}
     {!! Html::style('css/sticky-footer.css') !!}

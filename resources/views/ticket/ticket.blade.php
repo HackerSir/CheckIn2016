@@ -44,7 +44,7 @@
     </h1>
     <div class="ui segment center aligned" id="ticket_info">
         <p id="ticket_number"></p>
-        <img src="{{ asset('img/cat.png') }}" hidden id="cat" style="margin-top: -50px; margin-bottom: 50px">
+        <img src="{{ asset('img/cat.jpg') }}" hidden id="cat" style="margin-top: -50px; margin-bottom: 50px">
         <p id="ticket_name"></p>
         <p id="ticket_class"></p>
     </div>

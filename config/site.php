@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'name' => 'CheckIn',
+    'name' => 'CheckIn 打卡集點抽獎',
 ];

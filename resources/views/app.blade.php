@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
+    <meta property="og:title" content="@yield('title') - {{ config('site.name') }}">
+    <meta property="og:url" content="{{ URL::current() }}">
+    <meta property="og:image" content="{{ asset('img/check-in-marker.png') }}">
+    <meta property="og:description" content="{{ config('site.name') }} - 逢甲大學 學生社團博覽會 打卡集點抽獎">
+
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link rel="icon" type="image/ico" href="{{ asset('favicon.ico') }}">
 

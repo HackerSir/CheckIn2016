@@ -139,6 +139,19 @@
 
         // DataTable 預設設定
         $.extend(true, $.fn.dataTable.defaults, {
+            dom: "<'ui grid'" +
+            "<'row stackable'" +
+            "<'eight wide column'l>" +
+            "<'right aligned eight wide column'f>" +
+            ">" +
+            "<'row dt-table'" +
+            "<'sixteen wide column'tr>" +
+            ">" +
+            "<'row stackable'" +
+            "<'seven wide column'i>" +
+            "<'right aligned nine wide column'p>" +
+            ">" +
+            ">",
             processing: true,
             serverSide: true,
             pageLength: 50,

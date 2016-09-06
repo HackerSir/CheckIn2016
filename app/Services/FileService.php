@@ -151,7 +151,6 @@ class FileService
                         '類型' . $i,
                     ]);
                     $startColumnName = PHPExcel_Cell::stringFromColumnIndex(count($staticTitleRow) + ($i - 1) * 3);
-                    $sheet->setCellValue($startColumnName . '1', $i);
                     $dataStartColumns[] = $startColumnName;
                 }
                 //更新標題列

@@ -65,7 +65,10 @@ class OAuthController extends Controller
         //若使用者不存在
         if (!$user) {
             //先建立使用者
-            $user = User::create([
+            //FIXME: 檢查了兩次（防同時重送）
+            $user = User::updateOrCreate([
+                'email' => $email,
+            ], [
                 'name'        => $nid,
                 'email'       => $email,
                 'password'    => '',
@@ -103,9 +106,9 @@ class OAuthController extends Controller
             }
             //綁定學生
             $user->student()->save($student);
-            //更新名稱
-            $user->update(['name' => $stuInfo['stu_name']]);
         }
+        //更新名稱
+        $user->update(['name' => $stuInfo['stu_name']]);
 
         return redirect()->intended();
     }

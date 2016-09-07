@@ -72,6 +72,11 @@ class CheckInService
             }
         }
 
+        //檢查學生未擁有抽獎券
+        //FIXME: 檢查了兩次（防同時重送）
+        if ($student->ticket) {
+            return;
+        }
         //建立抽獎劵
         $student->ticket()->create([]);
     }

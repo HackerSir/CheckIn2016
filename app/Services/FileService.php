@@ -112,6 +112,15 @@ class FileService
                     }, SORT_REGULAR, true);
                 /* @var Student[] $students */
                 $students = $studentHasTickets->merge($studentNoTickets);
+                //攤位資料
+                $boothData = [];
+                $booths = Booth::with('type')->get();
+                foreach ($booths as $booth) {
+                    $data = [];
+                    $data['name'] = $booth->name;
+                    $data['typeName'] = ($booth->type) ? $booth->type->name : '';
+                    $boothData[$booth->id] = $data;
+                }
                 //單筆打卡數量
                 $maxPointCount = 10;
                 foreach ($students as $student) {
@@ -133,10 +142,11 @@ class FileService
                     $maxPointCount = (count($points) > $maxPointCount) ? count($points) : $maxPointCount;
                     foreach ($points as $point) {
                         //時間、社團、類型
+                        $boothId = $point->booth_id;
                         $pointData = [
                             ($point->check_at) ? $point->check_at->format('H:i') : '',
-                            $point->booth->name,
-                            ($point->booth->type) ? $point->booth->type->name : '',
+                            $boothData[$boothId]['name'],
+                            $boothData[$boothId]['typeName'],
                         ];
                         $rowData = array_merge($rowData, $pointData);
                     }

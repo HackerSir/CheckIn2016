@@ -46,8 +46,8 @@ class CheckStudent extends Command
     {
         //取得指定NID
         $nid = $this->argument('nid');
-        $this->info('NID:' . $nid);
         if ($nid) {
+            $this->info('NID:' . $nid);
             //指定NID
             $student = Student::where('nid', $nid)->first();
             if (!$student) {
@@ -64,6 +64,7 @@ class CheckStudent extends Command
         }
         //檢查全部
         $students = Student::all();
+        $checkCount = 0;
         $createdCount = 0;
         foreach ($students as $student) {
             $result = $this->check($student);
@@ -71,13 +72,14 @@ class CheckStudent extends Command
                 $this->info('Ticket created: ' . $student->nid);
                 $createdCount++;
             }
+            $checkCount++;
         }
+        $this->info('Total checked: ' . $checkCount);
         $this->info('Total created: ' . $createdCount);
     }
 
     public function check(Student $student)
     {
-        $this->info('Check:' . $student->nid);
         if ($student->ticket) {
             //若已有抽獎券，則直接結束
             return false;

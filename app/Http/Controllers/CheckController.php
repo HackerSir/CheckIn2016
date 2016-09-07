@@ -84,6 +84,9 @@ class CheckController extends Controller
      */
     public function postBooth(Booth $checkBooth, Request $request)
     {
+        if (!env('ALLOW_CHECKIN', false)) {
+            return back()->with('warning', '現在不允許打卡！');
+        }
         $user = auth()->user();
         $student = $user->student;
         if (!$student) {

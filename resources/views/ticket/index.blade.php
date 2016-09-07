@@ -9,6 +9,7 @@
     <a href="{{ route('ticket.ticket') }}" class="ui blue inverted icon button" target="_blank">
         <i class="external icon" aria-hidden="true"></i> 抽獎券展示
     </a>
+    <div class="ui divider"></div>
     <table class="ui selectable celled padded unstackable table" id="ticket-table">
         <thead>
         <tr>

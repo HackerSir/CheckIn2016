@@ -17,6 +17,7 @@
             <th>時間</th>
             <th>操作</th>
         </tr>
+        </thead>
     </table>
 @endsection
 

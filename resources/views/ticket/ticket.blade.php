@@ -34,6 +34,7 @@
 
         p#ticket_class {
             font-size: 72px;
+            line-height: normal;
         }
     </style>
 @endsection

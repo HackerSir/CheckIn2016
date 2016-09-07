@@ -79,10 +79,14 @@ class Student extends Model
     {
         //TODO: 改為可靈活設定
         //檢查入學年度
-        if ($this->in_year != 105) {
-            return false;
+        if ($this->in_year == 105) {
+            return true;
+        }
+        //檢查年級
+        if (str_contains($this->class, '一年級')) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

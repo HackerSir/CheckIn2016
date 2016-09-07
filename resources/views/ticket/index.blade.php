@@ -25,6 +25,7 @@
         $(function () {
             $('#ticket-table').DataTable({
                 ajax: '{!! route('ticket.data') !!}',
+                order: [[0, 'desc']],
                 columns: [
                     {data: 'id'},
                     {

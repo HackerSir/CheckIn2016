@@ -105,7 +105,7 @@ class FileService
                         return $student->ticket->created_at;
                     });
                 //沒抽獎券的學生
-                $studentNoTickets = Student::with('ticket')
+                $studentNoTickets = Student::with('ticket', 'points')
                     ->has('ticket', '=', 0)->get()
                     ->sortBy(function ($student) {
                         return $student->points->count();

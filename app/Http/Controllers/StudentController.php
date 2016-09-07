@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\FcuApiService;
 use App\Services\LogService;
 use App\Student;
+use Datatables;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -110,5 +111,24 @@ class StudentController extends Controller
         ]);
 
         return redirect()->route('student.index')->with('global', '學生已更新');
+    }
+
+    /**
+     * Process datatables ajax request.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function anyData()
+    {
+        $dataTables = Datatables::of(Student::query())
+            ->filterColumn('class', function ($query, $keyword) {
+                //FIXME: 過濾查詢優化
+                $query->where('class', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('unit_name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('dept_name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->make(true);
+
+        return $dataTables;
     }
 }

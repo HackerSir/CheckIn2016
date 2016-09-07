@@ -109,6 +109,7 @@ Route::group(['middleware' => ['auth', 'email']], function () {
     //學生管理
     Route::group(['middleware' => 'permission:student.manage'], function () {
         Route::post('student/{student}/fetch', 'StudentController@fetch')->name('student.fetch');
+        Route::any('student/data', 'StudentController@anyData')->name('student.data');
         Route::resource('student', 'StudentController', [
             'except' => [
                 'show',

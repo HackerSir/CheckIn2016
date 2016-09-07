@@ -99,13 +99,13 @@ class FileService
                 $sheet->setFreeze(PHPExcel_Cell::stringFromColumnIndex(count($staticTitleRow)) . '2');
 
                 //有抽獎券的學生
-                $studentHasTickets = Student::with('ticket', 'points.booth.type')
+                $studentHasTickets = Student::with('ticket')
                     ->has('ticket', '>', 0)->get()
                     ->sortBy(function ($student) {
                         return $student->ticket->created_at;
                     });
                 //沒抽獎券的學生
-                $studentNoTickets = Student::with('ticket', 'points.booth.type')
+                $studentNoTickets = Student::with('ticket')
                     ->has('ticket', '=', 0)->get()
                     ->sortBy(function ($student) {
                         return $student->points->count();

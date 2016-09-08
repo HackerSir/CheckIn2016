@@ -1,10 +1,10 @@
 @extends('app')
 
-@section('title', '排行榜')
+@section('title', '打卡次數排行榜')
 
 @section('content')
     <h2 class="ui teal header center aligned">
-        攤位
+        打卡次數排行榜
     </h2>
     <table class="ui selectable celled padded unstackable table" id="booth-table">
         <thead>

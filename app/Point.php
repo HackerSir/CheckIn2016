@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * 集點
  *
  * @property-read int id
- * @property int user_id
+ * @property int student_nid
  * @property int booth_id
  * @property \Carbon\Carbon|null check_at
  * @property string ip

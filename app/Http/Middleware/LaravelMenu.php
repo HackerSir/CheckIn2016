@@ -61,6 +61,10 @@ class LaravelMenu
                         $adminMenu->add('學生管理', ['route' => 'student.index']);
                     }
 
+                    if (Entrust::can(['leaderBoard.access'])) {
+                        $adminMenu->add('排行榜', ['route' => 'leaderBoard.index']);
+                    }
+
                     if (Entrust::can(['setting.manage'])) {
                         $adminMenu->add('網站設定', ['route' => 'setting.index'])->divide();
                     }

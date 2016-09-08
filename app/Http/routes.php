@@ -119,6 +119,9 @@ Route::group(['middleware' => ['auth', 'email']], function () {
             ],
         ]);
     });
+    Route::group(['middleware' => 'permission:leaderBoard.access'], function () {
+        Route::get('leaderBoard', 'LeaderBoardController@index')->name('leaderBoard.index');
+    });
     //會員資料
     Route::group(['prefix' => 'profile'], function () {
         //查看會員資料

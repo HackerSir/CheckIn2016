@@ -23,7 +23,7 @@
                 <td>{{ $i++ }}</td>
                 <td>{{ $booth->number }}</td>
                 <td>{!! $booth->type->tag or '' !!} {{ link_to_route('booth.show', $booth->name, $booth) }}</td>
-                <td>{{ $booth->points->count() }}</td>
+                <td>{{ $boothPointCount[$booth->id] or 0 }}</td>
             </tr>
         @endforeach
         </tbody>

@@ -3,18 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Booth;
+use App\Point;
+use App\Student;
+use DB;
 
 class LeaderBoardController extends Controller
 {
     public function index()
     {
-        //FIXME: 同一學生重複打卡不該重複計算
-        //TODO: 只計算有投票資格的打卡
+        //有投票資格的學生
+        $validStudentNids = Student::where('students.in_year', '=', '105')
+            ->orWhere('students.class', 'like', '%一年級%')
+            ->pluck('nid')->toArray();
+        //有效打卡紀錄
+        $validPointIds = Point::whereIn('student_nid', $validStudentNids)->pluck('id')->toArray();
+        //計算打卡數量（同一學生重複打卡不該重複計算）
+        $pointCounts = Point::whereIn('id', $validPointIds)
+            ->select(DB::raw('booth_id,count(distinct(student_nid)) as total'))
+            ->groupBy('booth_id')->get();
+        //重新建構打卡數量資料
+        $boothPointCount = [];
+        foreach ($pointCounts as $pointCount) {
+            $boothPointCount[$pointCount['booth_id']] = $pointCount['total'];
+        }
+        //攤位清單
         $booths = Booth::with('type', 'points')->get()
-            ->sortBy(function ($booth) {
-                return $booth->points->count();
+            ->sortBy(function ($booth) use ($boothPointCount) {
+                //根據打卡數量排序
+                return isset($boothPointCount[$booth->id]) ? $boothPointCount[$booth->id] : 0;
             }, SORT_REGULAR, true);
 
-        return view('leaderBoard.index', compact('booths'));
+        return view('leaderBoard.index', compact('booths', 'boothPointCount'));
     }
 }

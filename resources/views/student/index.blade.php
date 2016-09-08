@@ -53,7 +53,7 @@
                     {
                         searchable: false,
                         sortable: false,
-                        data: 'id',
+                        data: 'nid',
                         render: function (data, type, full, meta) {
                             var btnBar = '';
                             btnBar += '<form method="POST" action="{{ route('student.index') }}/' + data + '/fetch" style="display: inline">';

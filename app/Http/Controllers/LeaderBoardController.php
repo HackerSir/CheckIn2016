@@ -26,12 +26,18 @@ class LeaderBoardController extends Controller
         foreach ($pointCounts as $pointCount) {
             $boothPointCount[$pointCount['booth_id']] = $pointCount['total'];
         }
-        //攤位清單
-        $booths = Booth::with('type', 'points')->get()
-            ->sortBy(function ($booth) use ($boothPointCount) {
-                //根據打卡數量排序
-                return isset($boothPointCount[$booth->id]) ? $boothPointCount[$booth->id] : 0;
-            }, SORT_REGULAR, true);
+        $booths = Booth::with('type', 'points')->get();
+        //確保全部攤位都有數量資料
+        foreach ($booths as $booth) {
+            if (!isset($boothPointCount[$booth->id])) {
+                $boothPointCount[$booth->id] = 0;
+            }
+        }
+        //排序
+        $booths = $booths->sortBy(function ($booth) use ($boothPointCount) {
+            //根據打卡數量排序
+            return $boothPointCount[$booth->id];
+        }, SORT_REGULAR, true);
 
         return view('leaderBoard.index', compact('booths', 'boothPointCount'));
     }

@@ -16,6 +16,7 @@ class LeaderBoardController extends Controller
             ->orWhere('students.class', 'like', '%一年級%')
             ->pluck('nid')->toArray();
         //有效打卡紀錄
+        //FIXME: 這行需最多時間，應跟下一段透過query結合
         $validPointIds = Point::whereIn('student_nid', $validStudentNids)->pluck('id')->toArray();
         //計算打卡數量（同一學生重複打卡不該重複計算）
         $pointCounts = Point::whereIn('id', $validPointIds)

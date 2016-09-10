@@ -11,15 +11,19 @@ class LeaderBoardController extends Controller
 {
     public function index()
     {
-        //有投票資格的學生
-        $validStudentNids = Student::where('students.in_year', '=', '105')
-            ->orWhere('students.class', 'like', '%一年級%')
-            ->pluck('nid')->toArray();
-        //有效打卡紀錄
-        //FIXME: 這行需最多時間，應跟下一段透過query結合
-        $validPointIds = Point::whereIn('student_nid', $validStudentNids)->pluck('id')->toArray();
         //計算打卡數量（同一學生重複打卡不該重複計算）
-        $pointCounts = Point::whereIn('id', $validPointIds)
+        $pointCounts = Point::whereIn('id', function ($query) {
+            //有效打卡紀錄
+            $query->select('id')
+                ->from(with(new Point)->getTable())
+                ->whereIn('student_nid', function ($query) {
+                    //有投票資格的學生
+                    $query->select('nid')
+                        ->from(with(new Student)->getTable())
+                        ->where('in_year', '=', '105')
+                        ->orWhere('class', 'like', '%一年級%');
+                });
+        })
             ->select(DB::raw('booth_id,count(distinct(student_nid)) as total'))
             ->groupBy('booth_id')->get();
         //重新建構打卡數量資料

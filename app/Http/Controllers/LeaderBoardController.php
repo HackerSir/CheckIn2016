@@ -13,10 +13,12 @@ class LeaderBoardController extends Controller
     {
         //計算打卡數量（同一學生重複打卡不該重複計算）
         $pointCounts = Point::whereIn('id', function ($query) {
+            /* @var \Illuminate\Database\Query\Builder $query */
             //有效打卡紀錄
             $query->select('id')
                 ->from(with(new Point)->getTable())
                 ->whereIn('student_nid', function ($query) {
+                    /* @var \Illuminate\Database\Query\Builder $query */
                     //有投票資格的學生
                     $query->select('nid')
                         ->from(with(new Student)->getTable())

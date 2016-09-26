@@ -110,6 +110,8 @@ return [
 
     'log' => env('APP_LOG', 'daily'),
 
+    'log_max_files' => env('APP_LOG_MAX_FILES', 5),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

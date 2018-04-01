@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\FcuApiService;
-use App\Services\LogService;
-use App\Student;
 use Datatables;
+use App\Student;
+use App\Services\LogService;
 use Illuminate\Http\Request;
+use App\Services\FcuApiService;
 
 class StudentController extends Controller
 {

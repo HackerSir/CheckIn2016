@@ -2,17 +2,17 @@
 
 namespace App\Services;
 
+use Excel;
 use App\Booth;
 use App\Point;
 use App\Student;
-use Excel;
-use Maatwebsite\Excel\Classes\LaravelExcelWorksheet;
-use Maatwebsite\Excel\Writers\LaravelExcelWriter;
 use PHPExcel_Cell;
 use PHPExcel_Style_Border;
-use PHPExcel_Style_NumberFormat;
 use PhpOffice\PhpWord\PhpWord;
+use PHPExcel_Style_NumberFormat;
 use PhpOffice\PhpWord\SimpleType\Jc;
+use Maatwebsite\Excel\Writers\LaravelExcelWriter;
+use Maatwebsite\Excel\Classes\LaravelExcelWorksheet;
 
 class FileService
 {

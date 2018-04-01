@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use DB;
+use App\Type;
 use App\Setting;
 use App\Student;
-use App\Type;
-use DB;
 
 class RecordService
 {

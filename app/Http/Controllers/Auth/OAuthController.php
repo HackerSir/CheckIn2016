@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Services\FcuApiService;
-use App\Student;
-use App\User;
 use Auth;
+use App\User;
+use App\Student;
 use Carbon\Carbon;
+use App\Services\FcuApiService;
+use App\Http\Controllers\Controller;
 
 class OAuthController extends Controller
 {

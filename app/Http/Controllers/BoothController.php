@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Booth;
-use App\Services\FileService;
 use App\Type;
-use Carbon\Carbon;
+use App\Booth;
 use Datatables;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\FileService;
 use PhpOffice\PhpWord\IOFactory;
 
 class BoothController extends Controller

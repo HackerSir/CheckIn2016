@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Booth;
-use App\Traits\ColorTagTrait;
 use App\Type;
+use App\Booth;
 use Illuminate\Http\Request;
+use App\Traits\ColorTagTrait;
 
 class TypeController extends Controller
 {

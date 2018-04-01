@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Booth;
 use App\Point;
 use App\Student;
-use DB;
 
 class LeaderBoardController extends Controller
 {

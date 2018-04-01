@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App\Console\Commands\LogApacheStatus;
+use Closure;
 use Exception;
 use Log;
 

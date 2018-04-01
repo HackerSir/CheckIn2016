@@ -8,7 +8,6 @@ use App\Services\CheckInService;
 use App\Services\FileService;
 use App\Services\LogService;
 use App\Student;
-use App\User;
 use Datatables;
 use Illuminate\Http\Request;
 

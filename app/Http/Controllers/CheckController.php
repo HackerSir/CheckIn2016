@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Type;
 use App\Booth;
 use App\Point;
-use App\Services\CheckInService;
-use App\Services\RecordService;
-use App\Type;
 use Illuminate\Http\Request;
+use App\Services\RecordService;
+use App\Services\CheckInService;
 
 class CheckController extends Controller
 {

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Services\CheckInService;
 use App\Student;
 use Illuminate\Console\Command;
+use App\Services\CheckInService;
 
 class CheckStudent extends Command
 {

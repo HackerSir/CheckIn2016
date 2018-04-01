@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\LogService;
 use App\Ticket;
 use Datatables;
+use App\Services\LogService;
 
 class TicketController extends Controller
 {

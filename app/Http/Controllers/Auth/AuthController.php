@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Role;
-use App\Services\FcuApiService;
-use App\Services\LogService;
-use App\Services\MailService;
+use App\User;
+use Throttle;
+use Validator;
 use App\Setting;
 use App\Student;
 use Carbon\Carbon;
-use App\User;
+use App\Services\LogService;
 use Illuminate\Http\Request;
-use Throttle;
-use Validator;
+use App\Services\MailService;
+use App\Services\FcuApiService;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;

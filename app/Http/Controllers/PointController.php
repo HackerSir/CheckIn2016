@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Booth;
 use App\Point;
-use App\Services\CheckInService;
-use App\Services\FileService;
-use App\Services\LogService;
-use App\Student;
-use App\User;
 use Datatables;
+use App\Student;
+use App\Services\LogService;
 use Illuminate\Http\Request;
+use App\Services\FileService;
+use App\Services\CheckInService;
 
 class PointController extends Controller
 {

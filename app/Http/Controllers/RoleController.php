@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Permission;
 use App\Role;
-use App\Traits\ColorTagTrait;
+use App\Permission;
 use Illuminate\Http\Request;
+use App\Traits\ColorTagTrait;
 
 class RoleController extends Controller
 {
